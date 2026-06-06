@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<title>Page d'acceuil - index</title>
+	<meta charset="utf-8" />
+	<meta name="description" content="CO2 LASER SERVICE, Photoniques technologies et optoélectronique" />
+	<meta name="keywords" content="laser, co2, trumpf, dépannage, réparation, maintenance, révision, formation" />
+	<link rel="shortcut icon" type="image/png" href="favicon.png" />
+	<link href="style.css" rel="stylesheet" />
+	<link href="layout.css" rel="stylesheet" />
+</head>
+
+<style type="text/css">
+	#warning {
+		display: none;
+	}
+
+	@media only screen and (orientation:portrait) {
+		#hull {
+			display: none;
+		}
+
+		#warning {
+			display: block;
+		}
+	}
+
+	@media only screen and (orientation:landscape) {
+		#warning {
+			display: none;
+		}
+	}
+</style>
+<div id="hull">
+
+	<body id="page1">
+		<div id="main-bg">
+			<div id="main">
+				<div id="content">
+					<a href="index.html"><img src="images/logo.png" id="logo" alt="" /></a>
+					<ul id="menu">
+						<li id="m1"><a href="index-1.html"></a></li>
+						<li id="m2"><a href="index-2.html"></a></li>
+						<li id="m3"><a href="index-3.html"></a></li>
+						<li id="m4"><a href="index-4.html"></a></li>
+						<li id="m5"><a href="index-5.html"></a></li>
+					</ul>
+				</div>
+				<div id="footer">
+					<p><span>CO2 LASER SERVICES &copy; 2004-2023</span> | <a href="index-6.html">Mentions légales</a>
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			document.querySelectorAll('#menu a').forEach(link => {
+				link.addEventListener("click", function () {
+					if (this.href.includes("index-")) {
+						sessionStorage.setItem("fromIndex", "true");
+					}
+				});
+			});
+		</script>
+	</body>
+</div>
+<div id="warning"><img src="images/rotation.png" alt=""></div>
+
+</html>
