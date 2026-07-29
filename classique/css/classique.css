@@ -277,10 +277,10 @@ img.fleft3 { float: left; margin: -8px 19px 24px 0; }
 #page6 .col-2 .title { margin-left: -25px; width: 105%; }
 
 /* Bloc coordonnées (page contact) */
-.contact-ident { padding-top: 2px; }
-.contact-ident .company { padding: 0 0 10px 0; font-size: 12px; font-weight: bold; color: var(--argent); }
-.contact-ident p { padding: 0 0 4px 0; }
-.contact-ident .phone { padding-top: 8px; }
+/* Rythme calé sur celui d'origine : le nom de l'entreprise reprend le
+   padding-bottom d'un <h6> (12 px), les lignes suivantes celui d'un <p>. */
+.contact-ident .company { padding: 0 0 12px 0; line-height: 18px; font-size: 12px; font-weight: bold; color: var(--argent); }
+.contact-ident p { padding: 0 0 3px 0; }
 
 
 /* ==================================================================
@@ -405,6 +405,10 @@ img.fleft3 { float: left; margin: -8px 19px 24px 0; }
 		grid-template-columns: repeat(2, 1fr);
 		gap: 12px;
 	}
+	/* Les <div class="clear"> du gabarit d'origine servaient à purger les
+	   flottants ; en grille elles occupent une cellule et décalent les images
+	   suivantes d'une colonne. */
+	.m-gallery > .clear { display: none; }
 	.m-gallery img {
 		width: 100%; height: auto; display: block;
 		border: 1px solid rgba(84, 157, 210, .25);

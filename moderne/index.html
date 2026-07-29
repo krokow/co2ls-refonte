@@ -26,7 +26,7 @@
 				<a href="#entreprise" data-i18n="nav.about"></a>
 				<a href="#prestations" data-i18n="nav.services"></a>
 				<a href="#methode" data-i18n="nav.method"></a>
-				<a href="#machines" data-i18n="nav.machines"></a>
+				<a href="#terrain" data-i18n="nav.field"></a>
 				<a href="#moyens" data-i18n="nav.means"></a>
 				<a href="#contact" data-i18n="nav.contact"></a>
 			</nav>
@@ -116,6 +116,59 @@
 					<h3><span class="hl" data-i18n="p2.t2a"></span> <span data-i18n="p2.t2b"></span></h3>
 					<p class="strong" data-i18n="p2.vocation"></p>
 					<p style="margin-top:14px" data-i18n="p2.leitmotiv"></p>
+				</div>
+
+				<!-- Le trilinguisme est un argument commercial, pas une section :
+				     il tient en une ligne, le sélecteur reste en en-tête. -->
+				<div class="langues-ligne reveal">
+					<span class="langues-libelle" data-i18n="m.langTitle"></span>
+					<button type="button" data-lang="fr">
+						<img src="../assets/img/FR.png" width="71" height="72" alt="" loading="lazy">Français
+					</button>
+					<button type="button" data-lang="de">
+						<img src="../assets/img/DE.png" width="60" height="75" alt="" loading="lazy">Deutsch
+					</button>
+					<button type="button" data-lang="en">
+						<img src="../assets/img/EN.png" width="49" height="76" alt="" loading="lazy">English
+					</button>
+				</div>
+			</div>
+		</section>
+
+		<!-- ======================== SIGNATURE 10,6 µm ==================== -->
+		<section class="onde">
+			<div class="onde-trace" aria-hidden="true">
+				<svg viewBox="0 0 1200 200" preserveAspectRatio="none">
+					<path d="M0,100 C50,20 100,20 150,100 S250,180 300,100 S400,20 450,100 S550,180 600,100
+					         S700,20 750,100 S850,180 900,100 S1000,20 1050,100 S1150,180 1200,100" />
+				</svg>
+			</div>
+
+			<div class="wrap">
+				<div class="onde-grid">
+					<div class="onde-chiffre reveal">
+						<p class="kicker" data-i18n="m.wave.kicker"></p>
+						<p class="onde-valeur">
+							<span data-i18n="m.wave.value"></span><em data-i18n="m.wave.unit"></em>
+						</p>
+					</div>
+					<div class="onde-texte reveal">
+						<p class="onde-lead" data-i18n="m.wave.lead"></p>
+						<dl class="onde-faits">
+							<div>
+								<dt data-i18n="m.wave.f1t"></dt>
+								<dd data-i18n="m.wave.f1p"></dd>
+							</div>
+							<div>
+								<dt data-i18n="m.wave.f2t"></dt>
+								<dd data-i18n="m.wave.f2p"></dd>
+							</div>
+							<div>
+								<dt data-i18n="m.wave.f3t"></dt>
+								<dd data-i18n="m.wave.f3p"></dd>
+							</div>
+						</dl>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -245,6 +298,33 @@
 			</div>
 		</section>
 
+		<!-- ============================ TERRAIN ========================== -->
+		<section class="sect" id="terrain">
+			<div class="wrap">
+				<div class="sect-head reveal">
+					<p class="kicker" data-i18n="m.field.kicker"></p>
+					<h2><span class="hl" data-i18n="m.field.t1a"></span> <span data-i18n="m.field.t1b"></span></h2>
+					<p class="sect-lead" data-i18n="m.field.lead"></p>
+				</div>
+
+				<div class="carte-grid">
+					<div class="carte reveal" id="carte">
+						<svg class="carte-svg" aria-hidden="true"></svg>
+						<div class="carte-points"></div>
+					</div>
+
+					<div class="carte-info reveal" id="carte-info">
+						<article class="carte-card">
+							<p class="carte-card-r"></p>
+							<h3 class="carte-card-n"></h3>
+							<p class="carte-card-d"></p>
+						</article>
+						<p class="carte-hint" data-i18n="m.field.hint"></p>
+					</div>
+				</div>
+			</div>
+		</section>
+
 		<!-- ============================ MOYENS =========================== -->
 		<section class="sect" id="moyens">
 			<div class="wrap">
@@ -268,29 +348,6 @@
 						<figure><img src="../assets/img/5page-img2.jpg" width="148" height="134" alt="" loading="lazy"></figure>
 						<figure><img src="../assets/img/2page-img2.jpg" width="148" height="134" alt="" loading="lazy"></figure>
 					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- =========================== LANGUES =========================== -->
-		<section class="sect" id="langues">
-			<div class="wrap">
-				<div class="sect-head reveal">
-					<p class="kicker" data-i18n="nav.lang"></p>
-					<h2><span class="hl" data-i18n="p1.t2a"></span> <span data-i18n="p1.t2b"></span></h2>
-					<p class="sect-lead" data-i18n="m.langLead"></p>
-				</div>
-
-				<div class="langs reveal">
-					<button type="button" data-lang="fr">
-						<img src="../assets/img/FR.png" width="71" height="72" alt="" loading="lazy"><span>Français</span>
-					</button>
-					<button type="button" data-lang="de">
-						<img src="../assets/img/DE.png" width="60" height="75" alt="" loading="lazy"><span>Deutsch</span>
-					</button>
-					<button type="button" data-lang="en">
-						<img src="../assets/img/EN.png" width="49" height="76" alt="" loading="lazy"><span>English</span>
-					</button>
 				</div>
 			</div>
 		</section>
@@ -399,6 +456,7 @@
 
 	<script src="../assets/js/content.js"></script>
 	<script src="../assets/js/i18n.js"></script>
+	<script src="js/carte.js"></script>
 	<script src="js/moderne.js"></script>
 </body>
 
