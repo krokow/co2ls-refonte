@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<title>CO2 LASER SERVICES — Deux propositions de refonte</title>
+	<meta name="description" content="Deux propositions de refonte du site CO2 LASER SERVICES.">
+	<meta name="theme-color" content="#04060b">
+	<meta name="robots" content="noindex">
+	<link rel="icon" type="image/png" href="assets/img/favicon.png">
+	<style>
+		@font-face {
+			font-family: 'PoliceTitre';
+			src: url('assets/font/modulus-pro-medium.otf') format('opentype');
+			font-display: swap;
+		}
+
+		*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+		body {
+			min-height: 100svh;
+			display: flex; flex-direction: column; align-items: center; justify-content: center;
+			gap: 46px;
+			padding: 56px 24px;
+			background: #04060b;
+			color: #aeb8c8;
+			font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+			line-height: 1.6;
+			-webkit-font-smoothing: antialiased;
+		}
+
+		body::before {
+			content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+			background:
+				radial-gradient(90% 50% at 50% -8%, rgba(45, 105, 235, .26), transparent 62%),
+				radial-gradient(70% 44% at 50% 106%, rgba(255, 204, 51, .07), transparent 60%);
+		}
+
+		.top { position: relative; z-index: 1; text-align: center; }
+		.top img { width: min(300px, 74vw); height: auto; }
+		.top p {
+			margin-top: 20px;
+			font-size: 12px; letter-spacing: .26em; text-transform: uppercase; color: #7f8a9b;
+		}
+
+		.choices {
+			position: relative; z-index: 1;
+			display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 22px;
+			width: min(860px, 100%);
+		}
+
+		.choice {
+			display: block;
+			padding: 32px 30px 30px;
+			border: 1px solid rgba(255, 255, 255, .09);
+			border-radius: 20px;
+			background: linear-gradient(180deg, rgba(255, 255, 255, .03), transparent 62%);
+			color: inherit; text-decoration: none;
+			transition: border-color .3s ease, transform .3s ease, box-shadow .35s ease;
+		}
+		.choice:hover {
+			transform: translateY(-3px);
+			border-color: rgba(79, 158, 224, .45);
+			box-shadow: 0 40px 80px -50px rgba(45, 105, 235, .8);
+		}
+
+		.tag {
+			display: inline-block; margin-bottom: 16px;
+			padding: 4px 11px; border-radius: 999px;
+			border: 1px solid rgba(255, 204, 51, .3);
+			font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: #ffcc33;
+		}
+		.choice h2 {
+			font-family: 'PoliceTitre', 'Trebuchet MS', sans-serif;
+			font-weight: 400; font-size: 30px; line-height: 1.1; color: #fff;
+			margin-bottom: 14px;
+		}
+		.choice p { font-size: 14.5px; color: #7f8a9b; }
+		.choice ul { margin-top: 18px; list-style: none; }
+		.choice li {
+			position: relative; padding-left: 18px; margin-top: 7px;
+			font-size: 13.5px; color: #8e99aa;
+		}
+		.choice li::before {
+			content: ''; position: absolute; left: 0; top: .62em;
+			width: 5px; height: 5px; border-radius: 50%; background: #4f9ee0;
+		}
+		.go {
+			display: inline-flex; align-items: center; gap: 8px;
+			margin-top: 24px; font-size: 14px; font-weight: 600; color: #ffcc33;
+		}
+		.go::after { content: '→'; transition: transform .3s ease; }
+		.choice:hover .go::after { transform: translateX(4px); }
+
+		.foot { position: relative; z-index: 1; font-size: 12px; color: #5c6474; text-align: center; }
+
+		@media (max-width: 720px) {
+			.choices { grid-template-columns: 1fr; }
+			.choice h2 { font-size: 26px; }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="top">
+		<img src="assets/img/logo.png" width="325" height="92" alt="CO2 LASER SERVICES">
+		<p>Deux propositions de refonte</p>
+	</div>
+
+	<div class="choices">
+		<a class="choice" href="classique/index.html">
+			<span class="tag">Proposition 1</span>
+			<h2>Version fidèle</h2>
+			<p>Le site actuel à l'identique sur ordinateur, enfin utilisable sur téléphone.</p>
+			<ul>
+				<li>Rendu desktop conservé au pixel près</li>
+				<li>Navigation par les mêmes boutons-triangles</li>
+				<li>Version mobile complète, créée de zéro</li>
+				<li>Textes retravaillés, FR / DE / EN</li>
+			</ul>
+			<span class="go">Ouvrir</span>
+		</a>
+
+		<a class="choice" href="moderne/index.html">
+			<span class="tag">Proposition 2</span>
+			<h2>Version moderne</h2>
+			<p>Une page unique à ancres, dans la même charte, pensée pour marquer les esprits.</p>
+			<ul>
+				<li>Animations au défilement, halo et faisceau laser</li>
+				<li>Nouvelles sections : chiffres, méthode, machines</li>
+				<li>Conçue mobile d'abord</li>
+				<li>Textes retravaillés, FR / DE / EN</li>
+			</ul>
+			<span class="go">Ouvrir</span>
+		</a>
+	</div>
+
+	<p class="foot">
+		Maquettes de démonstration — les formulaires de contact n'envoient pas de message.
+	</p>
+
+</body>
+
+</html>

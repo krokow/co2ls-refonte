@@ -22,7 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'co2laserservice@gmail.com';
-        $mail->Password = 'tewy skdz jcab thue';
+        // Retiré du dépôt : ce mot de passe d'application Gmail était en clair
+        // dans le code source, et GitHub Pages sert les fichiers .php en brut.
+        // À révoquer côté Google puis à charger depuis une variable d'environnement.
+        $mail->Password = getenv('CO2LS_SMTP_PASSWORD');
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
