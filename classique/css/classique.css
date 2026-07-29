@@ -1,0 +1,596 @@
+/* ====================================================================
+   CO2 LASER SERVICES — Version « classique »
+   --------------------------------------------------------------------
+   ≥ 1024 px : reprise fidèle du site existant (grille 980 px, sprites,
+               positions absolues d'origine).
+   < 1024 px : refonte mobile complète — l'ancien site masquait purement
+               et simplement le contenu et demandait de tourner l'écran.
+   ==================================================================== */
+
+/* ---------- Jetons de couleur (extraits de la charte existante) ---- */
+:root {
+	--noir: #010101;
+	--panneau: #060b14;
+	--panneau-haut: #0a1220;
+	--champ: #0f1823;
+	--bleu: #549dd2;
+	--bleu-profond: #1a2a6d;
+	--bleu-halo: rgba(40, 92, 220, .55);
+	--or: #ffcc33;
+	--argent: silver;
+	--gris: grey;
+	--gris-doux: #6a6a6a;
+}
+
+@font-face {
+	font-family: 'PoliceTitre';
+	src: url('../../assets/font/modulus-pro-medium.otf') format('opentype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* =====================  BASE / RESET (d'origine)  ================== */
+* { margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: content-box; }
+
+.wrapper { width: 100%; overflow: hidden; }
+.wrapper-1 { width: 100%; }
+.clear { clear: both; font-size: 0%; line-height: 0%; height: 0; }
+
+input, select, textarea { vertical-align: middle; font-weight: normal; }
+img { border: 0; vertical-align: top; text-align: left; }
+ul, ol { list-style: none; }
+a { outline: none; color: var(--bleu); }
+a:hover { text-decoration: none; }
+
+html { min-width: 980px; }
+
+body {
+	background: var(--noir);
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 100%;
+	line-height: 1em;
+	color: var(--gris-doux);
+	-webkit-font-smoothing: antialiased;
+}
+
+h6 { padding: 0 0 12px 0; line-height: 18px; font-size: 12px; color: var(--argent); }
+h6 span { display: block; padding: 7px 0 0 0; }
+
+.fleft { float: left; }
+.fright { float: right; }
+img.fleft { margin: 0 24px 31px 30px; }
+img.fleft1 { float: left; margin: 0 24px 20px 30px; }
+img.fleft2 { float: left; margin: 0 19px 20px 0; }
+img.fleft3 { float: left; margin: -8px 19px 24px 0; }
+
+.col-1, .col-2 { float: left; overflow: hidden; }
+
+/* =====================  GABARIT PRINCIPAL  ======================== */
+#main-bg { background: url(../../assets/img/main-bg.jpg) no-repeat 50% 0%; }
+#page1 #main-bg { background: url(../../assets/img/main-bg1.jpg) no-repeat 50% 0%; }
+
+#main { width: 980px; margin: 0 auto; font-size: 12px; }
+
+#content {
+	position: relative;
+	height: 405px;
+	padding: 87px 45px 170px 40px;
+	overflow: hidden;
+}
+
+#content p { padding: 0 0 3px 0; line-height: 1.417em; font-size: 1em; color: var(--gris); }
+
+#content blockquote p { padding: 1px 0 16px 4px; line-height: 1.417em; font-size: 1em; color: var(--gris-doux); }
+
+.line-ver { background: url(../../assets/img/line-ver.gif) repeat-y; width: 100%; }
+.line-hor {
+	background: url(../../assets/img/line-hor.gif) repeat-x 0% 0%;
+	width: 100%; height: 2px; overflow: hidden; margin: 0 0 21px 0;
+}
+
+/* ---------- Logo + menu à triangles (positions d'origine) ---------- */
+#logo { position: absolute; top: 529px; left: 71px; }
+#page1 #logo { position: absolute; top: 467px; left: 71px; }
+
+#menu { position: absolute; top: 535px; left: 414px; }
+#menu li a { display: block; width: 99px; height: 88px; overflow: hidden; }
+
+#menu li.m1 a { background: url(../../assets/img/m1.png) no-repeat 0% 0%; position: absolute; top: 0; left: 0; }
+#menu li.m2 a { background: url(../../assets/img/m2.png) no-repeat 0% 0%; position: absolute; top: 0; left: 78px; }
+#menu li.m3 a { background: url(../../assets/img/m3.png) no-repeat 0% 0%; position: absolute; top: 0; left: 155px; }
+#menu li.m4 a { background: url(../../assets/img/m4.png) no-repeat 0% 0%; position: absolute; top: 0; left: 233px; }
+#menu li.m5 a { background: url(../../assets/img/m5.png) no-repeat 0% 0%; position: absolute; top: 0; left: 310px; }
+
+#menu li a:hover,
+#menu li.is-active a { background-position: 0% 100%; }
+
+/* Les libellés n'apparaissent qu'en mobile ; sur desktop, seuls les triangles. */
+#menu li a span { display: none; }
+
+/* =====================  TITRES DE SECTION  ======================== */
+.title {
+	width: 100%;
+	padding: 10px 0 33px 3px;
+	display: flex;
+	align-items: center;
+	font-family: 'PoliceTitre', 'Trebuchet MS', Arial, sans-serif;
+	font-weight: 500;
+	font-size: 32px;
+	line-height: 1.05;
+	color: #fff;
+}
+
+.icon {
+	flex: 0 0 auto;
+	width: 18px; height: 18px;
+	background-color: var(--or);
+	border-radius: 50%;
+	display: flex; justify-content: center; align-items: center;
+	margin-right: 10px;
+}
+.icon svg { width: 11px; height: 11px; display: block; }
+.icon svg path { fill: #000; }
+
+.highlight { color: var(--or); margin-right: 10px; }
+.highlight:empty { margin-right: 0; }
+
+/* =====================  LISTES  ================================== */
+.list-1 { width: 100%; overflow: hidden; }
+.list-1 li {
+	background: url(../../assets/img/line-ver.gif) repeat-y 100% 0%;
+	float: left; text-align: center;
+	font-family: Arial, Helvetica, sans-serif; font-size: 14px;
+}
+.list-1 li.l1 { width: 157px; }
+.list-1 li.l2 { width: 134px; }
+.list-1 li.l3 { background: none; width: 123px; }
+.list-1 li p { display: block; color: var(--argent); }
+.list-1 li img { margin: 0 0 7px 0; }
+.list-1 li span { display: block; }
+
+/* Les drapeaux deviennent le vrai sélecteur de langue */
+.list-1 li[data-lang] { cursor: pointer; }
+.list-1 li[data-lang] img { transition: transform .25s ease, filter .25s ease; filter: saturate(.35) brightness(.7); }
+.list-1 li[data-lang]:hover img { transform: translateY(-2px); filter: saturate(1) brightness(1); }
+.list-1 li[data-lang].is-active img { filter: saturate(1) brightness(1); }
+.list-1 li[data-lang].is-active p { color: var(--or); }
+
+.list-2 { width: 100%; padding: 0 0 7px 0; overflow: hidden; }
+.list-2 li {
+	background: url(../../assets/img/line-hor.gif) repeat-x 0% 100%;
+	width: 100%; margin: 0 0 13px 0; padding: 0 0 13px 0;
+	overflow: hidden; vertical-align: top; line-height: 1.417em; font-size: 1em; color: var(--gris-doux);
+}
+.list-2 li.extra { background: none; margin: 0; }
+.list-2 li img { float: left; margin: 0 18px 0 0; }
+.list-2 li p { padding: 0 0 17px 0 !important; }
+
+.list-3 { overflow: hidden; }
+
+/* =====================  FORMULAIRE  ============================== */
+#contact-form { width: 308px; padding: 4px 0 0 5px; }
+#contact-form label { display: block; width: 100%; height: 37px; overflow: hidden; }
+
+#contact-form input,
+#contact-form textarea {
+	background: var(--champ);
+	width: 300px; padding: 5px 3px;
+	border: 1px solid var(--bleu-profond);
+	float: left;
+	font-family: Arial, Helvetica, sans-serif; font-size: 1em; color: var(--argent);
+	transition: border-color .2s ease, box-shadow .2s ease;
+}
+#contact-form input { height: 15px; }
+#contact-form textarea { height: 195px; overflow: auto; resize: none; }
+#contact-form input::placeholder,
+#contact-form textarea::placeholder { color: var(--gris-doux); }
+#contact-form input:focus,
+#contact-form textarea:focus {
+	outline: none;
+	border-color: var(--bleu);
+	box-shadow: 0 0 0 1px rgba(84, 157, 210, .35);
+}
+
+.buttons-form { display: flex; justify-content: space-between; margin-top: 5px; width: 100%; }
+
+.button-send-reset {
+	display: flex; align-items: center; gap: 4px;
+	padding: 6px 12px;
+	background-color: #001526; color: #fff;
+	border: none; border-radius: 4px; cursor: pointer;
+	font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: 500;
+	transition: background-color .2s ease;
+}
+.button-send-reset svg { width: 10px; height: 10px; }
+.button-send-reset svg path { fill: currentColor; }
+.button-send-reset:hover { background-color: #002a4e; }
+.button-send-reset:active { background-color: #00060a; }
+
+.form-alert {
+	display: none;
+	align-items: center; gap: 6px;
+	width: 300px; margin-top: 8px; padding: 6px 8px;
+	border: 1px solid var(--bleu-profond); border-radius: 4px;
+	background: rgba(15, 24, 35, .9);
+	line-height: 1.35; font-size: 11px; color: var(--argent);
+}
+.form-alert.is-shown { display: flex; }
+.form-alert.is-error { border-color: #6d1a1a; color: #e8a5a5; }
+.form-alert.is-ok { border-color: #1a6d3a; color: #a5e8bd; }
+
+/* =====================  PIED DE PAGE  ============================ */
+#footer { background: url(../../assets/img/footer.gif) no-repeat 5px 0%; height: 88px; overflow: hidden; }
+#footer p { padding: 25px 29px 0 0; line-height: 1.5em; text-align: right; font-size: 1em; color: var(--gris); }
+#footer p span { padding: 0 3px 0 0; }
+#footer p a { margin: 0 0 0 3px; color: var(--gris); }
+
+/* Sélecteur de langue discret du pied de page */
+.footer-lang { display: inline-flex; gap: 6px; margin-left: 10px; vertical-align: baseline; }
+.footer-lang button {
+	background: none; border: 0; padding: 0 2px; cursor: pointer;
+	font: inherit; font-size: 11px; letter-spacing: .04em;
+	color: var(--gris-doux); transition: color .2s ease;
+}
+.footer-lang button:hover { color: var(--argent); }
+.footer-lang button.is-active { color: var(--or); }
+
+/* Éléments réservés au mobile : masqués sur desktop */
+.mobile-only, .m-splash, .m-tiles { display: none; }
+
+/* Page mentions légales : zone défilante interne (comme l'original) */
+/* Hauteur calée sur la zone de contenu (405 px moins le titre) pour que le
+   texte défile à l'intérieur du panneau au lieu de déborder sous le logo. */
+#page7 .legal-scroll { width: 100%; height: 325px; overflow-y: auto; padding-right: 10px; }
+#page7 .legal-scroll::-webkit-scrollbar { width: 4px; }
+#page7 .legal-scroll::-webkit-scrollbar-thumb { background: var(--bleu-profond); border-radius: 4px; }
+#page7 .legal-scroll h3 {
+	margin: 14px 0 4px; font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px; font-weight: bold; color: var(--argent);
+}
+#page7 .legal-scroll p { padding-bottom: 8px; }
+
+/* =====================  MISES EN PAGE PAR PAGE  ================== */
+#page2 .line-ver { background-position: 457px 0%; }
+#page2 .col-1 { width: 414px; padding: 0 35px 0 0; }
+#page2 .col-2 { width: 420px; padding: 0 0 0 26px; }
+
+#page3 .line-ver { background-position: 547px 0%; }
+#page3 .col-1 { width: 514px; padding: 0 35px 0 0; }
+#page3 .col-2 { width: 320px; padding: 0 0 0 26px; }
+
+#page4 .line-ver { background-position: 447px 0%; }
+#page4 .col-1 { width: 414px; padding: 0 35px 0 0; }
+#page4 .col-2 { width: 420px; padding: 0 0 0 26px; }
+
+#page5 .line-ver { background-position: 447px 0%; }
+#page5 .col-1 { width: 414px; padding: 0 35px 0 0; }
+#page5 .col-2 { width: 420px; padding: 0 0 0 26px; }
+
+#page6 .line-ver { background-position: 547px 0%; }
+#page6 .col-1 { width: 514px; padding: 0 35px 0 0; }
+#page6 .col-2 { width: 320px; padding: 0 0 0 26px; }
+
+/* Le titre du formulaire déborde volontairement de sa colonne (comme à
+   l'origine), sans quoi « formulaire de contact » casse sur deux lignes. */
+#page6 .col-2 .title { margin-left: -25px; width: 105%; }
+
+/* Bloc coordonnées (page contact) */
+.contact-ident { padding-top: 2px; }
+.contact-ident .company { padding: 0 0 10px 0; font-size: 12px; font-weight: bold; color: var(--argent); }
+.contact-ident p { padding: 0 0 4px 0; }
+.contact-ident .phone { padding-top: 8px; }
+
+
+/* ==================================================================
+   ============  M O B I L E   &   T A B L E T T E  =================
+   ==================================================================
+   Refonte complète sous 1024 px. Le desktop ci-dessus n'est pas touché.
+   ================================================================== */
+@media (max-width: 1023.98px) {
+
+	html { min-width: 0; }
+
+	/* Le gabarit desktop d'origine raisonne en content-box (largeurs fixes +
+	   paddings). En mobile on repasse en border-box, sans quoi chaque padding
+	   ajoute sa largeur et fait déborder la page horizontalement. */
+	*, *::before, *::after { box-sizing: border-box; }
+
+	body {
+		background: #000;
+		font-size: 16px;
+		line-height: 1.5;
+		overflow-x: hidden;
+	}
+
+	/* Halo bleu diffus, rappel du fond d'origine */
+	body::before {
+		content: '';
+		position: fixed; inset: 0;
+		background:
+			radial-gradient(120% 60% at 50% -10%, rgba(40, 92, 220, .30), transparent 62%),
+			radial-gradient(90% 50% at 50% 105%, rgba(40, 92, 220, .16), transparent 60%);
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	/* ---------- Barre supérieure ---------- */
+	.m-topbar {
+		position: sticky; top: 0; z-index: 40;
+		display: flex; align-items: center; justify-content: space-between;
+		gap: 12px;
+		padding: 10px 16px calc(10px + env(safe-area-inset-top));
+		padding-top: calc(10px + env(safe-area-inset-top));
+		background: rgba(2, 4, 9, .82);
+		backdrop-filter: blur(14px);
+		-webkit-backdrop-filter: blur(14px);
+		border-bottom: 1px solid rgba(84, 157, 210, .18);
+	}
+	.m-topbar .m-logo img { width: 168px; height: auto; display: block; }
+
+	.m-lang { display: flex; gap: 2px; }
+	.m-lang button {
+		min-width: 34px; min-height: 34px;
+		background: none; border: 1px solid transparent; border-radius: 8px;
+		font: 600 12px/1 Arial, Helvetica, sans-serif; letter-spacing: .06em;
+		color: var(--gris-doux); cursor: pointer;
+		transition: color .2s ease, border-color .2s ease, background-color .2s ease;
+	}
+	.m-lang button.is-active {
+		color: var(--or);
+		border-color: rgba(255, 204, 51, .35);
+		background: rgba(255, 204, 51, .08);
+	}
+
+	/* ---------- Structure ---------- */
+	#main-bg, #page1 #main-bg { background: none; }
+	#main { position: relative; z-index: 1; width: auto; margin: 0; font-size: 16px; }
+
+	#content {
+		height: auto;
+		padding: 22px 16px calc(96px + env(safe-area-inset-bottom));
+		overflow: visible;
+	}
+
+	/* Les colonnes s'empilent, le filet vertical disparaît */
+	.line-ver { background: none; }
+	.col-1, .col-2 { float: none; width: auto !important; padding: 0 !important; overflow: visible; }
+	.wrapper, .wrapper-1 { overflow: visible; }
+	.fright, .fleft { float: none; }
+
+	/* Les filets de séparation cèdent la place aux cartes */
+	.line-hor { display: none; }
+
+	/* ---------- Bloc / carte ---------- */
+	.m-block {
+		position: relative;
+		margin: 0 0 18px;
+		padding: 20px 18px;
+		border: 1px solid rgba(84, 157, 210, .22);
+		border-radius: 16px;
+		background: linear-gradient(180deg, var(--panneau-haut), var(--panneau));
+		box-shadow: 0 0 0 1px rgba(0, 0, 0, .6), 0 18px 40px -24px var(--bleu-halo);
+	}
+
+	/* ---------- Typographie ---------- */
+	/* En bloc plutôt qu'en flex : le titre se coupe alors comme du texte
+	   normal au lieu de casser mot à mot dans deux boîtes flex distinctes. */
+	.title {
+		display: block;
+		padding: 0 0 16px 0;
+		font-size: clamp(25px, 6.8vw, 33px);
+		line-height: 1.15;
+	}
+	.icon {
+		display: inline-flex;
+		width: 19px; height: 19px;
+		margin-right: 11px;
+		vertical-align: 2px;
+	}
+	.icon svg { width: 12px; height: 12px; }
+	.highlight { margin-right: 0; }
+	.highlight + span::before { content: ' '; }
+	#page6 .col-2 .title { margin-left: 0; width: auto; }
+
+	h6 { padding: 0 0 12px 0; line-height: 1.55; font-size: 15px; color: var(--argent); }
+	#content p { padding: 0 0 10px 0; line-height: 1.62; font-size: 15px; color: #9a9a9a; }
+	#content blockquote p { padding: 0 0 12px 14px; border-left: 2px solid rgba(255, 204, 51, .35); font-style: italic; }
+
+	/* ---------- Images ---------- */
+	img.fleft, img.fleft1, img.fleft2, img.fleft3 { margin: 0; }
+
+	.m-gallery {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 12px;
+	}
+	.m-gallery img {
+		width: 100%; height: auto; display: block;
+		border: 1px solid rgba(84, 157, 210, .25);
+		border-radius: 10px;
+		box-shadow: 0 10px 24px -16px var(--bleu-halo);
+	}
+
+	.m-portrait {
+		width: 116px; height: auto;
+		float: left; margin: 2px 16px 8px 0;
+		border-radius: 10px;
+		border: 1px solid rgba(84, 157, 210, .25);
+	}
+	/* Sur la page contact la photo est panoramique : pleine largeur */
+	#page6 .m-portrait {
+		float: none; width: 100%; height: 130px; object-fit: cover;
+		margin: 0 0 16px;
+	}
+
+	/* ---------- Drapeaux / langues ---------- */
+	.list-1 { display: flex; gap: 10px; }
+	.list-1 li,
+	.list-1 li.l1, .list-1 li.l2, .list-1 li.l3 {
+		background: none; float: none; flex: 1 1 0; width: auto;
+		padding: 14px 6px; border: 1px solid rgba(84, 157, 210, .2); border-radius: 12px;
+		transition: border-color .2s ease, background-color .2s ease;
+	}
+	.list-1 li.is-active { border-color: rgba(255, 204, 51, .45); background: rgba(255, 204, 51, .06); }
+	.list-1 li img { height: 44px; width: auto; margin: 0 auto 8px; }
+	.list-1 li p { font-size: 13px; }
+
+	/* ---------- Prestations ---------- */
+	.list-2 { padding: 0; }
+	/* Vignette + intitulé sur la première ligne, texte pleine largeur en
+	   dessous : plus lisible qu'un habillage flottant qui casse en escalier. */
+	.list-2 li, .list-2 li.extra {
+		display: grid;
+		grid-template-columns: 132px 1fr;
+		column-gap: 14px;
+		align-items: start;
+		margin: 0 0 14px;
+		padding: 16px;
+		border: 1px solid rgba(84, 157, 210, .2);
+		border-radius: 14px;
+		background: rgba(10, 18, 32, .55);
+		font-size: 15px;
+	}
+	.list-2 li h6 { grid-column: 2; grid-row: 1; padding-bottom: 0; }
+	.list-2 li p { grid-column: 1 / -1; grid-row: 2; margin-top: 13px; }
+	.list-2 li .clear { display: none; }
+	/* Vignette gardée proche de sa définition native (148 px) : l'étirer sur
+	   toute la largeur de l'écran la rendrait floue. */
+	.list-2 li img {
+		grid-column: 1; grid-row: 1;
+		float: none; width: 132px; height: 118px; object-fit: cover;
+		margin: 2px 0 0; border-radius: 10px;
+		border: 1px solid rgba(84, 157, 210, .22);
+	}
+	.list-2 li p { padding: 0 !important; }
+	.list-2 li h6 { font-size: 15px; color: #fff; }
+
+	/* ---------- Formulaire ---------- */
+	#contact-form { width: auto; padding: 0; }
+	#contact-form label { height: auto; margin-bottom: 12px; }
+	#contact-form input,
+	#contact-form textarea {
+		float: none; width: 100%; box-sizing: border-box;
+		height: auto; padding: 14px 14px;
+		border-radius: 10px; font-size: 16px; /* 16px = pas de zoom auto iOS */
+	}
+	#contact-form textarea { height: 160px; }
+	.buttons-form { gap: 12px; margin-top: 14px; }
+	.button-send-reset {
+		flex: 1 1 0; justify-content: center;
+		min-height: 48px; border-radius: 10px; font-size: 15px;
+	}
+	.button-send-reset[type="submit"] {
+		background: linear-gradient(180deg, #12335c, #0a1f3c);
+		box-shadow: 0 10px 26px -14px var(--bleu-halo);
+	}
+	.form-alert { width: auto; font-size: 13px; }
+
+	.contact-ident .company { font-size: 15px; }
+	.contact-ident p { padding: 0 0 6px; }
+
+	/* ---------- Mentions légales ---------- */
+	#page7 .legal-scroll { height: auto; overflow: visible; padding: 0; }
+	#page7 .legal-scroll h3 { margin: 20px 0 6px; font-size: 15px; color: var(--or); }
+
+	/* ---------- Barre de navigation basse (triangles d'origine) ----- */
+	#logo { display: none; }
+
+	#menu {
+		position: fixed; top: auto; left: 0; right: 0; bottom: 0;
+		z-index: 50;
+		display: flex; justify-content: space-around; align-items: center;
+		gap: 2px;
+		padding: 8px 6px calc(8px + env(safe-area-inset-bottom));
+		background: rgba(2, 4, 9, .88);
+		backdrop-filter: blur(16px);
+		-webkit-backdrop-filter: blur(16px);
+		border-top: 1px solid rgba(84, 157, 210, .2);
+		box-shadow: 0 -18px 40px -26px var(--bleu-halo);
+	}
+	#menu li { flex: 1 1 0; }
+	#menu li a {
+		position: static !important;
+		display: flex; flex-direction: column; align-items: center; gap: 5px;
+		width: auto; height: auto; min-height: 52px;
+		overflow: visible;
+		/* L'image reste déclarée sur le lien (elle est héritée par ::before)
+		   mais n'est pas peinte ici : le sprite empile ses deux états. */
+		background-size: 0 0 !important;
+		font-size: 10px; letter-spacing: .02em; text-align: center; text-decoration: none;
+		color: var(--gris-doux);
+		transition: color .2s ease;
+	}
+	/* ::before ne montre qu'un seul des deux états du sprite */
+	#menu li a::before {
+		content: '';
+		display: block;
+		width: 52px; height: 46px;
+		background-image: inherit;
+		background-size: 52px 92px;
+		background-position: 50% 0;
+		background-repeat: no-repeat;
+	}
+	#menu li a span { display: block; }
+	#menu li a:hover::before,
+	#menu li.is-active a::before { background-position: 50% 100%; }
+	#menu li.is-active a { color: var(--or); }
+
+	/* ---------- Pied de page ---------- */
+	#footer {
+		background: none; height: auto;
+		padding: 4px 16px 18px;
+		border-top: 1px solid rgba(84, 157, 210, .14);
+		margin: 8px 16px 0;
+	}
+	#footer p { padding: 16px 0 0; text-align: center; font-size: 12px; line-height: 1.7; }
+	.footer-lang { display: none; }
+
+	/* ---------- Page d'accueil (splash) ---------- */
+	#page1 #content { padding: 0 16px calc(40px + env(safe-area-inset-bottom)); }
+	#page1 #menu { display: none; } /* les tuiles remplacent la barre basse */
+	#page1 #footer { margin-bottom: 0; }
+
+	.m-splash {
+		display: flex; flex-direction: column; align-items: center; justify-content: center;
+		min-height: calc(100svh - 190px);
+		text-align: center;
+		padding: 24px 0 8px;
+	}
+	.m-splash img.m-splash-logo { width: min(280px, 74vw); height: auto; }
+	.m-splash .m-splash-tag {
+		margin-top: 18px;
+		font-size: 12px; letter-spacing: .28em; text-transform: uppercase;
+		color: var(--gris-doux);
+	}
+	.m-splash .m-splash-lead {
+		margin-top: 14px; max-width: 34ch;
+		font-size: 15px; line-height: 1.6; color: #9a9a9a;
+	}
+
+	.m-tiles {
+		display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+		width: 100%; margin-top: 30px;
+	}
+	.m-tiles a {
+		display: flex; align-items: center; gap: 12px;
+		padding: 14px;
+		border: 1px solid rgba(84, 157, 210, .22); border-radius: 14px;
+		background: linear-gradient(180deg, var(--panneau-haut), var(--panneau));
+		text-decoration: none; color: var(--argent); font-size: 14px;
+	}
+	.m-tiles a:last-child:nth-child(odd) { grid-column: 1 / -1; }
+	.m-tiles a .m-tile-ico { width: 34px; height: 30px; background-size: 34px 60px; background-position: 0 0; background-repeat: no-repeat; flex: 0 0 auto; }
+	.m-tiles a:active { border-color: rgba(255, 204, 51, .4); }
+}
+
+@media (max-width: 380px) {
+	#menu li a { font-size: 9px; padding-top: 42px; background-size: 46px 82px !important; }
+	.m-topbar .m-logo img { width: 142px; }
+}
+
+/* Respect de la préférence système « moins d'animations » */
+@media (prefers-reduced-motion: reduce) {
+	* { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
