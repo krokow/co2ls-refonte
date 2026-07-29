@@ -2,7 +2,9 @@ name: Déploiement GitHub Pages
 
 on:
   push:
-    branches: [claude/website-redesign-client-4n9fhf]
+    branches:
+      - main
+      - claude/website-redesign-client-4n9fhf
   workflow_dispatch:
 
 permissions:
