@@ -20,8 +20,15 @@ contenu sur téléphone et affichait une image « tournez votre écran ».
 **Version moderne** — Une seule page, navigation par ancres, en-tête qui se
 condense au défilement. Halo conique et faisceau de découpe animés dans le
 héros, révélations progressives, frise de méthode qui se trace, projecteur
-suivant le curseur sur les cartes. Trois sections nouvelles par rapport au site
-actuel : chiffres clés, méthode d'intervention, machines couvertes.
+suivant le curseur sur les cartes. Cinq sections nouvelles par rapport au site
+actuel : chiffres clés, signature « 10,6 µm », méthode d'intervention, machines
+couvertes et carte du rayon d'intervention.
+
+La carte est pilotée par `moderne/js/carte.js` : chaque point y est décrit par
+ses coordonnées géographiques réelles, la position à l'écran s'en déduit. Les
+textes associés vivent dans `assets/js/content.js` (clés `m.field.z*`) et
+décrivent des zones couvertes, pas des chantiers datés — à remplacer par de
+vraies références si le client souhaite en afficher.
 
 **Les deux** — Textes réécrits et corrigés, site réellement trilingue FR / DE /
 EN, aucune dépendance externe (ni Google Fonts, ni CDN), `prefers-reduced-motion`
