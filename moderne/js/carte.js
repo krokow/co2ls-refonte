@@ -1,227 +1,149 @@
 /*
- * CO2 LASER SERVICES — carte du rayon d'intervention.
+ * CO2 LASER SERVICES — carte du rayon d'intervention (Leaflet).
  *
  * ─────────────────────────────────────────────────────────────────────────
- *  POUR MODIFIER LES POINTS : éditez le tableau POINTS ci-dessous.
- *  `lat` et `lon` sont les coordonnées géographiques réelles ; la position
- *  sur la carte s'en déduit toute seule, il n'y a aucune coordonnée d'écran
- *  à ajuster à la main. Les textes correspondants vivent dans
- *  assets/js/content.js, aux clés m.field.zNn (nom), zNr (région) et
- *  zNd (description).
+ *  POUR MODIFIER LES POINTS : éditez POINTS ci-dessous. `lat`/`lon` sont
+ *  les coordonnées réelles ; Leaflet se charge du placement. Les textes
+ *  vivent dans assets/js/content.js (clés m.field.zNn/zNr/zNd).
  *
- *  Les descriptions décrivent des zones couvertes et des types
- *  d'intervention — pas des chantiers datés. Si le client souhaite afficher
- *  de vraies références, il suffit de remplacer les textes zNd.
+ *  Fond de carte : tuiles CARTO « Dark Matter » (gratuites, attribution
+ *  obligatoire — conservée et stylée en bas à droite) sur fond
+ *  OpenStreetMap. Ce sont de vraies tuiles chargées depuis Internet : la
+ *  carte ne fonctionne donc qu'en ligne, comme n'importe quelle carte
+ *  Leaflet/Google Maps embarquée — c'est attendu, pas une régression.
  *
- *  Le littoral et les frontières (LAND / BORDERS) sont une silhouette
- *  simplifiée, tracée à la main à partir de coordonnées réelles
- *  approximatives (façade Atlantique, Manche, côte belgo-néerlandaise,
- *  frontières France/Allemagne/Suisse/Belgique). Ce n'est pas un tracé
- *  cadastral : l'objectif est qu'on reconnaisse la France au premier coup
- *  d'œil, pas une précision d'IGN. Comme ces tracés passent par la même
- *  fonction `projeter()` que les points, tout reste aligné même si BASE ou
- *  VIEW changent.
+ *  Le survol/zoom est bloqué au cadre France–Allemagne–Royaume-Uni : on
+ *  peut zoomer vers l'intérieur, jamais dézoomer au-delà de ce cadre.
  * ─────────────────────────────────────────────────────────────────────────
  */
 (function () {
   'use strict';
 
-  var BASE = { lat: 48.72, lon: 7.10 }; // Troisfontaines (57870)
+  var conteneur = document.getElementById('carte-leaflet');
+  if (!conteneur || typeof L === 'undefined') return;
 
-  // `lab` place le libellé quand le placement par défaut (sous le point)
-  // entrerait en collision avec un voisin.
   var POINTS = [
-    { k: 'z1',  lat: 48.72, lon: 7.10, base: true, lab: 'haut' }, // Troisfontaines
-    { k: 'z2',  lat: 48.83, lon: 9.07 },              // Ditzingen (TRUMPF)
-    { k: 'z3',  lat: 48.58, lon: 7.75, lab: 'droite' }, // Strasbourg (colle à la base)
-    { k: 'z4',  lat: 49.61, lon: 6.13 },              // Luxembourg
-    { k: 'z5',  lat: 48.14, lon: 11.57 },             // Munich
-    { k: 'z6',  lat: 50.11, lon: 8.68 },              // Francfort
-    { k: 'z7',  lat: 50.85, lon: 4.35 },              // Bruxelles
-    { k: 'z8',  lat: 47.37, lon: 8.54 },              // Zurich
-    { k: 'z9',  lat: 45.76, lon: 4.84 },              // Lyon
-    { k: 'z10', lat: 48.86, lon: 2.35 }               // Paris
+    { k: 'z1',  lat: 48.72, lon: 7.10, base: true }, // Troisfontaines
+    { k: 'z2',  lat: 48.83, lon: 9.07 },             // Ditzingen (TRUMPF)
+    { k: 'z3',  lat: 48.58, lon: 7.75 },             // Strasbourg
+    { k: 'z4',  lat: 49.61, lon: 6.13 },             // Luxembourg
+    { k: 'z5',  lat: 48.14, lon: 11.57 },            // Munich
+    { k: 'z6',  lat: 50.11, lon: 8.68 },             // Francfort
+    { k: 'z7',  lat: 50.85, lon: 4.35 },             // Bruxelles
+    { k: 'z8',  lat: 47.37, lon: 8.54 },             // Zurich
+    { k: 'z9',  lat: 45.76, lon: 4.84 },             // Lyon
+    { k: 'z10', lat: 48.86, lon: 2.35 }              // Paris
   ];
 
-  // Cadre de la carte, en degrés autour de la base. Projection
-  // équirectangulaire corrigée en longitude : les distances relatives et les
-  // cercles de rayon restent justes. L'aspect-ratio du conteneur est dérivé
-  // de w/h en JS (voir plus bas) : ne JAMAIS fixer un aspect-ratio différent
-  // en CSS, les points (positionnés en %) et la carte SVG s'en trouveraient
-  // désalignés — c'est exactement ce qui rendait la carte invisible en mobile.
-  var VIEW = { x0: -4.6, y0: -3.5, w: 9.2, h: 7.2 };
-  var KM_PAR_DEGRE = 111.2;
-  var ANNEAUX = [150, 300, 450];
+  var CENTRE = [48.72, 7.10];       // Troisfontaines
+  var ZOOM_INITIAL = 6.4;
+  var ZOOM_MAX = 13;
+  // Enveloppe France + Allemagne + Royaume-Uni (avec une marge de confort) :
+  // borne le dézoom, pas le zoom vers l'intérieur.
+  var CADRE = L.latLngBounds([40.8, -9.2], [61.4, 15.6]);
 
-  var K = Math.cos(BASE.lat * Math.PI / 180);
-
-  function projeter(p) {
-    return { x: (p.lon - BASE.lon) * K, y: -(p.lat - BASE.lat) };
-  }
-  function enPourcent(q) {
-    return {
-      l: ((q.x - VIEW.x0) / VIEW.w) * 100,
-      t: ((q.y - VIEW.y0) / VIEW.h) * 100
-    };
-  }
-  function chemin(pointsLatLon, ferme) {
-    var d = '';
-    pointsLatLon.forEach(function (ll, i) {
-      var q = projeter({ lat: ll[0], lon: ll[1] });
-      d += (i === 0 ? 'M' : 'L') + q.x.toFixed(3) + ',' + q.y.toFixed(3) + ' ';
-    });
-    return d + (ferme ? 'Z' : '');
-  }
-
-  /* ------------------------------------------------ silhouette (façade
-     Atlantique/Manche/côte belgo-néerlandaise, refermée sur les bords de
-     cadre au nord/est/sud puisque le continent s'étend au-delà de la vue) */
-  var LAND = [
-    [45.02, -0.75], [44.66, -1.17], [45.55, -1.05], [46.16, -1.15],
-    [47.00, -2.15], [47.28, -2.90], [47.80, -4.35], [48.39, -4.79],
-    [48.60, -4.10], [48.65, -3.20], [48.63, -2.03], [49.34, -1.65],
-    [49.65, -1.62], [49.55, -1.15], [49.49, 0.11], [50.05, 1.30],
-    [50.95, 1.85], [51.03, 2.38], [51.22, 2.90], [51.33, 3.20],
-    [51.45, 3.60], [51.98, 4.13], [52.20, 4.60],
-    [52.20, 14.07], [45.02, 14.07]
-  ];
-
-  // Frontières internes, simplifiées (France–Belgique/Luxembourg,
-  // France–Allemagne le long du Rhin, France/Allemagne–Suisse).
-  var FRONTIERES = [
-    [[50.75, 2.55], [50.30, 3.20], [50.10, 4.20], [49.95, 4.85],
-     [49.55, 5.30], [49.45, 5.75]],
-    [[49.45, 5.75], [49.20, 7.60], [49.03, 8.13], [48.60, 7.95],
-     [48.05, 7.75], [47.55, 7.60]],
-    [[47.55, 7.60], [47.35, 7.55], [47.30, 7.00], [46.90, 6.50], [46.40, 6.20]],
-    [[47.55, 7.60], [47.60, 8.20], [47.65, 8.75], [47.60, 9.20], [47.55, 9.60]]
-  ];
-
-  // Discrets, mais lèvent toute ambiguïté sur les pays représentés — placés
-  // dans des zones du cadre sans point ni libellé de ville.
-  var PAYS = [
-    { key: 'labelFR', lat: 45.9, lon: 1.7 },
-    { key: 'labelDE', lat: 51.2, lon: 12.4 }
-  ];
-
-  var carte = document.getElementById('carte');
-  if (!carte) return;
-
-  var svg = carte.querySelector('.carte-svg');
-  var couche = carte.querySelector('.carte-points');
-  var panneau = document.getElementById('carte-info');
-
-  svg.setAttribute('viewBox', VIEW.x0 + ' ' + VIEW.y0 + ' ' + VIEW.w + ' ' + VIEW.h);
-  // Fixé ici plutôt qu'en CSS : garantit que la carte SVG et les points
-  // positionnés en % restent TOUJOURS proportionnés au même cadre,
-  // quelle que soit la largeur d'écran.
-  carte.style.aspectRatio = VIEW.w + ' / ' + VIEW.h;
-
-  /* ------------------------------------------------ fond : terre + anneaux */
-  var dessin = '';
-
-  dessin += '<path class="c-terre" d="' + chemin(LAND, true) + '"/>';
-  FRONTIERES.forEach(function (f, i) {
-    dessin += '<path class="c-frontiere" style="--i:' + i + '" d="' + chemin(f, false) + '"/>';
+  var map = L.map(conteneur, {
+    center: CENTRE,
+    zoom: ZOOM_INITIAL,
+    maxZoom: ZOOM_MAX,
+    maxBounds: CADRE.pad(0.06),
+    maxBoundsViscosity: 1,
+    zoomSnap: 0.1,
+    attributionControl: true
   });
 
-  ANNEAUX.forEach(function (km, i) {
-    dessin += '<circle class="c-anneau" style="--i:' + i + '" cx="0" cy="0" r="' +
-      (km / KM_PAR_DEGRE).toFixed(3) + '" vector-effect="non-scaling-stroke"/>';
-  });
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    subdomains: 'abcd',
+    maxZoom: 20,
+    attribution: '&copy; OpenStreetMap, &copy; CARTO'
+  }).addTo(map);
 
-  POINTS.forEach(function (p, i) {
-    if (p.base) return;
-    var q = projeter(p);
-    dessin += '<line class="c-lien" style="--i:' + i + '" x1="0" y1="0" x2="' +
-      q.x.toFixed(3) + '" y2="' + q.y.toFixed(3) + '" vector-effect="non-scaling-stroke"/>';
-  });
+  window.CO2LS = window.CO2LS || {};
+  window.CO2LS.map = map; // utile pour un futur réglage fin depuis la console
 
-  svg.innerHTML = dessin;
+  // Le dézoom maximal dépend de la taille réelle du conteneur : on calcule
+  // le niveau exact où CADRE remplit la carte, plutôt qu'un chiffre fixe
+  // qui serait faux selon la largeur d'écran.
+  function figerLimiteDezoom() {
+    var z = map.getBoundsZoom(CADRE, false);
+    map.setMinZoom(z);
+    if (map.getZoom() < z) map.setZoom(z);
+  }
+  figerLimiteDezoom();
+  window.addEventListener('resize', debounce(function () {
+    map.invalidateSize();
+    figerLimiteDezoom();
+  }, 200));
 
-  /* ------------------------------------------------ points cliquables */
+  function debounce(fn, ms) {
+    var h;
+    return function () { clearTimeout(h); h = setTimeout(fn, ms); };
+  }
+
+  /* ------------------------------------------------ marqueurs */
   var t = window.CO2LS.i18n.t;
-
-  couche.innerHTML = POINTS.map(function (p, i) {
-    var pos = enPourcent(projeter(p));
-    // Près du bord bas, le libellé passe au-dessus du point pour ne pas sortir.
-    var place = p.lab === 'droite' ? ' lab-droite'
-      : (p.lab === 'haut' || pos.t > 74) ? ' lab-haut' : '';
-    return '<button type="button" class="c-point' + (p.base ? ' is-base' : '') + place +
-      '" style="left:' + pos.l.toFixed(2) + '%;top:' + pos.t.toFixed(2) + '%;--i:' + i + '"' +
-      ' data-k="' + p.k + '" data-i18n-aria="m.field.' + p.k + 'n">' +
-      '<span class="c-pastille"></span>' +
-      '<span class="c-nom" data-i18n="m.field.' + p.k + 'n"></span>' +
-      '</button>';
-  }).join('');
-
-  // Noms de pays, discrets
-  couche.innerHTML += PAYS.map(function (c) {
-    var pos = enPourcent(projeter(c));
-    return '<span class="c-pays" style="left:' + pos.l.toFixed(2) + '%;top:' + pos.t.toFixed(2) +
-      '%" data-i18n="m.field.' + c.key + '"></span>';
-  }).join('');
-
-  // Repères de distance, posés sur le haut de chaque anneau
-  couche.innerHTML += ANNEAUX.map(function (km) {
-    var pos = enPourcent({ x: 0, y: -km / KM_PAR_DEGRE });
-    if (pos.t < 2) return '';
-    return '<span class="c-echelle" style="left:' + pos.l.toFixed(2) +
-      '%;top:' + pos.t.toFixed(2) + '%">' + km + ' km</span>';
-  }).join('');
-
-  /* ------------------------------------------------ panneau de détail */
+  var panneau = document.getElementById('carte-info');
   var champRegion = panneau.querySelector('.carte-card-r');
   var champNom = panneau.querySelector('.carte-card-n');
   var champTexte = panneau.querySelector('.carte-card-d');
   var courant = 'z1';
+  var marqueurs = {};
+
+  function icone(p) {
+    return L.divIcon({
+      className: 'c-point-wrap' + (p.base ? ' is-base' : ''),
+      html: '<span class="c-pastille"></span><span class="c-nom">' +
+        t('m.field.' + p.k + 'n') + '</span>',
+      iconSize: [0, 0],
+      iconAnchor: [0, 0]
+    });
+  }
 
   function afficher(k) {
     courant = k;
-    champRegion.setAttribute('data-i18n', 'm.field.' + k + 'r');
-    champNom.setAttribute('data-i18n', 'm.field.' + k + 'n');
-    champTexte.setAttribute('data-i18n', 'm.field.' + k + 'd');
     champRegion.textContent = t('m.field.' + k + 'r');
     champNom.textContent = t('m.field.' + k + 'n');
     champTexte.textContent = t('m.field.' + k + 'd');
-
-    couche.querySelectorAll('.c-point').forEach(function (b) {
-      b.classList.toggle('is-on', b.getAttribute('data-k') === k);
-    });
     panneau.classList.add('is-filled');
+
+    Object.keys(marqueurs).forEach(function (mk) {
+      var el = marqueurs[mk].getElement();
+      if (el) el.classList.toggle('is-on', mk === k);
+    });
   }
 
-  couche.querySelectorAll('.c-point').forEach(function (b) {
-    var k = b.getAttribute('data-k');
-    b.addEventListener('pointerenter', function () { afficher(k); });
-    b.addEventListener('focus', function () { afficher(k); });
-    b.addEventListener('click', function () { afficher(k); });
+  function poserMarqueurs() {
+    POINTS.forEach(function (p) {
+      var m = L.marker([p.lat, p.lon], { icon: icone(p), keyboard: true, alt: t('m.field.' + p.k + 'n') })
+        .addTo(map);
+      m.on('mouseover click focus', function () { afficher(p.k); });
+      marqueurs[p.k] = m;
+    });
+    afficher(courant);
+  }
+  poserMarqueurs();
+
+  // Changement de langue : reconstruire les icônes (le nom est gravé dans
+  // le HTML du divIcon, pas piloté par data-i18n) et retraduire la fiche.
+  document.addEventListener('i18n:changed', function () {
+    Object.keys(marqueurs).forEach(function (k) { map.removeLayer(marqueurs[k]); });
+    marqueurs = {};
+    poserMarqueurs();
   });
 
-  // Le panneau garde le dernier point consulté : moins de clignotement
-  // qu'un affichage qui se vide dès que le curseur sort.
-  document.addEventListener('i18n:changed', function () { afficher(courant); });
-
-  // Sans survol possible, l'invitation parle de toucher plutôt que de survoler.
+  /* ------------------------------------------------ invite tactile */
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     var invite = document.querySelector('.carte-hint');
     if (invite) invite.setAttribute('data-i18n', 'm.field.hintTouch');
+    window.CO2LS.i18n.apply(invite ? invite.parentElement : document);
   }
 
-  window.CO2LS.i18n.apply(carte);
-  afficher('z1');
-
-  /* ------------------------------------------------ tracé à l'apparition
-     Seuil bas + marge positive : l'animation démarre dès que la carte
-     approche du bas de l'écran, pas seulement une fois posée bien en vue.
-     Sur mobile, où l'on scrolle vite, un déclenchement tardif + une
-     animation trop longue donnaient l'impression d'une carte vide/cassée. */
-  var obs = new IntersectionObserver(function (entrees, o) {
-    entrees.forEach(function (e) {
-      if (!e.isIntersecting) return;
-      carte.classList.add('is-drawn');
-      o.unobserve(e.target);
-    });
-  }, { threshold: 0.05, rootMargin: '0px 0px 15% 0px' });
-  obs.observe(carte);
+  // La carte est prête avant que la section n'ait fini son fondu d'entrée ;
+  // un recalcul de taille une fois la transition CSS terminée évite toute
+  // tuile mal alignée si le conteneur a changé de taille pendant le fondu.
+  var carteBox = conteneur.closest('.carte');
+  if (carteBox) {
+    carteBox.addEventListener('transitionend', function () { map.invalidateSize(); }, { once: true });
+  }
+  window.addEventListener('load', function () { map.invalidateSize(); figerLimiteDezoom(); });
 })();

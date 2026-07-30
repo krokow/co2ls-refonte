@@ -24,26 +24,30 @@ suivant le curseur sur les cartes. Cinq sections nouvelles par rapport au site
 actuel : chiffres clés, signature « 10,6 µm », méthode d'intervention, machines
 couvertes et carte du rayon d'intervention.
 
-La carte est pilotée par `moderne/js/carte.js` : chaque point y est décrit par
-ses coordonnées géographiques réelles, la position à l'écran s'en déduit. Les
-textes associés vivent dans `assets/js/content.js` (clés `m.field.z*`) et
-décrivent des zones couvertes, pas des chantiers datés — à remplacer par de
-vraies références si le client souhaite en afficher.
+La carte du rayon d'intervention est une vraie carte Leaflet (fond CARTO
+« Dark Matter » sombre, sur données OpenStreetMap), pas un schéma : on peut y
+zoomer, et le dézoom est bloqué au cadre France–Allemagne–Royaume-Uni (calculé
+dynamiquement via `map.getBoundsZoom()`, donc toujours juste quelle que soit la
+largeur d'écran). Leaflet est fourni en local dans `assets/vendor/leaflet/`
+(licence BSD-2-Clause, voir le fichier `LICENSE` à côté) : pas de CDN pour le
+moteur de la carte. **Les tuiles de fond, elles, sont chargées en ligne depuis
+CARTO/OpenStreetMap** — c'est le cas de toute carte Leaflet ou Google Maps
+embarquée, la carte a donc besoin d'une connexion Internet pour afficher son
+fond (les marqueurs et l'interaction fonctionnent quoi qu'il arrive).
 
-La carte affiche aussi une silhouette de littoral (façade Atlantique/Manche,
-côte belgo-néerlandaise) et les frontières France/Allemagne/Belgique/Suisse,
-tracées à la main à partir de coordonnées réelles approximatives — un tracé
-stylisé, pas cadastral, avec des libellés « FRANCE »/« ALLEMAGNE » discrets
-pour lever toute ambiguïté. Ces tracés (`LAND`, `FRONTIERES` dans carte.js)
-passent par la même projection que les points de ville, donc restent alignés
-si `BASE` ou `VIEW` changent — ne jamais fixer l'aspect-ratio du conteneur
-`.carte` autrement qu'en JS (`carte.style.aspectRatio`), sous peine de
-désaligner points et fond de carte.
+Chaque point de `moderne/js/carte.js` (tableau `POINTS`) est décrit par ses
+coordonnées géographiques réelles ; les textes associés vivent dans
+`assets/js/content.js` (clés `m.field.z*`) et décrivent des zones couvertes,
+pas des chantiers datés — à remplacer par de vraies références si le client
+souhaite en afficher.
 
 La section « machines couvertes » est une vitrine à défilement automatique
-(`moderne/js/machines.js`) : un panneau par machine, alterné toutes les
-4,8 s, pilotable au clic ou au clavier, en pause au survol. Respecte
-`prefers-reduced-motion` (pas de défilement automatique).
+(`moderne/js/machines.js`) : une grande carte « en scène » avec la machine
+active, les trois autres empilées à côté (légèrement inclinées, comme une
+pile de fiches) — cliquer une carte de la pile la fait passer en scène.
+Avance automatique toutes les 4,8 s, pilotable au clic ou au clavier, en
+pause au survol/focus. Respecte `prefers-reduced-motion` (pas d'avance
+automatique).
 
 **Les deux** — Textes réécrits et corrigés, site réellement trilingue FR / DE /
 EN, aucune dépendance externe (ni Google Fonts, ni CDN), `prefers-reduced-motion`
@@ -56,6 +60,7 @@ assets/
   js/content.js     tous les textes, dans les trois langues — source unique
   js/i18n.js        moteur de traduction (data-i18n, mémorisation du choix)
   img/  font/       reprises telles quelles du site existant
+  vendor/leaflet/   bibliothèque Leaflet, hébergée en local (licence BSD-2-Clause)
 classique/          proposition 1 — 7 pages
 moderne/            proposition 2 — page unique + mentions légales
 old-co2ls/          extraction du site existant, conservée pour référence
@@ -84,3 +89,8 @@ python3 -m http.server 8000
   Gmail du compte `co2laserservice@gmail.com`.** Il a été retiré du fichier,
   mais il reste présent dans l'historique Git et a été exposé publiquement. Ce
   mot de passe doit être révoqué depuis le compte Google.
+- **La carte du rayon d'intervention (page moderne) charge son fond depuis les
+  tuiles gratuites de CARTO/OpenStreetMap.** Suffisant pour la démonstration et
+  un trafic normal de site vitrine ; en cas de trafic élevé en production, il
+  faudrait passer à un plan payant CARTO/Mapbox/Stadia Maps ou self-hébergement
+  de tuiles.
