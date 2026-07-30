@@ -110,15 +110,21 @@ img.fleft3 { float: left; margin: -8px 19px 24px 0; }
 #menu li a span { display: none; }
 
 /* =====================  TITRES DE SECTION  ======================== */
+/* Rigoureusement la règle d'origine (aucun align-items, aucun line-height
+   explicite) : j'avais ajouté les deux pour "corriger" l'alignement de la
+   pastille, mais line-height:1.05 sur une police à 32px ajoute ~17px de
+   hauteur à chaque titre par rapport à l'original, qui hérite d'un
+   line-height:1em calculé au niveau de <body> (16px, base 16px navigateur)
+   et propagé tel quel aux descendants. Sur des blocs à hauteur fixe
+   (#content: 405px, overflow hidden), ces 17px cumulés par titre suffisent
+   à pousser du texte hors cadre — c'est la cause du manque de marge signalé. */
 .title {
 	width: 100%;
 	padding: 10px 0 33px 3px;
 	display: flex;
-	align-items: center;
 	font-family: 'PoliceTitre', 'Trebuchet MS', Arial, sans-serif;
 	font-weight: 500;
 	font-size: 32px;
-	line-height: 1.05;
 	color: #fff;
 }
 

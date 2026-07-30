@@ -193,6 +193,8 @@ window.CO2LS_CONTENT = {
     'm.field.base': 'Notre base',
     'm.field.hint': 'Survolez un point pour en savoir plus',
     'm.field.hintTouch': 'Touchez un point pour en savoir plus',
+    'm.field.labelFR': 'France',
+    'm.field.labelDE': 'Allemagne',
 
     'm.field.z1n': 'Troisfontaines', 'm.field.z1r': 'Moselle, France',
     'm.field.z1d': "Notre point d'attache. Atelier, moyens de mesure et production sur place de l'eau déminéralisée nécessaire aux groupes de refroidissement.",
@@ -393,6 +395,8 @@ window.CO2LS_CONTENT = {
     'm.field.base': 'Unser Standort',
     'm.field.hint': 'Für Details einen Punkt überfahren',
     'm.field.hintTouch': 'Für Details einen Punkt antippen',
+    'm.field.labelFR': 'Frankreich',
+    'm.field.labelDE': 'Deutschland',
 
     'm.field.z1n': 'Troisfontaines', 'm.field.z1r': 'Moselle, Frankreich',
     'm.field.z1d': 'Unser Stützpunkt. Werkstatt, Messmittel und Erzeugung des entmineralisierten Wassers für die Kühlaggregate vor Ort.',
@@ -593,6 +597,8 @@ window.CO2LS_CONTENT = {
     'm.field.base': 'Our base',
     'm.field.hint': 'Hover a point to learn more',
     'm.field.hintTouch': 'Tap a point to learn more',
+    'm.field.labelFR': 'France',
+    'm.field.labelDE': 'Germany',
 
     'm.field.z1n': 'Troisfontaines', 'm.field.z1r': 'Moselle, France',
     'm.field.z1d': 'Our home base. Workshop, measuring equipment, and on-site production of the demineralised water required by cooling units.',
