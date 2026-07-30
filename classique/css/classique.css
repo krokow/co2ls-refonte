@@ -422,11 +422,21 @@ img.fleft3 { float: left; margin: -8px 19px 24px 0; }
 		box-shadow: 0 10px 24px -16px var(--bleu-halo);
 	}
 
-	.m-portrait {
-		width: 116px; height: auto;
-		float: left; margin: 2px 16px 8px 0;
-		border-radius: 10px;
-		border: 1px solid rgba(84, 157, 210, .25);
+	/* Non flottée : sur un écran étroit, une petite image flottante à côté
+	   d'un long paragraphe force un habillage de texte en colonne étranglée
+	   (peu de mots par ligne, marges visuellement irrégulières d'une ligne
+	   à l'autre). Un portrait au-dessus du texte, pleine largeur de rythme,
+	   évite ce problème et donne un rendu plus soigné.
+	   Sélecteur "img.m-portrait" à dessein : même spécificité qu'"img.fleft2"
+	   (le float d'origine, actif par défaut), placé après lui dans la
+	   cascade — sans quoi "float:left" continuerait à l'emporter en mobile. */
+	img.m-portrait {
+		display: block; float: none;
+		width: 96px; height: 96px; object-fit: cover;
+		margin: 0 auto 18px;
+		border-radius: 50%;
+		border: 1px solid rgba(84, 157, 210, .3);
+		box-shadow: 0 12px 28px -16px var(--bleu-halo);
 	}
 	/* Sur la page contact la photo est panoramique : pleine largeur */
 	#page6 .m-portrait {

@@ -152,12 +152,16 @@ window.CO2LS_CONTENT = {
 
     'm.series.t1a': 'machines', 'm.series.t1b': 'couvertes',
     'm.series.lead': "Une spécialisation assumée, plutôt qu'une compétence diluée.",
+    'm.series.1tag': 'Cœur de métier',
     'm.series.1t': 'TruFlow® (TLF)',
     'm.series.1p': 'Sources Laser CO2 à excitation haute fréquence. Notre cœur de métier.',
+    'm.series.2tag': 'Découpe 2D',
     'm.series.2t': 'TruLaser® (TCL)',
     'm.series.2p': 'Machines de découpe 2D et leurs périphériques.',
+    'm.series.3tag': 'Sur mesure',
     'm.series.3t': 'Intégrations OEM',
     'm.series.3p': 'Sources CO2 intégrées dans des lignes et machines spéciales.',
+    'm.series.4tag': 'Maintenance',
     'm.series.4t': 'Groupes de refroidissement',
     'm.series.4p': "Entretien, consommables et production sur place d'eau déminéralisée.",
 
@@ -195,6 +199,7 @@ window.CO2LS_CONTENT = {
     'm.field.hintTouch': 'Touchez un point pour en savoir plus',
     'm.field.labelFR': 'France',
     'm.field.labelDE': 'Allemagne',
+    'm.field.mapAria': "Carte interactive du rayon d'intervention, centrée sur la France et l'Allemagne",
 
     'm.field.z1n': 'Troisfontaines', 'm.field.z1r': 'Moselle, France',
     'm.field.z1d': "Notre point d'attache. Atelier, moyens de mesure et production sur place de l'eau déminéralisée nécessaire aux groupes de refroidissement.",
@@ -356,12 +361,16 @@ window.CO2LS_CONTENT = {
 
     'm.series.t1a': 'abgedeckte', 'm.series.t1b': 'Maschinen',
     'm.series.lead': 'Eine bewusste Spezialisierung statt verwässerter Kompetenz.',
+    'm.series.1tag': 'Kerngeschäft',
     'm.series.1t': 'TruFlow® (TLF)',
     'm.series.1p': 'HF-angeregte CO2-Laserquellen. Unser Kerngeschäft.',
+    'm.series.2tag': '2D-Schneiden',
     'm.series.2t': 'TruLaser® (TCL)',
     'm.series.2p': '2D-Schneidmaschinen und deren Peripherie.',
+    'm.series.3tag': 'Maßgeschneidert',
     'm.series.3t': 'OEM-Integrationen',
     'm.series.3p': 'In Linien und Sondermaschinen integrierte CO2-Quellen.',
+    'm.series.4tag': 'Wartung',
     'm.series.4t': 'Kühlaggregate',
     'm.series.4p': 'Wartung, Verbrauchsmaterial und Erzeugung von entmineralisiertem Wasser vor Ort.',
 
@@ -397,6 +406,7 @@ window.CO2LS_CONTENT = {
     'm.field.hintTouch': 'Für Details einen Punkt antippen',
     'm.field.labelFR': 'Frankreich',
     'm.field.labelDE': 'Deutschland',
+    'm.field.mapAria': 'Interaktive Karte des Einsatzradius, mit Schwerpunkt Frankreich und Deutschland',
 
     'm.field.z1n': 'Troisfontaines', 'm.field.z1r': 'Moselle, Frankreich',
     'm.field.z1d': 'Unser Stützpunkt. Werkstatt, Messmittel und Erzeugung des entmineralisierten Wassers für die Kühlaggregate vor Ort.',
@@ -558,12 +568,16 @@ window.CO2LS_CONTENT = {
 
     'm.series.t1a': 'machines', 'm.series.t1b': 'covered',
     'm.series.lead': 'A deliberate specialisation rather than diluted competence.',
+    'm.series.1tag': 'Core business',
     'm.series.1t': 'TruFlow® (TLF)',
     'm.series.1p': 'RF-excited CO2 laser sources. Our core business.',
+    'm.series.2tag': '2D cutting',
     'm.series.2t': 'TruLaser® (TCL)',
     'm.series.2p': '2D cutting machines and their peripherals.',
+    'm.series.3tag': 'Custom-built',
     'm.series.3t': 'OEM integrations',
     'm.series.3p': 'CO2 sources integrated into production lines and special machines.',
+    'm.series.4tag': 'Maintenance',
     'm.series.4t': 'Cooling units',
     'm.series.4p': 'Servicing, consumables and on-site production of demineralised water.',
 
@@ -599,6 +613,7 @@ window.CO2LS_CONTENT = {
     'm.field.hintTouch': 'Tap a point to learn more',
     'm.field.labelFR': 'France',
     'm.field.labelDE': 'Germany',
+    'm.field.mapAria': 'Interactive map of the coverage area, centred on France and Germany',
 
     'm.field.z1n': 'Troisfontaines', 'm.field.z1r': 'Moselle, France',
     'm.field.z1d': 'Our home base. Workshop, measuring equipment, and on-site production of the demineralised water required by cooling units.',

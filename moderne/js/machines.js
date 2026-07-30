@@ -1,8 +1,10 @@
 /*
  * CO2 LASER SERVICES — vitrine « machines couvertes ».
- * Défilement automatique entre 4 panneaux, pilotable (clic, clavier),
- * en pause au survol/focus. Respecte prefers-reduced-motion : pas
- * d'avance automatique, navigation manuelle uniquement.
+ * Une grande carte en scène, les trois autres empilées à côté : cliquer une
+ * carte de la pile la fait passer en scène. Avance automatique toutes les
+ * 4,8 s, pilotable (clic, clavier), en pause au survol/focus. Respecte
+ * prefers-reduced-motion : pas d'avance automatique, navigation manuelle
+ * uniquement.
  */
 (function () {
   'use strict';
@@ -10,9 +12,10 @@
   var stage = document.getElementById('mstage');
   if (!stage) return;
 
-  var tabs = Array.prototype.slice.call(stage.querySelectorAll('.mstage-tab'));
+  var cards = Array.prototype.slice.call(stage.querySelectorAll('.mstage-card'));
   var panels = Array.prototype.slice.call(stage.querySelectorAll('.mstage-panel'));
   var indexEl = document.getElementById('mstage-n');
+  var fill = document.getElementById('mstage-fill');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var DUREE = 4800;
@@ -21,33 +24,30 @@
 
   function activer(i, options) {
     var manuel = options && options.manuel;
-    courant = (i + tabs.length) % tabs.length;
+    courant = (i + cards.length) % cards.length;
 
-    tabs.forEach(function (tab, idx) {
-      var on = idx === courant;
-      tab.classList.toggle('is-active', on);
-      tab.setAttribute('aria-selected', String(on));
-      var fill = tab.querySelector('.mstage-tab-fill');
-      fill.classList.remove('is-filling');
-      if (on && !reduce) {
-        // Retirer puis remettre la classe force le navigateur à repartir
-        // de zéro (sans ce reflow, l'animation CSS ne rejoue pas).
-        // eslint-disable-next-line no-unused-expressions
-        fill.offsetWidth;
-        fill.style.setProperty('--duree', DUREE + 'ms');
-        fill.classList.add('is-filling');
-      } else if (on && reduce) {
-        fill.style.width = '100%';
-      } else {
-        fill.style.width = '';
-      }
+    cards.forEach(function (card) {
+      var on = Number(card.getAttribute('data-panel')) === courant;
+      card.classList.toggle('is-active', on);
+      card.setAttribute('aria-selected', String(on));
+      card.tabIndex = on ? -1 : 0;
     });
 
-    panels.forEach(function (p, idx) {
-      p.classList.toggle('is-active', idx === courant);
+    panels.forEach(function (p) {
+      p.classList.toggle('is-active', Number(p.getAttribute('data-panel')) === courant);
     });
 
     if (indexEl) indexEl.textContent = String(courant + 1).padStart(2, '0');
+
+    fill.classList.remove('is-filling');
+    if (!reduce) {
+      // eslint-disable-next-line no-unused-expressions
+      fill.offsetWidth; // force le reflow pour rejouer l'animation depuis 0
+      fill.style.setProperty('--duree', DUREE + 'ms');
+      fill.classList.add('is-filling');
+    } else {
+      fill.style.width = '100%';
+    }
 
     if (manuel) relancer();
   }
@@ -60,17 +60,19 @@
     minuteur = setTimeout(suivant, DUREE);
   }
 
-  tabs.forEach(function (tab, idx) {
-    tab.addEventListener('click', function () { activer(idx, { manuel: true }); });
+  cards.forEach(function (card) {
+    var idx = Number(card.getAttribute('data-panel'));
+    card.addEventListener('click', function () { activer(idx, { manuel: true }); });
   });
 
-  // Navigation clavier gauche/droite quand un onglet a le focus.
-  stage.querySelector('.mstage-tabs').addEventListener('keydown', function (ev) {
+  // Navigation clavier gauche/droite depuis n'importe quelle carte de la pile.
+  stage.querySelector('.mstage-rail').addEventListener('keydown', function (ev) {
     if (ev.key !== 'ArrowRight' && ev.key !== 'ArrowLeft') return;
     ev.preventDefault();
     var dir = ev.key === 'ArrowRight' ? 1 : -1;
     activer(courant + dir, { manuel: true });
-    tabs[courant].focus();
+    var suivante = cards.filter(function (c) { return !c.classList.contains('is-active'); })[0];
+    if (suivante) suivante.focus();
   });
 
   // Pause franche (barre gelée) au survol ou au focus clavier dans la vitrine.
