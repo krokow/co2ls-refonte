@@ -30,6 +30,21 @@ textes associés vivent dans `assets/js/content.js` (clés `m.field.z*`) et
 décrivent des zones couvertes, pas des chantiers datés — à remplacer par de
 vraies références si le client souhaite en afficher.
 
+La carte affiche aussi une silhouette de littoral (façade Atlantique/Manche,
+côte belgo-néerlandaise) et les frontières France/Allemagne/Belgique/Suisse,
+tracées à la main à partir de coordonnées réelles approximatives — un tracé
+stylisé, pas cadastral, avec des libellés « FRANCE »/« ALLEMAGNE » discrets
+pour lever toute ambiguïté. Ces tracés (`LAND`, `FRONTIERES` dans carte.js)
+passent par la même projection que les points de ville, donc restent alignés
+si `BASE` ou `VIEW` changent — ne jamais fixer l'aspect-ratio du conteneur
+`.carte` autrement qu'en JS (`carte.style.aspectRatio`), sous peine de
+désaligner points et fond de carte.
+
+La section « machines couvertes » est une vitrine à défilement automatique
+(`moderne/js/machines.js`) : un panneau par machine, alterné toutes les
+4,8 s, pilotable au clic ou au clavier, en pause au survol. Respecte
+`prefers-reduced-motion` (pas de défilement automatique).
+
 **Les deux** — Textes réécrits et corrigés, site réellement trilingue FR / DE /
 EN, aucune dépendance externe (ni Google Fonts, ni CDN), `prefers-reduced-motion`
 respecté.
