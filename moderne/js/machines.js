@@ -46,7 +46,10 @@
     if (manuel) relancer();
   }
 
-  function suivant() { activer(courant + 1); }
+  // suivant() se réarme lui-même : sans ça, l'avance automatique ne
+  // déclenchait qu'un seul passage (le minuteur n'était jamais reprogrammé
+  // après le premier "suivant"), et la vitrine se figeait sur la 2e carte.
+  function suivant() { activer(courant + 1); relancer(); }
 
   function relancer() {
     clearTimeout(minuteur);
