@@ -302,8 +302,15 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 .logos-track {
 	display: flex; align-items: center; gap: clamp(48px, 6vw, 88px);
 	width: max-content;
-	animation: logos-defile 26s linear infinite;
+	/* Le décalage n'est PAS un pourcentage (voir logos.js) : "translateX(-50%)"
+	   dépend de la largeur totale de l'élément, cumulée sur des dizaines de
+	   spans + espaces — l'arrondi au sous-pixel qui en résulte se voit,
+	   une fois par boucle, sous forme d'un petit saut. --logos-shift est une
+	   valeur en pixels mesurée directement sur une seule moitié du bandeau,
+	   donc exacte. */
+	animation: logos-defile var(--logos-dur, 32s) linear infinite;
 }
+.logos-half { display: flex; align-items: center; gap: clamp(48px, 6vw, 88px); flex: 0 0 auto; }
 .logos-item {
 	font-family: var(--display); font-weight: 400;
 	font-size: clamp(18px, 2vw, 24px); letter-spacing: .02em;
@@ -320,7 +327,7 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 	filter: grayscale(0);
 	transform: scale(1.08);
 }
-@keyframes logos-defile { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes logos-defile { from { transform: translateX(0); } to { transform: translateX(var(--logos-shift, -50%)); } }
 
 /* ==========================  SECTIONS  =========================== */
 .sect { position: relative; padding: var(--rythme) 0; }
