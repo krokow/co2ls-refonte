@@ -448,15 +448,23 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 .mstage-panel {
 	grid-area: 1 / 1 / 2 / 2;
 	display: flex; flex-direction: column; align-items: flex-start;
-	opacity: 0; transform: translateY(14px) scale(.985);
 	pointer-events: none;
-	transition: opacity .55s cubic-bezier(.22, 1, .36, 1), transform .55s cubic-bezier(.22, 1, .36, 1);
 }
-.mstage-panel.is-active {
-	position: relative;
-	opacity: 1; transform: none;
-	pointer-events: auto;
+.mstage-panel.is-active { position: relative; pointer-events: auto; }
+
+/* Chaque enfant (icône, badge, titre, texte) entre à son propre tour plutôt
+   que tout le bloc d'un seul bloc : plus vivant sans être démonstratif.
+   Au départ (carte non active) le délai reste à 0, donc la sortie est
+   groupée et rapide ; seule l'entrée est échelonnée. */
+.mstage-panel > * {
+	opacity: 0; transform: translateX(16px);
+	transition: opacity .4s cubic-bezier(.22, 1, .36, 1), transform .4s cubic-bezier(.22, 1, .36, 1);
 }
+.mstage-panel.is-active > * { opacity: 1; transform: none; }
+.mstage-panel.is-active > *:nth-child(1) { transition-delay: 0ms; }
+.mstage-panel.is-active > *:nth-child(2) { transition-delay: 70ms; }
+.mstage-panel.is-active > *:nth-child(3) { transition-delay: 120ms; }
+.mstage-panel.is-active > *:nth-child(4) { transition-delay: 170ms; }
 
 .mstage-ico {
 	display: flex; align-items: center; justify-content: center;
@@ -491,7 +499,7 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 #mstage.is-paused .mstage-prog-fill.is-filling { animation-play-state: paused; }
 @keyframes mstage-remplit { from { width: 0; } to { width: 100%; } }
 
-/* ---------  Pile de 3 fiches, légèrement inclinées  ---------------- */
+/* -----------------------  Pile de 3 fiches  ------------------------ */
 .mstage-rail {
 	position: relative;
 	display: flex; flex-direction: column; justify-content: center; gap: 14px;
@@ -509,26 +517,18 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 	background: linear-gradient(160deg, rgba(255, 255, 255, .04), transparent 65%), var(--noir-2);
 	border: 1px solid var(--trait); border-radius: 14px;
 	cursor: pointer; text-align: left;
-	transform: rotate(var(--tilt, 0deg));
-	transition: transform .4s cubic-bezier(.22, 1, .36, 1), border-color .3s ease, box-shadow .3s ease, opacity .35s ease;
+	transition: transform .3s cubic-bezier(.22, 1, .36, 1), border-color .3s ease, box-shadow .3s ease, opacity .35s ease;
 }
-/* Un tilt propre à chaque position d'origine : l'effet "pile de fiches"
-   reste cohérent même si le contenu visible change au fil de la rotation. */
-.mstage-card[data-panel="0"] { --tilt: -2deg; }
-.mstage-card[data-panel="1"] { --tilt: 1.4deg; }
-.mstage-card[data-panel="2"] { --tilt: -1.2deg; }
-.mstage-card[data-panel="3"] { --tilt: 2deg; }
 
 .mstage-card:hover, .mstage-card:focus-visible {
-	--tilt: 0deg;
 	border-color: rgba(255, 204, 51, .4);
 	box-shadow: 0 16px 34px -20px rgba(255, 204, 51, .35);
-	transform: translateY(-2px) rotate(var(--tilt));
+	transform: translateY(-2px);
 }
 
 /* La carte "en scène" disparaît de la pile plutôt que de s'y superposer. */
 .mstage-card.is-active {
-	opacity: 0; transform: scale(.9) rotate(var(--tilt));
+	opacity: 0; transform: scale(.9);
 	pointer-events: none; position: absolute; inset: 0;
 }
 
