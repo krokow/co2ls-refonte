@@ -68,6 +68,34 @@
 			<a class="hero-scroll" href="#chiffres"><span data-i18n="common.scroll"></span></a>
 		</section>
 
+		<!-- ============================ LOGOS ============================= -->
+		<!-- Bandeau décoratif : marques et technologies réellement mentionnées
+		     dans le contenu (aucun nom de client inventé). Défilement continu,
+		     niveaux de gris, couleur au survol. -->
+		<div class="logos" aria-hidden="true">
+			<div class="logos-track">
+				<span class="logos-item">TRUMPF<sup>®</sup></span>
+				<span class="logos-item">TruFlow<sup>®</sup></span>
+				<span class="logos-item">TruLaser<sup>®</sup></span>
+				<span class="logos-item">TRUMPF<sup>®</sup></span>
+				<span class="logos-item">TruFlow<sup>®</sup></span>
+				<span class="logos-item">TruLaser<sup>®</sup></span>
+				<span class="logos-item">TRUMPF<sup>®</sup></span>
+				<span class="logos-item">TruFlow<sup>®</sup></span>
+				<span class="logos-item">TruLaser<sup>®</sup></span>
+				<!-- séquence dupliquée : la boucle CSS reste continue -->
+				<span class="logos-item">TRUMPF<sup>®</sup></span>
+				<span class="logos-item">TruFlow<sup>®</sup></span>
+				<span class="logos-item">TruLaser<sup>®</sup></span>
+				<span class="logos-item">TRUMPF<sup>®</sup></span>
+				<span class="logos-item">TruFlow<sup>®</sup></span>
+				<span class="logos-item">TruLaser<sup>®</sup></span>
+				<span class="logos-item">TRUMPF<sup>®</sup></span>
+				<span class="logos-item">TruFlow<sup>®</sup></span>
+				<span class="logos-item">TruLaser<sup>®</sup></span>
+			</div>
+		</div>
+
 		<!-- =========================== CHIFFRES ========================== -->
 		<section class="stats" id="chiffres">
 			<div class="wrap">
@@ -469,6 +497,65 @@
 			</div>
 		</section>
 
+		<!-- =========================== CITATION =========================== -->
+		<section class="citation">
+			<div class="wrap">
+				<p class="kicker reveal" data-i18n="m.quote.kicker"></p>
+				<blockquote class="citation-texte reveal">
+					<p data-i18n="p2.quote"></p>
+				</blockquote>
+				<footer class="citation-auteur reveal">
+					<span class="citation-nom" data-i18n="m.quote.author"></span>
+					<span class="citation-role" data-i18n="m.quote.role"></span>
+				</footer>
+			</div>
+		</section>
+
+		<!-- ========================= TÉMOIGNAGES ========================== -->
+		<section class="sect" id="temoignages">
+			<div class="wrap">
+				<div class="sect-head reveal">
+					<p class="kicker" data-i18n="m.temoin.kicker"></p>
+					<h2><span class="hl" data-i18n="m.temoin.t1a"></span> <span data-i18n="m.temoin.t1b"></span></h2>
+					<p class="sect-lead" data-i18n="m.temoin.lead"></p>
+				</div>
+
+				<div class="temoin reveal" id="temoin">
+					<span class="temoin-badge" data-i18n="m.temoin.placeholder"></span>
+
+					<div class="temoin-panels">
+						<figure class="temoin-panel is-active" data-panel="0">
+							<blockquote data-i18n="m.temoin.1q"></blockquote>
+							<figcaption>
+								<b data-i18n="m.temoin.1r"></b>
+								<span data-i18n="m.temoin.1s"></span>
+							</figcaption>
+						</figure>
+						<figure class="temoin-panel" data-panel="1">
+							<blockquote data-i18n="m.temoin.2q"></blockquote>
+							<figcaption>
+								<b data-i18n="m.temoin.2r"></b>
+								<span data-i18n="m.temoin.2s"></span>
+							</figcaption>
+						</figure>
+						<figure class="temoin-panel" data-panel="2">
+							<blockquote data-i18n="m.temoin.3q"></blockquote>
+							<figcaption>
+								<b data-i18n="m.temoin.3r"></b>
+								<span data-i18n="m.temoin.3s"></span>
+							</figcaption>
+						</figure>
+					</div>
+
+					<div class="temoin-dots" role="tablist" data-i18n-aria="m.temoin.kicker">
+						<button type="button" role="tab" aria-selected="true" data-panel="0" data-i18n-aria="m.temoin.1r"></button>
+						<button type="button" role="tab" aria-selected="false" data-panel="1" data-i18n-aria="m.temoin.2r"></button>
+						<button type="button" role="tab" aria-selected="false" data-panel="2" data-i18n-aria="m.temoin.3r"></button>
+					</div>
+				</div>
+			</div>
+		</section>
+
 		<!-- =========================== CONTACT =========================== -->
 		<section class="sect" id="contact">
 			<div class="wrap">
@@ -576,6 +663,7 @@
 	<script src="../assets/vendor/leaflet/leaflet.js"></script>
 	<script src="js/carte.js"></script>
 	<script src="js/machines.js"></script>
+	<script src="js/temoignages.js"></script>
 	<script src="js/moderne.js"></script>
 </body>
 

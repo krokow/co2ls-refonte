@@ -34,6 +34,7 @@
       p.classList.toggle('is-active', Number(p.getAttribute('data-panel')) === courant);
     });
 
+    stage.setAttribute('data-active', String(courant));
     if (indexEl) indexEl.textContent = String(courant + 1).padStart(2, '0');
 
     fill.classList.remove('is-filling');
