@@ -71,15 +71,19 @@
 		<!-- ============================ LOGOS ============================= -->
 		<!-- Bandeau décoratif : marques et technologies réellement mentionnées
 		     dans le contenu (aucun nom de client inventé). Défilement continu,
-		     niveaux de gris, couleur au survol. Le contenu est dupliqué en JS
-		     (moderne/js/logos.js) juste assez de fois pour qu'il n'y ait jamais
-		     de trou visible, quelle que soit la largeur d'écran — voir ce
-		     fichier pour le pourquoi. -->
+		     niveaux de gris, couleur au survol. moderne/js/logos.js complète
+		     .logos-half-a (juste assez pour couvrir l'écran le plus large),
+		     puis clone ce groupe dans .logos-half-b et mesure sa largeur
+		     exacte en pixels pour caler la boucle sans le moindre saut — voir
+		     ce fichier pour le détail. -->
 		<div class="logos" aria-hidden="true">
 			<div class="logos-track" id="logos-track">
-				<span class="logos-item">TRUMPF<sup>®</sup></span>
-				<span class="logos-item">TruFlow<sup>®</sup></span>
-				<span class="logos-item">TruLaser<sup>®</sup></span>
+				<div class="logos-half" id="logos-half-a">
+					<span class="logos-item">TRUMPF<sup>®</sup></span>
+					<span class="logos-item">TruFlow<sup>®</sup></span>
+					<span class="logos-item">TruLaser<sup>®</sup></span>
+				</div>
+				<div class="logos-half" id="logos-half-b"></div>
 			</div>
 		</div>
 

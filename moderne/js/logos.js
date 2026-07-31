@@ -1,45 +1,54 @@
 /*
  * CO2 LASER SERVICES — bandeau de marques défilant.
  *
- * Le bug signalé ("le bandeau arrive à court de marques puis revient
- * brutalement à 0") venait d'un nombre de répétitions codé en dur dans le
- * HTML : sur un écran large (grand desktop, ultra-wide), le contenu dupliqué
- * était plus étroit que le double de la largeur du bandeau, donc la boucle
- * CSS (translateX de 0 à -50%) traversait un passage sans contenu avant de
- * reboucler — d'où le trou puis le saut visible.
+ * Deux bugs corrigés ici, dans l'ordre où ils sont apparus :
  *
- * Solution robuste : dupliquer la séquence de marques EN JS, autant de fois
- * que nécessaire pour que sa largeur dépasse largement celle du bandeau
- * (mesurée réellement, pas devinée), puis dupliquer cette séquence une
- * dernière fois pour la boucle. La largeur totale ainsi garantie est
- * toujours ≥ 2× celle du conteneur, donc la translation de -50% ne traverse
- * jamais de zone vide, quel que soit l'écran.
+ * 1) "Le bandeau arrive à court de marques" — le nombre de répétitions était
+ *    codé en dur dans le HTML. Sur un écran large, le contenu dupliqué était
+ *    plus étroit que le bandeau lui-même, donc la boucle traversait une zone
+ *    vide. Fix : .logos-half-a est rempli en JS jusqu'à dépasser largement
+ *    la largeur réelle du bandeau (mesurée, pas devinée).
+ *
+ * 2) "Un petit saut une fois par boucle" — la boucle CSS traduisait
+ *    l'élément de "translateX(-50%)" à "translateX(0)". Ce -50% porte sur
+ *    la largeur TOTALE du bandeau (les deux moitiés confondues, cumulées
+ *    sur des dizaines de spans et d'espaces) : le sous-pixel d'arrondi qui
+ *    en résulte n'est presque jamais exactement la moitié pile, d'où un
+ *    saut visible à chaque tour. Fix : on mesure l'écart RÉEL en pixels
+ *    entre le début de .logos-half-a et le début de son clone
+ *    .logos-half-b (--logos-shift), plutôt que de faire confiance à un
+ *    pourcentage calculé sur l'ensemble.
  */
 (function () {
   'use strict';
 
   var track = document.getElementById('logos-track');
-  if (!track) return;
+  var halfA = document.getElementById('logos-half-a');
+  var halfB = document.getElementById('logos-half-b');
+  if (!track || !halfA || !halfB) return;
 
   var bande = track.closest('.logos');
-  var motif = Array.prototype.slice.call(track.children); // la séquence de base, telle qu'écrite en HTML
+  var motif = Array.prototype.slice.call(halfA.children); // séquence de base, telle qu'écrite en HTML
 
   function peupler() {
-    var largeurCible = bande.getBoundingClientRect().width * 2.2; // marge de confort
-    track.innerHTML = '';
+    var largeurCible = bande.getBoundingClientRect().width * 1.15; // légère marge
 
+    halfA.innerHTML = '';
     var largeur = 0;
     while (largeur < largeurCible) {
-      motif.forEach(function (el) { track.appendChild(el.cloneNode(true)); });
-      largeur = track.getBoundingClientRect().width;
-      // Garde-fou : un HTML vide ou un conteneur non rendu ne doit pas boucler à l'infini.
-      if (track.children.length > 400) break;
+      motif.forEach(function (el) { halfA.appendChild(el.cloneNode(true)); });
+      largeur = halfA.getBoundingClientRect().width;
+      if (halfA.children.length > 200) break; // garde-fou anti-boucle infinie
     }
-    // Deuxième moitié identique à la première : la boucle -50% redevient invisible.
-    var moitie = Array.prototype.slice.call(track.children).map(function (el) { return el.cloneNode(true); });
-    moitie.forEach(function (el) { track.appendChild(el); });
 
-    track.style.animationDuration = Math.max(18, track.children.length * 1.1) + 's';
+    // Clone exact : garantit des largeurs identiques au pixel près.
+    halfB.innerHTML = halfA.innerHTML;
+
+    // Valeur non arrondie à dessein : le sous-pixel mesuré est plus fidèle
+    // qu'un arrondi, qui réintroduirait le décalage qu'on cherche à éliminer.
+    var ecart = halfB.getBoundingClientRect().left - halfA.getBoundingClientRect().left;
+    track.style.setProperty('--logos-shift', (-ecart) + 'px');
+    track.style.setProperty('--logos-dur', Math.max(18, halfA.children.length * 2.2) + 's');
   }
 
   peupler();
