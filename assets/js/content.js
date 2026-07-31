@@ -220,7 +220,29 @@ window.CO2LS_CONTENT = {
     'm.field.z9n': 'Lyon', 'm.field.z9r': 'Auvergne-Rhône-Alpes, France',
     'm.field.z9d': "Vallée industrielle du Rhône. Dépannage, réparation et remise en conformité de sources CO2.",
     'm.field.z10n': 'Paris', 'm.field.z10r': 'Île-de-France',
-    'm.field.z10d': "Sous-traitance francilienne et intégrations OEM. Interventions ponctuelles et expertises."
+    'm.field.z10d': "Sous-traitance francilienne et intégrations OEM. Interventions ponctuelles et expertises.",
+
+    /* --- citation --- */
+    'm.quote.kicker': 'Une conviction',
+    'm.quote.author': 'M. Laurent NAROZNI',
+    'm.quote.role': "Fondateur, CO2 LASER SERVICES",
+
+    /* --- témoignages (contenu de démonstration, à remplacer par de vrais
+       retours clients — attribution volontairement générique : rôle et
+       secteur, aucun nom d'entreprise ou de personne inventé) --- */
+    'm.temoin.kicker': 'Ce qu\'ils en disent',
+    'm.temoin.t1a': 'témoignages', 'm.temoin.t1b': 'clients',
+    'm.temoin.lead': "Exemples de retours à venir — cette section sera complétée avec de vrais témoignages clients.",
+    'm.temoin.placeholder': 'Contenu de démonstration',
+    'm.temoin.1q': "« Diagnostic précis, intervention rapide, et une vraie pédagogie pour notre équipe de maintenance. Exactement ce qu'il nous fallait. »",
+    'm.temoin.1r': 'Responsable maintenance',
+    'm.temoin.1s': 'Secteur automobile',
+    'm.temoin.2q': "« Nous avons gagné en autonomie sur l'entretien courant, et le contrat de révision nous évite les mauvaises surprises. »",
+    'm.temoin.2r': 'Directeur de production',
+    'm.temoin.2s': 'Sous-traitance industrielle',
+    'm.temoin.3q': "« Un interlocuteur qui comprend la machine en profondeur, pas seulement la procédure. Ça change tout sur une panne complexe. »",
+    'm.temoin.3r': 'Responsable technique',
+    'm.temoin.3s': 'Métallurgie'
   },
 
   /* ===================================================================== */
@@ -427,7 +449,25 @@ window.CO2LS_CONTENT = {
     'm.field.z9n': 'Lyon', 'm.field.z9r': 'Auvergne-Rhône-Alpes, Frankreich',
     'm.field.z9d': 'Industrielles Rhonetal. Störungsbehebung, Reparatur und Wiederherstellung der Konformität von CO2-Quellen.',
     'm.field.z10n': 'Paris', 'm.field.z10r': 'Île-de-France',
-    'm.field.z10d': 'Zulieferindustrie im Großraum Paris und OEM-Integrationen. Punktuelle Einsätze und Gutachten.'
+    'm.field.z10d': 'Zulieferindustrie im Großraum Paris und OEM-Integrationen. Punktuelle Einsätze und Gutachten.',
+
+    'm.quote.kicker': 'Eine Überzeugung',
+    'm.quote.author': 'Herr Laurent NAROZNI',
+    'm.quote.role': 'Gründer, CO2 LASER SERVICES',
+
+    'm.temoin.kicker': 'Was Kunden sagen',
+    'm.temoin.t1a': 'Kunden', 'm.temoin.t1b': 'stimmen',
+    'm.temoin.lead': 'Beispielhafte Rückmeldungen — dieser Bereich wird mit echten Kundenstimmen vervollständigt.',
+    'm.temoin.placeholder': 'Beispielinhalt',
+    'm.temoin.1q': '„Präzise Diagnose, schneller Einsatz und echte Wissensvermittlung an unser Wartungsteam. Genau das, was wir brauchten."',
+    'm.temoin.1r': 'Wartungsleiter',
+    'm.temoin.1s': 'Automobilbranche',
+    'm.temoin.2q': '„Wir sind bei der laufenden Wartung selbstständiger geworden, und der Revisionsvertrag erspart uns böse Überraschungen."',
+    'm.temoin.2r': 'Produktionsleiter',
+    'm.temoin.2s': 'Industrielle Zulieferung',
+    'm.temoin.3q': '„Ein Ansprechpartner, der die Maschine wirklich versteht, nicht nur das Handbuch. Das macht bei einer komplexen Störung den Unterschied."',
+    'm.temoin.3r': 'Technischer Leiter',
+    'm.temoin.3s': 'Metallverarbeitung'
   },
 
   /* ===================================================================== */
@@ -634,6 +674,24 @@ window.CO2LS_CONTENT = {
     'm.field.z9n': 'Lyon', 'm.field.z9r': 'Auvergne-Rhône-Alpes, France',
     'm.field.z9d': 'The industrial Rhône valley. Troubleshooting, repair and restoring CO2 sources to compliance.',
     'm.field.z10n': 'Paris', 'm.field.z10r': 'Île-de-France',
-    'm.field.z10d': 'Paris-region subcontracting and OEM integrations. One-off interventions and appraisals.'
+    'm.field.z10d': 'Paris-region subcontracting and OEM integrations. One-off interventions and appraisals.',
+
+    'm.quote.kicker': 'A conviction',
+    'm.quote.author': 'Mr Laurent NAROZNI',
+    'm.quote.role': 'Founder, CO2 LASER SERVICES',
+
+    'm.temoin.kicker': 'What clients say',
+    'm.temoin.t1a': 'client', 'm.temoin.t1b': 'voices',
+    'm.temoin.lead': 'Sample feedback — this section will be filled in with real client testimonials.',
+    'm.temoin.placeholder': 'Sample content',
+    'm.temoin.1q': '"Precise diagnosis, a fast response, and real coaching for our maintenance team. Exactly what we needed."',
+    'm.temoin.1r': 'Maintenance manager',
+    'm.temoin.1s': 'Automotive sector',
+    'm.temoin.2q': '"We’ve gained real autonomy on day-to-day upkeep, and the overhaul contract spares us any bad surprises."',
+    'm.temoin.2r': 'Production manager',
+    'm.temoin.2s': 'Industrial subcontracting',
+    'm.temoin.3q': '"Someone who understands the machine in depth, not just the manual. That changes everything on a complex fault."',
+    'm.temoin.3r': 'Technical manager',
+    'm.temoin.3s': 'Metalworking'
   }
 };
