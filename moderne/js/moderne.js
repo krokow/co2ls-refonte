@@ -6,7 +6,6 @@
 (function () {
   'use strict';
 
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
@@ -23,7 +22,7 @@
     bar.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
 
     var heroBg = $('.hero-bg');
-    if (heroBg && !reduce && y < window.innerHeight * 1.2) {
+    if (heroBg && y < window.innerHeight * 1.2) {
       heroBg.style.transform = 'translate3d(0,' + (y * 0.22) + 'px,0)';
     }
     ticking = false;
@@ -89,7 +88,7 @@
   /* ------------------------------------------------ compteurs */
   function runCounter(el) {
     var target = parseInt(el.getAttribute('data-count'), 10);
-    if (isNaN(target) || reduce) return;
+    if (isNaN(target)) return;
     var sup = el.querySelector('sup');
     var suffix = sup ? sup.outerHTML : '';
     var plain = el.hasAttribute('data-plain'); // années : pas de séparateur

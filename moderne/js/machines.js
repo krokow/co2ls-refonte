@@ -2,9 +2,7 @@
  * CO2 LASER SERVICES — vitrine « machines couvertes ».
  * Une grande carte en scène, les trois autres empilées à côté : cliquer une
  * carte de la pile la fait passer en scène. Avance automatique toutes les
- * 4,8 s, pilotable (clic, clavier), en pause au survol/focus. Respecte
- * prefers-reduced-motion : pas d'avance automatique, navigation manuelle
- * uniquement.
+ * 4,8 s, pilotable (clic, clavier), en pause au survol/focus.
  */
 (function () {
   'use strict';
@@ -16,7 +14,6 @@
   var panels = Array.prototype.slice.call(stage.querySelectorAll('.mstage-panel'));
   var indexEl = document.getElementById('mstage-n');
   var fill = document.getElementById('mstage-fill');
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var DUREE = 4800;
   var courant = 0;
@@ -40,14 +37,10 @@
     if (indexEl) indexEl.textContent = String(courant + 1).padStart(2, '0');
 
     fill.classList.remove('is-filling');
-    if (!reduce) {
-      // eslint-disable-next-line no-unused-expressions
-      fill.offsetWidth; // force le reflow pour rejouer l'animation depuis 0
-      fill.style.setProperty('--duree', DUREE + 'ms');
-      fill.classList.add('is-filling');
-    } else {
-      fill.style.width = '100%';
-    }
+    // eslint-disable-next-line no-unused-expressions
+    fill.offsetWidth; // force le reflow pour rejouer l'animation depuis 0
+    fill.style.setProperty('--duree', DUREE + 'ms');
+    fill.classList.add('is-filling');
 
     if (manuel) relancer();
   }
@@ -56,7 +49,6 @@
 
   function relancer() {
     clearTimeout(minuteur);
-    if (reduce) return;
     minuteur = setTimeout(suivant, DUREE);
   }
 
