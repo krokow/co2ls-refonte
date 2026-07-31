@@ -553,9 +553,6 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 	overflow-wrap: break-word;
 }
 
-@media (prefers-reduced-motion: reduce) {
-	.mstage-scan::after { display: none; }
-}
 
 @media (max-width: 720px) {
 	.mstage-grid { grid-template-columns: 1fr; }
@@ -965,9 +962,3 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 	.ftr-bottom { flex-direction: column; align-items: flex-start; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-	html { scroll-behavior: auto; }
-	*, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
-	.reveal { opacity: 1; transform: none; }
-	.steps::after { width: 100%; }
-}
