@@ -1,23 +1,24 @@
 /*
  * CO2 LASER SERVICES — bandeau de marques défilant.
  *
- * Deux bugs corrigés ici, dans l'ordre où ils sont apparus :
+ * Trois versions de ce fichier, dans l'ordre :
+ * 1) répétitions codées en dur → le bandeau manquait de contenu sur grand
+ *    écran (trou visible avant la boucle) ;
+ * 2) boucle CSS sur translateX(-50%) → un petit saut restait visible à
+ *    chaque tour, la valeur en pourcentage portant sur la largeur totale
+ *    (deux moitiés + dizaines d'espaces cumulés), jamais pile exacte au
+ *    sous-pixel près ;
+ * 3) boucle CSS sur un décalage mesuré en pixels exacts → toujours un saut,
+ *    ce qui pointe vers autre chose qu'un problème d'arrondi : le
+ *    redémarrage d'une animation CSS `infinite` au bout de sa durée peut
+ *    lui-même produire un accroc de rendu (recomposition du calque), même
+ *    quand la valeur de départ et d'arrivée sont mathématiquement exactes.
  *
- * 1) "Le bandeau arrive à court de marques" — le nombre de répétitions était
- *    codé en dur dans le HTML. Sur un écran large, le contenu dupliqué était
- *    plus étroit que le bandeau lui-même, donc la boucle traversait une zone
- *    vide. Fix : .logos-half-a est rempli en JS jusqu'à dépasser largement
- *    la largeur réelle du bandeau (mesurée, pas devinée).
- *
- * 2) "Un petit saut une fois par boucle" — la boucle CSS traduisait
- *    l'élément de "translateX(-50%)" à "translateX(0)". Ce -50% porte sur
- *    la largeur TOTALE du bandeau (les deux moitiés confondues, cumulées
- *    sur des dizaines de spans et d'espaces) : le sous-pixel d'arrondi qui
- *    en résulte n'est presque jamais exactement la moitié pile, d'où un
- *    saut visible à chaque tour. Fix : on mesure l'écart RÉEL en pixels
- *    entre le début de .logos-half-a et le début de son clone
- *    .logos-half-b (--logos-shift), plutôt que de faire confiance à un
- *    pourcentage calculé sur l'ensemble.
+ * Cette version-ci ne dépend plus d'aucune animation CSS : la position est
+ * recalculée à chaque frame par requestAnimationFrame et le point de
+ * bouclage (repartir de 0 dès qu'on a défilé exactement la largeur d'une
+ * répétition) est purement arithmétique — sans "fin de boucle" au sens du
+ * navigateur, donc sans accroc de recomposition possible.
  */
 (function () {
   'use strict';
@@ -29,8 +30,14 @@
 
   var bande = track.closest('.logos');
   var motif = Array.prototype.slice.call(halfA.children); // séquence de base, telle qu'écrite en HTML
+  var VITESSE = 42; // pixels par seconde
 
-  function peupler() {
+  var unite = 0;   // distance exacte à défiler avant de reboucler (mesurée, pas devinée)
+  var pos = 0;
+  var dernier = null;
+  var actif = true;
+
+  function mesurer() {
     var largeurCible = bande.getBoundingClientRect().width * 1.15; // légère marge
 
     halfA.innerHTML = '';
@@ -40,22 +47,43 @@
       largeur = halfA.getBoundingClientRect().width;
       if (halfA.children.length > 200) break; // garde-fou anti-boucle infinie
     }
+    halfB.innerHTML = halfA.innerHTML; // clone exact : largeurs identiques garanties
 
-    // Clone exact : garantit des largeurs identiques au pixel près.
-    halfB.innerHTML = halfA.innerHTML;
-
-    // Valeur non arrondie à dessein : le sous-pixel mesuré est plus fidèle
-    // qu'un arrondi, qui réintroduirait le décalage qu'on cherche à éliminer.
-    var ecart = halfB.getBoundingClientRect().left - halfA.getBoundingClientRect().left;
-    track.style.setProperty('--logos-shift', (-ecart) + 'px');
-    track.style.setProperty('--logos-dur', Math.max(18, halfA.children.length * 2.2) + 's');
+    unite = halfB.getBoundingClientRect().left - halfA.getBoundingClientRect().left;
+    if (pos <= -unite || pos > 0) pos = 0; // la mesure a changé (redimensionnement) : repart proprement
   }
 
-  peupler();
+  function frame(t) {
+    if (!actif) { dernier = null; requestAnimationFrame(frame); return; }
+    if (dernier === null) dernier = t;
+    var dt = (t - dernier) / 1000;
+    dernier = t;
+
+    pos -= VITESSE * dt;
+    if (unite > 0 && pos <= -unite) pos += unite; // point de bouclage : purement arithmétique
+    track.style.transform = 'translate3d(' + pos.toFixed(2) + 'px,0,0)';
+
+    requestAnimationFrame(frame);
+  }
+
+  // Pause hors écran et onglet masqué : rien à gagner à faire tourner la
+  // boucle pour rien, et ça évite tout calcul de delta-temps aberrant au
+  // retour (l'écran resterait figé un instant sans cette pause explicite).
+  document.addEventListener('visibilitychange', function () {
+    actif = !document.hidden && dansEcran;
+  });
+  var dansEcran = true;
+  new IntersectionObserver(function (entrees) {
+    dansEcran = entrees[0].isIntersecting;
+    actif = dansEcran && !document.hidden;
+  }, { threshold: 0 }).observe(bande);
+
+  mesurer();
+  requestAnimationFrame(frame);
 
   var relance;
   window.addEventListener('resize', function () {
     clearTimeout(relance);
-    relance = setTimeout(peupler, 300);
+    relance = setTimeout(mesurer, 300);
   });
 })();
