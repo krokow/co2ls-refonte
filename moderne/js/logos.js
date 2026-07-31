@@ -1,24 +1,30 @@
 /*
  * CO2 LASER SERVICES — bandeau de marques défilant.
  *
- * Trois versions de ce fichier, dans l'ordre :
- * 1) répétitions codées en dur → le bandeau manquait de contenu sur grand
- *    écran (trou visible avant la boucle) ;
- * 2) boucle CSS sur translateX(-50%) → un petit saut restait visible à
- *    chaque tour, la valeur en pourcentage portant sur la largeur totale
- *    (deux moitiés + dizaines d'espaces cumulés), jamais pile exacte au
- *    sous-pixel près ;
- * 3) boucle CSS sur un décalage mesuré en pixels exacts → toujours un saut,
- *    ce qui pointe vers autre chose qu'un problème d'arrondi : le
- *    redémarrage d'une animation CSS `infinite` au bout de sa durée peut
- *    lui-même produire un accroc de rendu (recomposition du calque), même
- *    quand la valeur de départ et d'arrivée sont mathématiquement exactes.
+ * Historique des essais précédents (conservé pour ne pas retomber dans les
+ * mêmes ornières) :
+ * 1) répétitions codées en dur → trou visible sur grand écran ;
+ * 2) boucle CSS translateX(-50%) → léger saut à chaque tour (pourcentage
+ *    calculé sur la largeur totale, jamais pile exact au sous-pixel) ;
+ * 3) boucle CSS sur un décalage mesuré en pixels exacts → saut toujours là ;
+ * 4) défilement piloté en JS (requestAnimationFrame), bouclage arithmétique
+ *    pur → plus de saut ponctuel, mais un DÉCALAGE qui apparaît "au bout
+ *    d'un moment", pas dès le chargement.
  *
- * Cette version-ci ne dépend plus d'aucune animation CSS : la position est
- * recalculée à chaque frame par requestAnimationFrame et le point de
- * bouclage (repartir de 0 dès qu'on a défilé exactement la largeur d'une
- * répétition) est purement arithmétique — sans "fin de boucle" au sens du
- * navigateur, donc sans accroc de recomposition possible.
+ * Cette dernière observation est la bonne piste : un décalage qui n'apparaît
+ * pas tout de suite, mais seulement après un moment, signale presque
+ * toujours un changement de mise en page APRÈS la mesure initiale — ici,
+ * le chargement de la police maison 'PoliceTitre' (@font-face, voir
+ * moderne.css). Au premier rendu, le texte du bandeau s'affiche dans la
+ * police de secours (des caractères plus larges/étroits que la police
+ * définitive) ; mesurer() calcule alors "unite" sur CETTE largeur-là. Une
+ * fois la police maison chargée, le texte change de largeur (font-display:
+ * swap) — mais "unite" n'est jamais recalculé : le point de bouclage devient
+ * faux, d'où un décalage qui n'apparaît qu'au premier tour suivant le
+ * chargement de la police, jamais immédiatement.
+ *
+ * Fix : redéclencher mesurer() dès que document.fonts.ready est résolu (API
+ * standard de chargement des polices), en plus de la mesure initiale.
  */
 (function () {
   'use strict';
@@ -50,7 +56,10 @@
     halfB.innerHTML = halfA.innerHTML; // clone exact : largeurs identiques garanties
 
     unite = halfB.getBoundingClientRect().left - halfA.getBoundingClientRect().left;
-    if (pos <= -unite || pos > 0) pos = 0; // la mesure a changé (redimensionnement) : repart proprement
+    // Après un redimensionnement ou un chargement de police, "pos" peut se
+    // retrouver hors de la plage valide pour le nouveau "unite" : on le
+    // ramène à 0 plutôt que de laisser le point de bouclage rater sa cible.
+    if (pos <= -unite || pos > 0) pos = 0;
   }
 
   function frame(t) {
@@ -80,6 +89,17 @@
 
   mesurer();
   requestAnimationFrame(frame);
+
+  // La mesure initiale peut avoir eu lieu avant que 'PoliceTitre' ne soit
+  // chargée (texte encore dans la police de secours, plus large ou plus
+  // étroite) : on la refait dès que toutes les polices de la page sont
+  // effectivement prêtes, pour que "unite" corresponde à la largeur finale.
+  if (window.document && document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(mesurer);
+  }
+  // Filet de sécurité supplémentaire : tout ce qui a pu décaler la mise en
+  // page (image tardive, etc.) est réglé une dernière fois ici.
+  window.addEventListener('load', mesurer);
 
   var relance;
   window.addEventListener('resize', function () {
