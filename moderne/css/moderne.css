@@ -454,8 +454,11 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 .mstage[data-active="2"] .mstage-hero { background: radial-gradient(75% 65% at 12% 0%, rgba(168, 122, 235, .12), transparent 65%); }
 .mstage[data-active="3"] .mstage-hero { background: radial-gradient(75% 65% at 12% 0%, rgba(87, 209, 181, .12), transparent 65%); }
 
-/* Ligne de balayage : un rappel discret et continu du thème laser,
-   indépendant du minuteur des onglets. */
+/* Ligne de balayage, rappel du thème laser. Sa position suit --progress
+   (piloté par machines.js), exactement comme la barre de progression : le
+   balayage traverse donc la vitrine pile pendant le cycle d'une carte.
+   Auparavant c'était une animation CSS de 7 s indépendante, jamais en phase
+   avec le minuteur de 4,8 s — d'où l'impression de composant désynchronisé. */
 .mstage-scan {
 	position: absolute; inset: 0; z-index: 0; pointer-events: none;
 	overflow: hidden;
@@ -466,12 +469,7 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 	width: 12%;
 	background: linear-gradient(90deg, transparent, rgba(79, 158, 224, .16), rgba(255, 204, 51, .1), transparent);
 	filter: blur(6px);
-	animation: mstage-balaye 7s cubic-bezier(.4, 0, .3, 1) infinite;
-}
-@keyframes mstage-balaye {
-	0%   { transform: translateX(0); }
-	60%  { transform: translateX(880%); }
-	100% { transform: translateX(880%); }
+	transform: translateX(calc(var(--progress, 0) * 950%));
 }
 
 /* ------  Scène : grande carte à gauche, pile de 3 à droite  ------- */
@@ -539,15 +537,16 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 }
 .mstage-panel p { max-width: 52ch; font-size: 16px; color: var(--texte-3); }
 
-/* Barre de progression unique, sous la carte en scène */
+/* Barre de progression unique, sous la carte en scène.
+   Pas d'animation CSS : la largeur suit --progress, piloté image par image
+   par machines.js — la même variable que le balayage lumineux, donc les
+   deux sont synchronisés par construction (voir machines.js). */
 .mstage-prog { margin-top: 28px; height: 2px; background: var(--trait); overflow: hidden; border-radius: 2px; }
 .mstage-prog-fill {
-	display: block; height: 100%; width: 0;
+	display: block; height: 100%;
+	width: calc(var(--progress, 0) * 100%);
 	background: linear-gradient(90deg, var(--bleu), var(--or));
 }
-.mstage-prog-fill.is-filling { animation: mstage-remplit var(--duree, 4800ms) linear forwards; }
-#mstage.is-paused .mstage-prog-fill.is-filling { animation-play-state: paused; }
-@keyframes mstage-remplit { from { width: 0; } to { width: 100%; } }
 
 /* -----------------------  Pile de 3 fiches  ------------------------ */
 .mstage-rail {
