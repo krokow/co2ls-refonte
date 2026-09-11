@@ -6,11 +6,24 @@
  *  les coordonnées réelles ; Leaflet se charge du placement. Les textes
  *  vivent dans assets/js/content.js (clés m.field.zNn/zNr/zNd).
  *
- *  Fond de carte : tuiles CARTO « Dark Matter » (gratuites, attribution
- *  obligatoire — conservée et stylée en bas à droite) sur fond
- *  OpenStreetMap. Ce sont de vraies tuiles chargées depuis Internet : la
- *  carte ne fonctionne donc qu'en ligne, comme n'importe quelle carte
- *  Leaflet/Google Maps embarquée — c'est attendu, pas une régression.
+ *  Fond de carte : tuiles OpenStreetMap standard, assombries en CSS (voir
+ *  moderne.css, .carte .leaflet-tile-pane). Ce sont de vraies tuiles
+ *  chargées depuis Internet : la carte ne fonctionne donc qu'en ligne,
+ *  comme n'importe quelle carte Leaflet/Google Maps embarquée — c'est
+ *  attendu, pas une régression.
+ *
+ *  Pourquoi pas CARTO « Dark Matter », utilisé au départ : CARTO a fermé
+ *  l'accès anonyme à ses fonds de carte. Le serveur répond toujours 200,
+ *  mais renvoie des tuiles tamponnées « API KEY REQUIRED » en filigrane.
+ *  OpenStreetMap ne demande aucune clé ; son style est clair, d'où
+ *  l'inversion CSS pour retomber dans la charte très sombre.
+ *
+ *  ATTENTION MISE EN PRODUCTION : la politique d'usage des tuiles
+ *  openstreetmap.org vise les usages modestes (site vitrine : OK). Pour un
+ *  trafic réel, prendre un fournisseur avec clé et palier gratuit — Stadia
+ *  Maps « Alidade Smooth Dark », MapTiler « Dark Matter » ou CARTO avec
+ *  compte — et retirer le filtre CSS puisque ces fonds sont déjà sombres.
+ *  Le changement se limite à l'appel L.tileLayer ci-dessous.
  *
  *  Le survol/zoom est bloqué au cadre France–Allemagne–Royaume-Uni : on
  *  peut zoomer vers l'intérieur, jamais dézoomer au-delà de ce cadre.
@@ -52,10 +65,11 @@
     attributionControl: true
   });
 
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    subdomains: 'abcd',
-    maxZoom: 20,
-    attribution: '&copy; OpenStreetMap, &copy; CARTO'
+  // ─── Point de bascule du fond de carte : une seule ligne à changer ───
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    // Attribution obligatoire (licence ODbL) : ne pas retirer.
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
   }).addTo(map);
 
   window.CO2LS = window.CO2LS || {};
