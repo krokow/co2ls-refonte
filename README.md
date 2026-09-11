@@ -24,16 +24,24 @@ suivant le curseur sur les cartes. Cinq sections nouvelles par rapport au site
 actuel : chiffres clés, signature « 10,6 µm », méthode d'intervention, machines
 couvertes et carte du rayon d'intervention.
 
-La carte du rayon d'intervention est une vraie carte Leaflet (fond CARTO
-« Dark Matter » sombre, sur données OpenStreetMap), pas un schéma : on peut y
-zoomer, et le dézoom est bloqué au cadre France–Allemagne–Royaume-Uni (calculé
-dynamiquement via `map.getBoundsZoom()`, donc toujours juste quelle que soit la
-largeur d'écran). Leaflet est fourni en local dans `assets/vendor/leaflet/`
-(licence BSD-2-Clause, voir le fichier `LICENSE` à côté) : pas de CDN pour le
-moteur de la carte. **Les tuiles de fond, elles, sont chargées en ligne depuis
-CARTO/OpenStreetMap** — c'est le cas de toute carte Leaflet ou Google Maps
-embarquée, la carte a donc besoin d'une connexion Internet pour afficher son
-fond (les marqueurs et l'interaction fonctionnent quoi qu'il arrive).
+La carte du rayon d'intervention est une vraie carte Leaflet, pas un schéma :
+on peut y zoomer, et le dézoom est bloqué au cadre France–Allemagne–Royaume-Uni
+(calculé dynamiquement via `map.getBoundsZoom()`, donc toujours juste quelle que
+soit la largeur d'écran). Leaflet est fourni en local dans
+`assets/vendor/leaflet/` (licence BSD-2-Clause, voir le fichier `LICENSE` à
+côté) : pas de CDN pour le moteur de la carte. **Les tuiles de fond, elles, sont
+chargées en ligne depuis OpenStreetMap** — c'est le cas de toute carte Leaflet
+ou Google Maps embarquée, la carte a donc besoin d'une connexion Internet pour
+afficher son fond (les marqueurs et l'interaction fonctionnent quoi qu'il
+arrive).
+
+Le style clair d'OpenStreetMap est ramené dans la charte très sombre par un
+filtre CSS appliqué au seul calque des tuiles (`.carte .leaflet-tile-pane`,
+variable `--tuiles-filtre` dans `moderne/css/moderne.css`) : marqueurs, noms de
+villes et contrôles de zoom gardent leurs couleurs. Le fond CARTO « Dark
+Matter » utilisé au départ a été abandonné : CARTO a fermé l'accès anonyme et
+renvoie désormais des tuiles tamponnées « API KEY REQUIRED » en filigrane, avec
+un code HTTP 200 qui ne signale rien côté client.
 
 Chaque point de `moderne/js/carte.js` (tableau `POINTS`) est décrit par ses
 coordonnées géographiques réelles ; les textes associés vivent dans
@@ -90,7 +98,10 @@ python3 -m http.server 8000
   mais il reste présent dans l'historique Git et a été exposé publiquement. Ce
   mot de passe doit être révoqué depuis le compte Google.
 - **La carte du rayon d'intervention (page moderne) charge son fond depuis les
-  tuiles gratuites de CARTO/OpenStreetMap.** Suffisant pour la démonstration et
-  un trafic normal de site vitrine ; en cas de trafic élevé en production, il
-  faudrait passer à un plan payant CARTO/Mapbox/Stadia Maps ou self-hébergement
-  de tuiles.
+  tuiles publiques d'OpenStreetMap**, qui ne demandent aucune clé d'API. Leur
+  politique d'usage vise les usages modestes : suffisant pour la démonstration
+  et un trafic normal de site vitrine. En production, le plus propre est un
+  fournisseur avec clé et palier gratuit (Stadia Maps « Alidade Smooth Dark »,
+  MapTiler « Dark Matter », ou CARTO avec compte) ; ces fonds étant déjà
+  sombres, il faut alors retirer le filtre CSS. Une seule ligne à changer :
+  l'appel `L.tileLayer` dans `moderne/js/carte.js`.

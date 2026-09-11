@@ -755,6 +755,39 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 }
 #carte-leaflet { position: absolute; inset: 0; width: 100%; height: 100%; background: var(--noir-2); }
 
+/* ----------  Assombrissement du fond de carte OpenStreetMap  --------
+   Les tuiles openstreetmap.org sont le seul fond raster sérieux qui ne
+   demande aucune clé d'API, mais son style est clair. On l'inverse donc en
+   CSS : invert() passe les terres claires en gris très sombre, et
+   hue-rotate(180deg) rattrape les teintes retournées par l'inversion (sans
+   lui, l'eau bleue deviendrait orange).
+
+   Reste le point délicat : l'inversion laisse des couleurs CHAUDES, qui
+   jurent avec la charte bleu-noir — les routes majeures (#f9b29c) passent
+   en brun et les autoroutes (#e892a2) en vieux rose. D'où le saturate()
+   très bas, seul réglage qui les neutralise (mesuré au pixel : routes à
+   12 % de saturation, terre à 4 %, donc imperceptibles) sans casser la
+   lisibilité — l'eau reste distincte de la terre par la luminosité
+   (l19 contre l9), exactement comme sur un fond « dark matter ».
+
+   Deux approches plus ambitieuses ont été essayées et abandonnées, mesures
+   à l'appui, pour ne pas les retenter :
+   - un voile bleu-noir en mix-blend-mode:color par-dessus les tuiles : le
+     mélange n'atteint pas le groupe de rendu du calque filtré, et le seul
+     moyen de l'y forcer (isolation:isolate) enferme les contrôles de zoom
+     Leaflet sous le vignettage de .carte::after ;
+   - une chaîne sepia() pour repousser toutes les teintes vers le bleu :
+     elle intervertit la sémantique des couleurs (l'eau devient brune, les
+     routes bleues, les forêts violettes).
+
+   Le filtre ne touche QUE les tuiles : marqueurs, noms de villes et
+   contrôles de zoom vivent dans d'autres panneaux Leaflet et gardent
+   leurs couleurs. Pour ajuster le rendu, une seule variable à toucher. */
+.carte {
+	--tuiles-filtre: invert(1) hue-rotate(180deg) brightness(.78) contrast(.9) saturate(.22);
+}
+.carte .leaflet-tile-pane { filter: var(--tuiles-filtre); }
+
 /* --------------  Habillage sombre du chrome Leaflet  --------------- */
 .leaflet-container {
 	background: var(--noir-2);
