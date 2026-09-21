@@ -34,10 +34,25 @@
 	--display: 'PoliceTitre', 'Trebuchet MS', system-ui, sans-serif;
 	--corps: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
 
-	--rythme: clamp(76px, 9vw, 132px);
+	/* Rythme vertical entre chapitres. Volontairement resserré : à 132px de
+	   part et d'autre, deux sections laissaient 264px de noir entre elles,
+	   ce qui se lisait comme des bandes vides plutôt que comme de la
+	   respiration. */
+	--rythme: clamp(52px, 5.6vw, 84px);
 	--gouttiere: clamp(20px, 4vw, 40px);
 	--rayon: 16px;
 	--hdr: 72px;
+
+	/* ---------------------  ÉCHELLE DES TITRES  ---------------------
+	   Un seul jeu de tailles pour toute la page. Avant, les h3 prenaient
+	   cinq valeurs différentes selon la section (16,5 / 18 / 24 / 27 /
+	   36px) : sur mobile, où le titre de section descend à 32px, les plus
+	   gros arrivaient à 24-27px et la hiérarchie s'effondrait. Chaque
+	   niveau garde désormais un écart net au niveau du dessus, à toutes
+	   les largeurs d'écran. */
+	--t-section: clamp(32px, 4.4vw, 54px); /* h2 : titre de chapitre */
+	--t-bloc: clamp(21px, 2.1vw, 28px);    /* h3 : sous-titre, police display */
+	--t-carte: clamp(16px, 1.3vw, 18px);   /* h3 : titre de carte, police courante */
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -335,7 +350,7 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 	margin: 18px 0 0;
 	font-family: var(--display);
 	font-weight: 400;
-	font-size: clamp(32px, 4.4vw, 54px);
+	font-size: var(--t-section);
 	line-height: 1.08;
 	color: #fff;
 }
@@ -416,7 +431,7 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 
 .card h3 {
 	margin-bottom: 12px;
-	font-size: clamp(16px, 1.4vw, 18px); font-weight: 600; line-height: 1.35;
+	font-size: var(--t-carte); font-weight: 600; line-height: 1.35;
 	color: #fff;
 }
 .card p { font-size: 14.6px; color: var(--texte-3); }
@@ -430,7 +445,7 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 /* Cartes « machines » : plus compactes, filet doré au survol */
 .chip { position: relative; padding: 24px 22px; border: 1px solid var(--trait); border-radius: var(--rayon); transition: border-color .3s ease, background-color .3s ease; }
 .chip:hover { border-color: rgba(255, 204, 51, .35); background: rgba(255, 204, 51, .035); }
-.chip h3 { margin-bottom: 8px; font-size: 16px; font-weight: 600; color: #fff; }
+.chip h3 { margin-bottom: 8px; font-size: var(--t-carte); font-weight: 600; color: #fff; }
 .chip p { font-size: 14px; color: var(--texte-3); }
 
 /* ------------------------  MACHINES (vitrine)  --------------------- */
@@ -530,9 +545,13 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 	font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--or);
 }
 
+/* Seul titre volontairement au-dessus de --t-bloc : c'est le point focal de
+   la vitrine des machines, celui qui change à chaque rotation. Il reste
+   nettement sous le titre de chapitre à toutes les largeurs (23 contre 32px
+   sur mobile, 34 contre 54px sur grand écran). */
 .mstage-panel h3 {
 	font-family: var(--display); font-weight: 400;
-	font-size: clamp(26px, 3vw, 36px); color: #fff;
+	font-size: clamp(23px, 2.6vw, 34px); line-height: 1.1; color: #fff;
 	margin-bottom: 16px;
 }
 .mstage-panel p { max-width: 52ch; font-size: 16px; color: var(--texte-3); }
@@ -635,7 +654,7 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 	transition: border-color .4s ease, box-shadow .4s ease, background-color .4s ease;
 }
 .steps.is-drawn .step::before { border-color: var(--or); background: var(--or); box-shadow: 0 0 16px rgba(255, 204, 51, .6); }
-.step h3 { margin-bottom: 10px; font-size: 16.5px; font-weight: 600; color: #fff; }
+.step h3 { margin-bottom: 10px; font-size: var(--t-carte); font-weight: 600; color: #fff; }
 .step p { font-size: 14.4px; color: var(--texte-3); }
 
 /* ---------------------------  MOYENS  ---------------------------- */
@@ -651,7 +670,7 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 .gallery figure:hover img { transform: scale(1.06); filter: saturate(1) brightness(1); }
 
 .means-sub { margin-top: 30px; padding-top: 26px; border-top: 1px solid var(--trait); }
-.means-sub h3 { margin-bottom: 12px; font-family: var(--display); font-weight: 400; font-size: 24px; color: #fff; }
+.means-sub h3 { margin-bottom: 12px; font-family: var(--display); font-weight: 400; font-size: var(--t-bloc); line-height: 1.12; color: #fff; }
 .means-sub h3 .hl { color: var(--or); }
 
 /* ---------------------  LANGUES (ligne compacte)  ----------------- */
@@ -696,15 +715,20 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 	isolation: isolate;
 }
 
-/* Sinusoïde de fond : la longueur d'onde, tracée puis mise en mouvement. */
-.onde-trace { position: absolute; inset: 0; z-index: -1; opacity: .34; }
+/* Sinusoïde de fond : la longueur d'onde, tracée puis mise en mouvement.
+   Le contraste se joue sur DEUX valeurs qui se multiplient : l'opacité du
+   calque et l'alpha du trait. À .34 et .5, le trait ne ressortait qu'à 17 %
+   d'opacité réelle, donc invisible sur un petit écran où le signal est
+   affiché en tout petit. Le trait est désormais à 41 % au repos, et
+   davantage sur mobile où la section est bien plus dense. */
+.onde-trace { position: absolute; inset: 0; z-index: -1; opacity: .58; }
 .onde-trace svg { width: 200%; height: 100%; animation: derive 26s linear infinite; }
 .onde-trace path {
 	fill: none;
-	stroke: rgba(79, 158, 224, .5);
-	stroke-width: 1.4;
+	stroke: rgba(122, 190, 245, .7);
+	stroke-width: 1.7;
 	vector-effect: non-scaling-stroke;
-	filter: drop-shadow(0 0 10px rgba(45, 105, 235, .5));
+	filter: drop-shadow(0 0 12px rgba(45, 105, 235, .6));
 }
 @keyframes derive { to { transform: translateX(-50%); } }
 
@@ -880,7 +904,7 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 .carte-card-r { font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--texte-3); }
 .carte-card-n {
 	margin: 8px 0 12px;
-	font-family: var(--display); font-weight: 400; font-size: 27px; line-height: 1.05; color: #fff;
+	font-family: var(--display); font-weight: 400; font-size: var(--t-bloc); line-height: 1.05; color: #fff;
 }
 .carte-card-d { font-size: 14.5px; color: var(--texte-3); }
 .carte-hint { margin-top: 16px; font-size: 12.5px; color: #5f6a7c; }
@@ -1032,19 +1056,108 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 
 /* =====================  PAGE MENTIONS LÉGALES  =================== */
 .legal { padding: calc(var(--hdr) + clamp(48px, 6vw, 90px)) 0 var(--rythme); }
-.legal h1 { font-family: var(--display); font-weight: 400; font-size: clamp(32px, 4.4vw, 54px); color: #fff; margin-bottom: 34px; }
+.legal h1 { font-family: var(--display); font-weight: 400; font-size: var(--t-section); color: #fff; margin-bottom: 34px; }
 .legal h1 .hl { color: var(--or); }
 .legal-body { max-width: 78ch; }
-.legal-body h2 { margin: 34px 0 10px; font-size: 16px; font-weight: 600; color: var(--or); }
+.legal-body h2 { margin: 34px 0 10px; font-size: var(--t-carte); font-weight: 600; color: var(--or); }
 .legal-body p { font-size: 15px; color: var(--texte-3); }
+
+/* Alinéas numérotés des CGV : le numéro est porté par la liste, pas saisi
+   dans le texte, pour que la renumérotation reste impossible à casser. */
+.legal-body ol { margin: 0; padding: 0; list-style: none; counter-reset: alinea; }
+.legal-body ol li {
+	position: relative;
+	padding-left: 34px; margin-top: 12px;
+	font-size: 15px; color: var(--texte-3);
+	counter-increment: alinea;
+}
+.legal-body ol li::before {
+	content: counter(alinea) '.';
+	position: absolute; left: 0; top: 0;
+	min-width: 26px;
+	font-variant-numeric: tabular-nums;
+	color: var(--or-sourd);
+}
+
+/* Bandeau d'en-tête des CGV : la note de langue et le téléchargement du PDF */
+.legal-note {
+	max-width: 78ch; margin-bottom: 26px; padding: 16px 18px;
+	border: 1px solid var(--trait); border-left: 2px solid var(--or-sourd);
+	border-radius: 4px var(--rayon) var(--rayon) 4px;
+	background: var(--voile);
+	font-size: 14.5px; color: var(--texte-2);
+}
+.legal-pdf {
+	display: inline-flex; align-items: center; gap: 12px;
+	margin-bottom: 34px; padding: 12px 18px 12px 14px;
+	border: 1px solid var(--trait); border-radius: var(--rayon);
+	background: var(--voile);
+	transition: border-color .25s ease, background-color .25s ease, transform .25s ease;
+}
+.legal-pdf:hover { border-color: var(--or-sourd); background: var(--voile-2); transform: translateY(-1px); }
+.legal-pdf svg { flex: 0 0 auto; width: 26px; height: 32px; color: var(--or); }
+.legal-pdf b { display: block; font-size: 14.5px; font-weight: 600; color: var(--texte); }
+.legal-pdf em { display: block; font-style: normal; font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--texte-3); }
+
+/* Sommaire : on garde les chiffres romains du document d'origine */
+.legal-toc { max-width: 78ch; margin-bottom: 38px; padding-bottom: 30px; border-bottom: 1px solid var(--trait); }
+.legal-toc h2 { margin: 0 0 12px; font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--texte-3); }
+.legal-toc ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 26px; margin: 0; padding: 0; list-style: none; }
+.legal-toc a { font-size: 14.5px; color: var(--texte-2); transition: color .2s ease; }
+.legal-toc a:hover { color: var(--or); }
+@media (max-width: 720px) {
+	.legal-toc ol { grid-template-columns: 1fr; }
+}
+
+/* ====================  EMPLACEMENTS PHOTO  ======================= */
+/* Un emplacement doit se lire comme un emplacement, jamais comme une image
+   ratée : trait discontinu, hachures très légères, et la légende annonce le
+   sujet attendu. Le jour où la photo arrive, un <img> remplace le contenu
+   sans toucher aux proportions ni à la grille. */
+/* La colonne est déclarée explicitement : sans elle, une colonne « auto »
+   dimensionnée par le contenu prend la largeur que le ratio déduit de la
+   hauteur plafonnée, et l'emplacement panoramique n'occupe plus toute la
+   largeur du bloc. */
+.photos { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(14px, 1.6vw, 22px); margin-top: clamp(30px, 3.4vw, 48px); }
+.photos-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+.photo-slot {
+	display: flex; flex-direction: column; align-items: center; justify-content: center;
+	gap: 10px;
+	aspect-ratio: 4 / 3; max-width: 100%;
+	padding: 22px 20px;
+	border: 1px dashed var(--trait-fort); border-radius: var(--rayon);
+	background:
+		repeating-linear-gradient(135deg, rgba(255, 255, 255, .02) 0 10px, transparent 10px 20px),
+		var(--noir-2);
+	text-align: center;
+}
+.photo-slot svg { width: 30px; height: 27px; color: var(--texte-3); opacity: .75; }
+.photo-slot b {
+	font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+	color: var(--or-sourd);
+}
+.photo-slot figcaption { max-width: 28ch; font-size: 13.5px; line-height: 1.45; color: var(--texte-3); }
+/* Un emplacement vide ne doit pas peser plus lourd que le contenu qu'il
+   accompagne : l'emplacement panoramique est donc piloté par une hauteur, et
+   non par un ratio. Un ratio plafonné par max-height ne convient pas :
+   Chromium conserve alors le ratio en rétrécissant la LARGEUR, et le bloc
+   cesse d'occuper toute la colonne. */
+.photo-large { aspect-ratio: auto; width: 100%; height: clamp(190px, 21vw, 300px); }
 
 /* ==========================  RESPONSIVE  ========================= */
 @media (max-width: 1080px) {
 	.stats-grid { grid-template-columns: repeat(2, 1fr); }
 	.cards.cards-4 { grid-template-columns: repeat(2, 1fr); }
 	.onde-grid { grid-template-columns: 1fr; }
+	/* Sur une colonne, le texte occupe toute la largeur et passe par-dessus
+	   la sinusoïde : elle a besoin d'être plus franche pour rester lisible,
+	   sans jamais gêner la lecture. */
+	.onde-trace { opacity: .6; }
+	.onde-trace path { stroke-width: 2; }
 	.carte-grid { grid-template-columns: 1fr; align-items: stretch; }
 	.carte-card { min-height: 0; }
+	.photos-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 	.steps { grid-template-columns: repeat(2, 1fr); row-gap: 34px; }
 	.steps::before, .steps::after { display: none; }
 	.step::before { border-color: var(--or); background: var(--or); box-shadow: 0 0 16px rgba(255, 204, 51, .45); }
@@ -1093,6 +1206,9 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 }
 
 @media (max-width: 560px) {
+	/* Sur une colonne, un 4/3 mangerait tout l'écran pour un emplacement vide. */
+	.photos-3 { grid-template-columns: 1fr; }
+	.photo-slot { aspect-ratio: 16 / 9; }
 	.hero { padding-bottom: 110px; }
 	.hero h1 { max-width: none; }
 	.cta { gap: 10px; }
