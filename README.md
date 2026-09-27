@@ -116,9 +116,21 @@ python3 -m http.server 8000
 - **Un mot de passe d'application Gmail a été exposé publiquement.** Le fichier
   `send_email.php` du site existant le contenait en clair pour le compte
   `co2laserservice@gmail.com`. L'extraction de l'ancien site a été retirée du
-  dépôt, mais le mot de passe **reste lisible dans l'historique Git**. Le
-  supprimer des fichiers ne suffit donc pas : il doit être révoqué depuis le
-  compte Google.
+  dépôt, puis **l'historique a été réécrit** (`git filter-repo`) sur les deux
+  branches : plus aucun objet du dépôt local ne contient ce mot de passe.
+
+  **Cela ne suffit pas, et il faut le savoir.** Après un push forcé, GitHub
+  garde les anciens commits accessibles par leur empreinte, et les sert encore
+  via `raw.githubusercontent.com`. Vérifié après la réécriture : l'ancien
+  fichier répondait toujours en HTTP 200. Seul le ramasse-miettes de GitHub
+  les fait disparaître, et il ne se déclenche pas à la demande. Deux recours
+  possibles, à demander explicitement : ouvrir un ticket au support GitHub
+  pour réclamer le nettoyage, ou supprimer puis recréer le dépôt.
+
+  **Dans tous les cas, la seule mesure qui règle vraiment le problème est la
+  révocation du mot de passe depuis le compte Google** (mots de passe
+  d'application). Un secret publié doit être considéré comme compromis, quel
+  que soit le ménage fait ensuite.
 - **Les témoignages sont des exemples**, signalés comme tels à l'écran (clés
   `m.temoin.*`). À remplacer par de vrais retours clients, ou à retirer.
 - **La carte du rayon d'intervention charge son fond depuis les tuiles publiques
