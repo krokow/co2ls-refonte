@@ -28,13 +28,14 @@ jobs:
 
       - uses: actions/configure-pages@v5
 
-      # On ne publie que le site lui-même : old-co2ls/ (l'extraction de
-      # l'ancien site, PHP compris) et le README restent hors ligne.
+      # Seule la version « moderne » est publiée : c'est celle que le client a
+      # retenue. classique/ reste dans le dépôt comme maquette de référence,
+      # mais n'est plus mis en ligne. La racine redirige vers moderne/.
       - name: Préparer le site à publier
         run: |
           mkdir -p _site
           cp index.html .nojekyll _site/
-          cp -r assets classique moderne _site/
+          cp -r assets moderne _site/
 
       - uses: actions/upload-pages-artifact@v3
         with:
