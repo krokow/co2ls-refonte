@@ -740,6 +740,25 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 }
 @keyframes derive { to { transform: translateX(-50%); } }
 
+/* Au-dessus de 1080px, la section passe en deux colonnes et la sinusoïde
+   court dans de l'espace vide, loin du texte : on peut l'appuyer un peu sans
+   rien gêner. En dessous, la mise en page retombe sur une colonne, le texte
+   occupe toute la largeur et la courbe lui passe dessous — c'est exactement
+   là que la version renforcée gênait la lecture, et c'est pour ça que ce
+   bloc est en min-width et pas ailleurs.
+
+   Mesuré en comparant la section avec et sans le tracé, texte masqué pour
+   n'isoler que la courbe (écart maximal sur 255, et écart moyen) :
+       d'origine, validé par le client   35   0,12
+       ce réglage                        52   0,19
+       version refusée par le client     83   0,48
+   On reste donc nettement du côté discret. Ne pas monter plus haut sans
+   demande explicite : le client a rejeté le niveau appuyé une première fois. */
+@media (min-width: 1081px) {
+	.onde-trace { opacity: .44; }
+	.onde-trace path { stroke: rgba(79, 158, 224, .58); stroke-width: 1.5; }
+}
+
 .onde-grid {
 	display: grid; grid-template-columns: minmax(0, 340px) 1fr;
 	gap: clamp(30px, 4.5vw, 72px); align-items: start;
