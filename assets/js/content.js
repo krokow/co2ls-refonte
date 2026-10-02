@@ -160,7 +160,7 @@ window.CO2LS_CONTENT = {
     'm.hero.kicker': 'Maintenance Laser industriel · depuis 2004',
     'm.hero.title': 'La maîtrise du Laser CO2,',
     'm.hero.titleAccent': 'à la source.',
-    'm.hero.sub': "Intervention, expertise, formation et maintenance préventive sur sources TruFlow® et machines TruLaser®. Par un ingénieur formé chez le constructeur.",
+    'm.hero.sub': "Dépannage, expertise, formation et maintenance préventive sur sources Laser, machines et systèmes d'automatisation.",
     'm.hero.cta1': 'Demander une intervention',
     'm.hero.cta2': 'Nos prestations',
 
@@ -172,7 +172,9 @@ window.CO2LS_CONTENT = {
 
     'm.about.kicker': "L'entreprise",
     'm.services.kicker': 'Ce que nous faisons',
-    'm.means.kicker': 'Nos moyens',
+    'm.means.kicker': 'Équipement',
+    'm.means.nav': 'Nos moyens',
+    'p4.t0a': 'nos', 'p4.t0b': 'moyens',
     'm.contact.kicker': 'Parlons de votre machine',
 
     'm.process.t1a': 'notre', 'm.process.t1b': 'méthode',
@@ -229,10 +231,11 @@ window.CO2LS_CONTENT = {
     'nav.field': 'Terrain',
     'm.field.kicker': "Rayon d'intervention",
     'm.field.t1a': 'sur le', 'm.field.t1b': 'terrain',
-    'm.field.lead': "Une implantation en Moselle, à une heure de l'Allemagne. Les principaux bassins industriels de l'Est de la France, du Benelux, du Bade-Wurtemberg et de la Suisse sont à portée d'intervention.",
+    'm.field.lead': "Une implantation en Moselle au cœur d'un carrefour stratégique. Les interventions s'effectuent régulièrement dans le périmètre de l'axe Lille - Le Mans - Limoges - Valence, tout en couvrant l'ensemble du territoire national selon les besoins.",
     'm.field.base': 'Notre base',
     'm.field.hint': 'Survolez un point pour en savoir plus',
-    'm.field.hintTouch': 'Touchez un point pour en savoir plus',
+    'm.field.hintTouch': 'Touchez un point pour en savoir plus. Déplacez la carte à deux doigts.',
+    'm.field.twoFingers': 'Utilisez deux doigts pour déplacer la carte',
     'm.field.labelFR': 'France',
     'm.field.labelDE': 'Allemagne',
     'm.field.mapAria': "Carte interactive du rayon d'intervention, centrée sur la France et l'Allemagne",
@@ -257,6 +260,19 @@ window.CO2LS_CONTENT = {
     'm.field.z9d': "Vallée industrielle du Rhône. Dépannage, réparation et remise en conformité de sources CO2.",
     'm.field.z10n': 'Paris', 'm.field.z10r': 'Île-de-France',
     'm.field.z10d': "Sous-traitance francilienne et intégrations OEM. Interventions ponctuelles et expertises.",
+
+    /* Repères de couverture nationale : nom et région seulement, pas de
+       fiche détaillée. Les descriptions viendront du client. */
+    'm.field.z11n': 'Troyes', 'm.field.z11r': 'Grand Est',
+    'm.field.z12n': 'Orléans', 'm.field.z12r': 'Centre-Val de Loire',
+    'm.field.z13n': 'Reims', 'm.field.z13r': 'Grand Est',
+    'm.field.z14n': 'Limoges', 'm.field.z14r': 'Nouvelle-Aquitaine',
+    'm.field.z15n': 'Beaune', 'm.field.z15r': 'Bourgogne-Franche-Comté',
+    'm.field.z16n': 'Besançon', 'm.field.z16r': 'Bourgogne-Franche-Comté',
+    'm.field.z17n': 'Valence', 'm.field.z17r': 'Auvergne-Rhône-Alpes',
+    'm.field.z18n': 'Clermont-Ferrand', 'm.field.z18r': 'Auvergne-Rhône-Alpes',
+    'm.field.z19n': 'Rouen', 'm.field.z19r': 'Normandie',
+    'm.field.z20n': 'Lille', 'm.field.z20r': 'Hauts-de-France',
 
     /* --- citation --- */
     'm.quote.kicker': 'Une conviction',
@@ -427,7 +443,7 @@ window.CO2LS_CONTENT = {
     'm.hero.kicker': 'Wartung industrieller Laser · seit 2004',
     'm.hero.title': 'CO2-Laser beherrschen,',
     'm.hero.titleAccent': 'an der Quelle.',
-    'm.hero.sub': 'Einsatz, Gutachten, Schulung und vorbeugende Wartung an TruFlow®-Quellen und TruLaser®-Maschinen. Durch einen beim Hersteller ausgebildeten Ingenieur.',
+    'm.hero.sub': 'Störungsbehebung, Gutachten, Schulung und vorbeugende Wartung an Laserquellen, Maschinen und Automatisierungssystemen.',
     'm.hero.cta1': 'Einsatz anfragen',
     'm.hero.cta2': 'Unsere Leistungen',
 
@@ -439,7 +455,9 @@ window.CO2LS_CONTENT = {
 
     'm.about.kicker': 'Das Unternehmen',
     'm.services.kicker': 'Was wir tun',
-    'm.means.kicker': 'Unsere Mittel',
+    'm.means.kicker': 'Ausstattung',
+    'm.means.nav': 'Unsere Mittel',
+    'p4.t0a': 'unsere', 'p4.t0b': 'Mittel',
     'm.contact.kicker': 'Sprechen wir über Ihre Maschine',
 
     'm.process.t1a': 'unsere', 'm.process.t1b': 'Methode',
@@ -494,10 +512,11 @@ window.CO2LS_CONTENT = {
     'nav.field': 'Einsatzgebiet',
     'm.field.kicker': 'Einsatzradius',
     'm.field.t1a': 'vor', 'm.field.t1b': 'Ort',
-    'm.field.lead': 'Standort in der Moselle, eine Stunde von Deutschland entfernt. Die wichtigsten Industrieregionen Ostfrankreichs, der Benelux-Länder, Baden-Württembergs und der Schweiz liegen in Reichweite.',
+    'm.field.lead': 'Ein Standort in der Moselle, mitten in einem strategischen Knotenpunkt. Die Einsätze erfolgen regelmäßig im Gebiet der Achse Lille - Le Mans - Limoges - Valence und decken je nach Bedarf das gesamte französische Staatsgebiet ab.',
     'm.field.base': 'Unser Standort',
     'm.field.hint': 'Für Details einen Punkt überfahren',
-    'm.field.hintTouch': 'Für Details einen Punkt antippen',
+    'm.field.hintTouch': 'Für Details einen Punkt antippen. Karte mit zwei Fingern bewegen.',
+    'm.field.twoFingers': 'Karte mit zwei Fingern bewegen',
     'm.field.labelFR': 'Frankreich',
     'm.field.labelDE': 'Deutschland',
     'm.field.mapAria': 'Interaktive Karte des Einsatzradius, mit Schwerpunkt Frankreich und Deutschland',
@@ -522,6 +541,18 @@ window.CO2LS_CONTENT = {
     'm.field.z9d': 'Industrielles Rhonetal. Störungsbehebung, Reparatur und Wiederherstellung der Konformität von CO2-Quellen.',
     'm.field.z10n': 'Paris', 'm.field.z10r': 'Île-de-France',
     'm.field.z10d': 'Zulieferindustrie im Großraum Paris und OEM-Integrationen. Punktuelle Einsätze und Gutachten.',
+
+    /* Marker der landesweiten Abdeckung: nur Name und Region. */
+    'm.field.z11n': 'Troyes', 'm.field.z11r': 'Grand Est',
+    'm.field.z12n': 'Orléans', 'm.field.z12r': 'Centre-Val de Loire',
+    'm.field.z13n': 'Reims', 'm.field.z13r': 'Grand Est',
+    'm.field.z14n': 'Limoges', 'm.field.z14r': 'Nouvelle-Aquitaine',
+    'm.field.z15n': 'Beaune', 'm.field.z15r': 'Bourgogne-Franche-Comté',
+    'm.field.z16n': 'Besançon', 'm.field.z16r': 'Bourgogne-Franche-Comté',
+    'm.field.z17n': 'Valence', 'm.field.z17r': 'Auvergne-Rhône-Alpes',
+    'm.field.z18n': 'Clermont-Ferrand', 'm.field.z18r': 'Auvergne-Rhône-Alpes',
+    'm.field.z19n': 'Rouen', 'm.field.z19r': 'Normandie',
+    'm.field.z20n': 'Lille', 'm.field.z20r': 'Hauts-de-France',
 
     'm.quote.kicker': 'Eine Überzeugung',
     'm.quote.author': 'Herr Laurent NAROZNI',
@@ -688,7 +719,7 @@ window.CO2LS_CONTENT = {
     'm.hero.kicker': 'Industrial laser maintenance · since 2004',
     'm.hero.title': 'Mastering the CO2 laser,',
     'm.hero.titleAccent': 'at the source.',
-    'm.hero.sub': 'Intervention, appraisal, training and preventive maintenance on TruFlow® sources and TruLaser® machines. By an engineer trained at the manufacturer.',
+    'm.hero.sub': 'Troubleshooting, expert appraisal, training and preventive maintenance on laser sources, machines and automation systems.',
     'm.hero.cta1': 'Request an intervention',
     'm.hero.cta2': 'Our services',
 
@@ -700,7 +731,9 @@ window.CO2LS_CONTENT = {
 
     'm.about.kicker': 'The company',
     'm.services.kicker': 'What we do',
-    'm.means.kicker': 'Our resources',
+    'm.means.kicker': 'Equipment',
+    'm.means.nav': 'Our resources',
+    'p4.t0a': 'our', 'p4.t0b': 'resources',
     'm.contact.kicker': 'Let’s talk about your machine',
 
     'm.process.t1a': 'our', 'm.process.t1b': 'method',
@@ -755,10 +788,11 @@ window.CO2LS_CONTENT = {
     'nav.field': 'Coverage',
     'm.field.kicker': 'Coverage area',
     'm.field.t1a': 'in the', 'm.field.t1b': 'field',
-    'm.field.lead': 'Based in the Moselle, an hour from Germany. The main industrial areas of eastern France, the Benelux countries, Baden-Württemberg and Switzerland are all within reach.',
+    'm.field.lead': 'A base in the Moselle, at the heart of a strategic crossroads. Interventions are carried out regularly within the Lille - Le Mans - Limoges - Valence axis, while covering the whole of France as needed.',
     'm.field.base': 'Our base',
     'm.field.hint': 'Hover a point to learn more',
-    'm.field.hintTouch': 'Tap a point to learn more',
+    'm.field.hintTouch': 'Tap a point to learn more. Use two fingers to move the map.',
+    'm.field.twoFingers': 'Use two fingers to move the map',
     'm.field.labelFR': 'France',
     'm.field.labelDE': 'Germany',
     'm.field.mapAria': 'Interactive map of the coverage area, centred on France and Germany',
@@ -783,6 +817,18 @@ window.CO2LS_CONTENT = {
     'm.field.z9d': 'The industrial Rhône valley. Troubleshooting, repair and restoring CO2 sources to compliance.',
     'm.field.z10n': 'Paris', 'm.field.z10r': 'Île-de-France',
     'm.field.z10d': 'Paris-region subcontracting and OEM integrations. One-off interventions and appraisals.',
+
+    /* National coverage markers: name and region only. */
+    'm.field.z11n': 'Troyes', 'm.field.z11r': 'Grand Est',
+    'm.field.z12n': 'Orléans', 'm.field.z12r': 'Centre-Val de Loire',
+    'm.field.z13n': 'Reims', 'm.field.z13r': 'Grand Est',
+    'm.field.z14n': 'Limoges', 'm.field.z14r': 'Nouvelle-Aquitaine',
+    'm.field.z15n': 'Beaune', 'm.field.z15r': 'Bourgogne-Franche-Comté',
+    'm.field.z16n': 'Besançon', 'm.field.z16r': 'Bourgogne-Franche-Comté',
+    'm.field.z17n': 'Valence', 'm.field.z17r': 'Auvergne-Rhône-Alpes',
+    'm.field.z18n': 'Clermont-Ferrand', 'm.field.z18r': 'Auvergne-Rhône-Alpes',
+    'm.field.z19n': 'Rouen', 'm.field.z19r': 'Normandie',
+    'm.field.z20n': 'Lille', 'm.field.z20r': 'Hauts-de-France',
 
     'm.quote.kicker': 'A conviction',
     'm.quote.author': 'Mr Laurent NAROZNI',

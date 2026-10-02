@@ -55,6 +55,29 @@
     if (ev.key === 'Escape') closeMenu();
   });
 
+  /* ------------------------------------------ retour en haut entre chapitres
+     Un lien discret est inséré après chaque grand chapitre, sauf le dernier :
+     le pied de page porte déjà le sien, deux liens collés feraient doublon.
+     Généré ici plutôt qu'écrit dix fois dans le HTML, pour qu'un chapitre
+     ajouté demain en hérite sans qu'on y pense. */
+  (function () {
+    var chapitres = $$('main > section.sect[id]');
+    chapitres.forEach(function (sect, i) {
+      if (i === chapitres.length - 1) return;
+      var ligne = document.createElement('div');
+      ligne.className = 'entre-chapitres';
+      var lien = document.createElement('a');
+      lien.className = 'lien-haut';
+      lien.href = '#top';
+      lien.setAttribute('data-i18n', 'm.top');
+      ligne.appendChild(lien);
+      sect.parentNode.insertBefore(ligne, sect.nextSibling);
+    });
+    // Les liens viennent d'être créés : ils ne portaient aucun texte au
+    // moment où i18n.js a parcouru la page.
+    if (window.CO2LS && window.CO2LS.i18n) window.CO2LS.i18n.apply(document);
+  })();
+
   /* ------------------------------------------------ ancre active */
   var sections = $$('main section[id]');
   var navLinks = $$('.nav a');

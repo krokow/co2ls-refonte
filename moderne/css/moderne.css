@@ -343,7 +343,11 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 }
 /* ==========================  SECTIONS  =========================== */
 .sect { position: relative; padding: var(--rythme) 0; }
-.sect + .sect { border-top: 1px solid var(--trait); }
+.sect + .sect,
+/* Un lien « haut de page » s'intercale entre deux chapitres : sans cette
+   seconde règle, les sections ne sont plus voisines directes et le filet
+   de séparation disparaîtrait. */
+.entre-chapitres + .sect { border-top: 1px solid var(--trait); }
 
 .sect-head { max-width: 62ch; margin-bottom: clamp(38px, 5vw, 60px); }
 .sect-head h2 {
@@ -669,7 +673,10 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 }
 .gallery figure:hover img { transform: scale(1.06); filter: saturate(1) brightness(1); }
 
+/* Le filet sépare DEUX sous-parties : la première n'a rien au-dessus
+   d'elle, le chapitre vient de commencer. */
 .means-sub { margin-top: 30px; padding-top: 26px; border-top: 1px solid var(--trait); }
+.means-grid .means-sub:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
 .means-sub h3 { margin-bottom: 12px; font-family: var(--display); font-weight: 400; font-size: var(--t-bloc); line-height: 1.12; color: #fff; }
 .means-sub h3 .hl { color: var(--or); }
 
@@ -716,19 +723,20 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 }
 
 /* Sinusoïde de fond : la longueur d'onde, tracée puis mise en mouvement.
-   Le contraste se joue sur DEUX valeurs qui se multiplient : l'opacité du
-   calque et l'alpha du trait. À .34 et .5, le trait ne ressortait qu'à 17 %
-   d'opacité réelle, donc invisible sur un petit écran où le signal est
-   affiché en tout petit. Le trait est désormais à 41 % au repos, et
-   davantage sur mobile où la section est bien plus dense. */
-.onde-trace { position: absolute; inset: 0; z-index: -1; opacity: .58; }
+   Le contraste avait été monté à la demande du client, qui ne la voyait pas
+   sur son téléphone, puis ramené ici à son réglage d'origine : il a tranché
+   pour la discrétion, le trait appuyé gênait la lecture du texte posé
+   dessus. Ne pas remonter ces valeurs sans une demande explicite.
+   Le contraste réel est le PRODUIT de deux valeurs, l'opacité du calque et
+   l'alpha du trait, soit 17 % ici. */
+.onde-trace { position: absolute; inset: 0; z-index: -1; opacity: .34; }
 .onde-trace svg { width: 200%; height: 100%; animation: derive 26s linear infinite; }
 .onde-trace path {
 	fill: none;
-	stroke: rgba(122, 190, 245, .7);
-	stroke-width: 1.7;
+	stroke: rgba(79, 158, 224, .5);
+	stroke-width: 1.4;
 	vector-effect: non-scaling-stroke;
-	filter: drop-shadow(0 0 12px rgba(45, 105, 235, .6));
+	filter: drop-shadow(0 0 10px rgba(45, 105, 235, .5));
 }
 @keyframes derive { to { transform: translateX(-50%); } }
 
@@ -770,6 +778,17 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 
 .carte {
 	position: relative;
+	/* Leaflet numérote ses propres plans jusqu'à 1000 pour les contrôles de
+	   zoom, bien au-dessus de l'en-tête fixe qui est à 80. Sans contexte
+	   d'empilement ici, ces plans sont comparés à ceux de toute la page, et
+	   les pastilles comme les boutons de zoom passent PAR-DESSUS l'en-tête
+	   au défilement. Un z-index posé sur .carte enferme toute la mécanique
+	   Leaflet dans un seul plan, qui passe donc sous l'en-tête comme
+	   n'importe quel contenu. L'ordre interne de la carte, lui, ne change
+	   pas : marqueurs au-dessus du vignettage, contrôles au-dessus des
+	   marqueurs. */
+	z-index: 0;
+	isolation: isolate;
 	/* Leaflet a besoin d'une hauteur réelle sur son conteneur (contrairement
 	   à un SVG, il ne peut pas se caler sur un ratio en %). */
 	height: clamp(360px, 46vw, 520px);
@@ -836,6 +855,21 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 	padding: 2px 7px !important;
 }
 .leaflet-control-attribution a { color: #7f8a9b !important; }
+/* Message transitoire du geste à deux doigts. Posé au-dessus de TOUT le
+   contenu de la carte, contrôles de zoom compris (Leaflet les place à 1000),
+   sinon il s'afficherait en dessous de ce qu'il est censé expliquer. */
+.carte-geste {
+	position: absolute; inset: 0; z-index: 1100;
+	display: flex; align-items: center; justify-content: center;
+	padding: 24px;
+	background: rgba(4, 6, 11, .74);
+	backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+	color: var(--texte); font-size: 14.5px; letter-spacing: .03em; text-align: center;
+	opacity: 0; visibility: hidden; pointer-events: none;
+	transition: opacity .25s ease, visibility .25s;
+}
+.carte-geste.is-shown { opacity: 1; visibility: visible; }
+
 /* Vignettage léger sur les bords pour fondre les tuiles dans la charte */
 .carte::after {
 	content: ''; position: absolute; inset: 0; z-index: 401; pointer-events: none;
@@ -875,6 +909,17 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 	background: var(--or);
 	box-shadow: 0 0 0 5px rgba(255, 204, 51, .2), 0 0 20px rgba(255, 204, 51, .9);
 }
+
+/* Repères de couverture nationale : même bleu, mais plus petits et sans
+   halo appuyé. Ils se lisent comme une présence sur le territoire, pas comme
+   un point documenté, ce qui correspond à ce qu'ils sont : une ville, une
+   région, et pas de fiche détaillée. */
+.c-point-wrap.is-repere .c-pastille {
+	width: 7px; height: 7px;
+	background: var(--bleu);
+	box-shadow: 0 0 0 3px rgba(79, 158, 224, .12), 0 0 9px rgba(79, 158, 224, .55);
+}
+.c-point-wrap.is-repere .c-nom { font-size: 10.5px; opacity: .9; }
 
 /* La base : plus grosse, dorée, avec une onde qui se propage */
 .c-point-wrap.is-base .c-pastille {
@@ -969,10 +1014,14 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 	text-align: center;
 }
 .citation .kicker { justify-content: center; }
+/* Taille alignée sur les sous-titres du reste de la page, à la demande du
+   client : la citation pesait 42px contre 28 pour « Précision des
+   diagnostics », et sortait de l'échelle. La largeur de ligne est élargie
+   en conséquence, sinon le texte se hacherait en lignes trop courtes. */
 .citation-texte {
-	margin: 26px auto 0; max-width: 34ch;
+	margin: 26px auto 0; max-width: 46ch;
 	font-family: var(--display); font-weight: 400;
-	font-size: clamp(26px, 3.6vw, 42px); line-height: 1.25;
+	font-size: var(--t-bloc); line-height: 1.4;
 	color: #fff;
 }
 .citation-texte p::before { content: '\201C'; }
@@ -1109,6 +1158,29 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 	.legal-toc ol { grid-template-columns: 1fr; }
 }
 
+/* ==============  RETOUR EN HAUT ENTRE LES CHAPITRES  ============== */
+/* Inséré par moderne/js/moderne.js entre deux chapitres, sur le filet qui
+   les sépare déjà. Aligné à droite et discret : c'est un repère de
+   navigation, pas un appel à l'action. */
+.entre-chapitres {
+	display: flex; justify-content: flex-end;
+	width: min(1180px, 100% - 2 * var(--gouttiere));
+	margin: 0 auto;
+}
+.lien-haut {
+	display: inline-flex; align-items: center; gap: 8px;
+	padding: 10px 2px;
+	font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+	color: var(--texte-3);
+	transition: color .25s ease;
+}
+.lien-haut:hover { color: var(--or); }
+.lien-haut::after {
+	content: ''; width: 7px; height: 7px;
+	border-top: 1px solid currentColor; border-right: 1px solid currentColor;
+	transform: rotate(-45deg); margin-top: 2px;
+}
+
 /* ====================  EMPLACEMENTS PHOTO  ======================= */
 /* Un emplacement doit se lire comme un emplacement, jamais comme une image
    ratée : trait discontinu, hachures très légères, et la légende annonce le
@@ -1196,6 +1268,28 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 	.brand img { width: 152px; }
 
 	body.menu-open { overflow: hidden; }
+
+	/* Lisibilité du héros sur petit écran. Le voile de la photo est dégradé
+	   LATÉRALEMENT, pensé pour un texte calé à gauche et la photo dégagée à
+	   droite. Sur téléphone le texte prend toute la largeur et tombe pile sur
+	   la zone brillante du globe : « industriel » devenait illisible. On
+	   bascule donc sur un voile vertical, dense là où se trouve le texte et
+	   qui s'ouvre plus bas pour laisser voir la photo, qui porte l'identité
+	   de la marque. La photo elle-même n'est pas retouchée. */
+	.hero-bg::after {
+		background:
+			linear-gradient(180deg,
+				rgba(4, 6, 11, .93) 0%,
+				rgba(4, 6, 11, .88) 46%,
+				rgba(4, 6, 11, .62) 68%,
+				rgba(4, 6, 11, .84) 90%,
+				var(--noir) 100%);
+	}
+	/* Un cran plus clair que le gris courant, et une ombre portée : le
+	   bandeau d'accroche est en petites capitales très espacées, la forme la
+	   plus fragile de la page sur un fond photographique. */
+	.hero .kicker { color: var(--texte-2); }
+	.hero .kicker, .hero h1, .hero .lead { text-shadow: 0 1px 16px rgba(4, 6, 11, .9); }
 
 	.about-grid, .means-grid, .contact-grid { grid-template-columns: 1fr; }
 	.about-media { order: -1; max-width: 262px; }
