@@ -1222,11 +1222,6 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 	.stats-grid { grid-template-columns: repeat(2, 1fr); }
 	.cards.cards-4 { grid-template-columns: repeat(2, 1fr); }
 	.onde-grid { grid-template-columns: 1fr; }
-	/* Sur une colonne, le texte occupe toute la largeur et passe par-dessus
-	   la sinusoïde : elle a besoin d'être plus franche pour rester lisible,
-	   sans jamais gêner la lecture. */
-	.onde-trace { opacity: .6; }
-	.onde-trace path { stroke-width: 2; }
 	.carte-grid { grid-template-columns: 1fr; align-items: stretch; }
 	.carte-card { min-height: 0; }
 	.photos-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
