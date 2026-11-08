@@ -1,8 +1,10 @@
 /*
  * CO2 LASER SERVICES — vitrine « machines couvertes ».
- * Une grande carte en scène, les trois autres empilées à côté : cliquer une
- * carte de la pile la fait passer en scène. Avance automatique, pilotable
- * (clic, clavier), en pause au survol/focus.
+ * Une grande carte en scène, et à côté l'index fixe de toutes les gammes,
+ * rangées en deux groupes : cliquer une fiche de l'index la fait passer en
+ * scène. Avance automatique, pilotable (clic, clavier), en pause au
+ * survol/focus. Le nombre de gammes n'est écrit nulle part ici : tout se
+ * déduit des fiches présentes dans le HTML, compteur compris.
  *
  * ─────────────────────────────────────────────────────────────────────────
  * Ce composant était instable parce que QUATRE mécanismes indépendants
@@ -32,6 +34,9 @@
   var panels = Array.prototype.slice.call(stage.querySelectorAll('.mstage-panel'));
   var rail = stage.querySelector('.mstage-rail');
   var indexEl = document.getElementById('mstage-n');
+  var totalEl = document.getElementById('mstage-total');
+  var hero = stage.querySelector('.mstage-hero');
+  if (totalEl) totalEl.textContent = String(cards.length).padStart(2, '0');
 
   var DUREE = 4800;
 
@@ -55,11 +60,13 @@
   function activer(i) {
     courant = (i + cards.length) % cards.length;
 
+    // L'index est fixe : la fiche en scène y est seulement marquée, elle ne
+    // disparaît plus (avec huit gammes, la retirer faisait sauter tout le
+    // reste de l'index à chaque rotation).
     cards.forEach(function (card) {
       var on = Number(card.getAttribute('data-panel')) === courant;
-      card.classList.toggle('is-active', on);
-      card.setAttribute('aria-selected', String(on));
-      card.tabIndex = on ? -1 : 0;
+      if (on) card.setAttribute('aria-current', 'true');
+      else card.removeAttribute('aria-current');
     });
 
     panels.forEach(function (p) {
@@ -91,16 +98,28 @@
   /* ------------------------------------------------ interactions */
   cards.forEach(function (card) {
     var idx = Number(card.getAttribute('data-panel'));
-    card.addEventListener('click', function () { activer(idx); });
+    card.addEventListener('click', function () {
+      activer(idx);
+      // Sur téléphone, l'index est SOUS la carte en scène : en touchant une
+      // fiche du bas, on ne verrait pas la carte changer. On la ramène dans
+      // l'écran, seulement si son haut en est sorti.
+      // Le seuil tient compte de l'en-tête fixe, sous lequel la carte serait
+      // cachée même avec un haut légèrement positif.
+      var entete = document.querySelector('.hdr');
+      if (hero && hero.getBoundingClientRect().top < (entete ? entete.offsetHeight : 0)) {
+        hero.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
   });
 
-  // Navigation clavier gauche/droite depuis n'importe quelle carte de la pile.
+  // Navigation clavier gauche/droite : la gamme suivante passe en scène et
+  // le focus la suit dans l'index.
   rail.addEventListener('keydown', function (ev) {
     if (ev.key !== 'ArrowRight' && ev.key !== 'ArrowLeft') return;
     ev.preventDefault();
     activer(courant + (ev.key === 'ArrowRight' ? 1 : -1));
-    var suivante = cards.filter(function (c) { return !c.classList.contains('is-active'); })[0];
-    if (suivante) suivante.focus();
+    var cible = cards.filter(function (c) { return Number(c.getAttribute('data-panel')) === courant; })[0];
+    if (cible) cible.focus();
   });
 
   stage.addEventListener('pointerenter', function () { survol = true; });

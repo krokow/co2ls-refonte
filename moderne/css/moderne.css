@@ -462,16 +462,21 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 	isolation: isolate;
 }
 
-/* Teinte de fond propre à chaque machine, pour marquer le changement sans
-   ajouter d'élément visuel : or (source), bleu (découpe), violet
-   (intégration OEM), vert d'eau (refroidissement). */
+/* Teinte de fond propre à chaque gamme, pour marquer le changement sans
+   ajouter d'élément visuel. Dans l'ordre de l'index : les deux sources dans
+   les tons chauds, puis les machines et systèmes dans une gamme de bleus,
+   violets et verts d'eau, sans jamais deux voisines identiques. */
 .mstage-hero {
 	transition: background .7s ease;
 	background: radial-gradient(75% 65% at 12% 0%, rgba(255, 204, 51, .1), transparent 65%);
 }
-.mstage[data-active="1"] .mstage-hero { background: radial-gradient(75% 65% at 12% 0%, rgba(79, 158, 224, .13), transparent 65%); }
-.mstage[data-active="2"] .mstage-hero { background: radial-gradient(75% 65% at 12% 0%, rgba(168, 122, 235, .12), transparent 65%); }
-.mstage[data-active="3"] .mstage-hero { background: radial-gradient(75% 65% at 12% 0%, rgba(87, 209, 181, .12), transparent 65%); }
+.mstage[data-active="1"] .mstage-hero { background: radial-gradient(75% 65% at 12% 0%, rgba(255, 160, 70, .11), transparent 65%); }
+.mstage[data-active="2"] .mstage-hero { background: radial-gradient(75% 65% at 12% 0%, rgba(79, 158, 224, .13), transparent 65%); }
+.mstage[data-active="3"] .mstage-hero { background: radial-gradient(75% 65% at 12% 0%, rgba(80, 200, 235, .11), transparent 65%); }
+.mstage[data-active="4"] .mstage-hero { background: radial-gradient(75% 65% at 12% 0%, rgba(112, 120, 240, .13), transparent 65%); }
+.mstage[data-active="5"] .mstage-hero { background: radial-gradient(75% 65% at 12% 0%, rgba(240, 130, 95, .1), transparent 65%); }
+.mstage[data-active="6"] .mstage-hero { background: radial-gradient(75% 65% at 12% 0%, rgba(168, 122, 235, .12), transparent 65%); }
+.mstage[data-active="7"] .mstage-hero { background: radial-gradient(75% 65% at 12% 0%, rgba(87, 209, 181, .12), transparent 65%); }
 
 /* Ligne de balayage, rappel du thème laser. Sa position suit --progress
    (piloté par machines.js), exactement comme la barre de progression : le
@@ -491,7 +496,7 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 	transform: translateX(calc(var(--progress, 0) * 950%));
 }
 
-/* ------  Scène : grande carte à gauche, pile de 3 à droite  ------- */
+/* ------  Scène : grande carte à gauche, index des gammes à droite  ------- */
 .mstage-grid {
 	position: relative; z-index: 1;
 	display: grid; grid-template-columns: 1.5fr 1fr;
@@ -571,69 +576,61 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 	background: linear-gradient(90deg, var(--bleu), var(--or));
 }
 
-/* -----------------------  Pile de 3 fiches  ------------------------ */
+/* ---------------------  Index des gammes  ---------------------- */
+/* Avec huit gammes, l'ancienne pile qui retirait la fiche active à chaque
+   rotation faisait sauter sept fiches toutes les 4,8 s. L'index est donc
+   FIXE : chaque gamme garde sa place, la fiche en scène est surlignée, et
+   les gammes sont rangées en deux groupes, comme le client les classe. */
 .mstage-rail {
 	position: relative;
-	display: flex; flex-direction: column; justify-content: center; gap: 14px;
+	display: flex; flex-direction: column; justify-content: center; gap: 20px;
 	padding: clamp(20px, 2.6vw, 32px);
 }
+.mstage-groupe-titre {
+	margin-bottom: 10px;
+	font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+	color: var(--texte-3);
+}
+.mstage-groupe-liste { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 
 .mstage-card {
-	display: flex; align-items: center; gap: 14px;
-	/* Sans ça, un flex-item ne rétrécit jamais sous la largeur intrinsèque de
-	   son contenu (ici, l'intitulé le plus long) : sur deux colonnes en
-	   mobile, chaque carte s'étirait pour caser son texte en entier, et les
-	   4 cartes finissaient empilées en une seule colonne faute de place. */
+	display: flex; flex-direction: column; align-items: flex-start; gap: 3px;
+	/* min-width:0, sans quoi un élément de grille ne rétrécit jamais sous la
+	   largeur de son intitulé le plus long et déborde de sa colonne. */
 	min-width: 0;
-	padding: 16px 18px;
+	padding: 12px 14px;
 	background: linear-gradient(160deg, rgba(255, 255, 255, .04), transparent 65%), var(--noir-2);
-	border: 1px solid var(--trait); border-radius: 14px;
+	border: 1px solid var(--trait); border-radius: 12px;
 	cursor: pointer; text-align: left;
-	transition: transform .3s cubic-bezier(.22, 1, .36, 1), border-color .3s ease, box-shadow .3s ease, opacity .35s ease;
+	transition: transform .3s cubic-bezier(.22, 1, .36, 1), border-color .3s ease, box-shadow .3s ease, background-color .3s ease;
 }
-
 .mstage-card:hover, .mstage-card:focus-visible {
 	border-color: rgba(255, 204, 51, .4);
 	box-shadow: 0 16px 34px -20px rgba(255, 204, 51, .35);
 	transform: translateY(-2px);
 }
-
-/* La carte "en scène" disparaît de la pile plutôt que de s'y superposer. */
-.mstage-card.is-active {
-	opacity: 0; transform: scale(.9);
-	pointer-events: none; position: absolute; inset: 0;
-}
-
-.mstage-card-ico {
-	display: flex; align-items: center; justify-content: center;
-	flex: 0 0 auto; width: 42px; height: 42px;
-	border: 1px solid var(--trait); border-radius: 12px;
-	color: var(--bleu-clair);
-}
-.mstage-card-ico svg { width: 21px; height: 21px; }
-
-.mstage-card-txt { display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1 1 auto; }
-.mstage-card-txt em {
+.mstage-card em {
 	font-style: normal; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase;
 	color: var(--texte-3);
+	transition: color .3s ease;
 }
-.mstage-card-txt b {
+.mstage-card b {
 	font-weight: 600; font-size: 14px; line-height: 1.25; color: var(--texte);
-	/* Filet de sécurité : "Intégrations" à lui seul dépasse la largeur d'une
-	   carte sur deux colonnes ; sans quoi le mot déborderait du cadre au
-	   lieu de passer à la ligne. */
-	overflow-wrap: break-word;
+	overflow-wrap: break-word; max-width: 100%;
 }
-
+/* Fiche en scène : surlignée à l'or, jamais retirée de l'index. */
+.mstage-card[aria-current="true"] {
+	border-color: rgba(255, 204, 51, .55);
+	background: linear-gradient(160deg, rgba(255, 204, 51, .09), transparent 70%), var(--noir-2);
+	box-shadow: 0 0 0 1px rgba(255, 204, 51, .12), 0 14px 30px -20px rgba(255, 204, 51, .45);
+}
+.mstage-card[aria-current="true"] em { color: var(--or); }
 
 @media (max-width: 720px) {
 	.mstage-grid { grid-template-columns: 1fr; }
 	.mstage-hero { border-right: 0; border-bottom: 1px solid var(--trait); }
-	/* Une colonne plutôt que deux : les intitulés ("TruLaser® (TCL)",
-	   "Intégrations OEM"…) coupaient mal en deux colonnes sur un écran
-	   étroit. Pleine largeur, ils restent lisibles sur une ou deux lignes
-	   propres. */
-	.mstage-card.is-active { display: none; }
+	.mstage-card { padding: 11px 12px; }
+	.mstage-card b { font-size: 13.5px; }
 }
 
 /* ---------------------------  MÉTHODE  --------------------------- */
@@ -681,33 +678,6 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 .means-sub h3 .hl { color: var(--or); }
 
 /* ---------------------  LANGUES (ligne compacte)  ----------------- */
-.langues-ligne {
-	display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
-	margin-top: clamp(30px, 3.4vw, 46px); padding-top: 24px;
-	border-top: 1px solid var(--trait);
-}
-.langues-libelle {
-	margin-right: 6px;
-	font-size: 11.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--texte-3);
-}
-.langues-ligne button {
-	display: inline-flex; align-items: center; gap: 9px;
-	padding: 8px 15px 8px 9px;
-	background: transparent; border: 1px solid var(--trait); border-radius: 999px;
-	cursor: pointer; font-size: 13.5px; color: var(--texte-3);
-	transition: border-color .3s ease, color .3s ease, background-color .3s ease;
-}
-.langues-ligne button img {
-	height: 22px; width: auto;
-	filter: saturate(.35) brightness(.75);
-	transition: filter .3s ease;
-}
-.langues-ligne button:hover { color: var(--texte); border-color: var(--trait-fort); }
-.langues-ligne button:hover img,
-.langues-ligne button.is-active img { filter: none; }
-.langues-ligne button.is-active {
-	color: var(--or); border-color: rgba(255, 204, 51, .4); background: rgba(255, 204, 51, .05);
-}
 
 /* ---------------------  SIGNATURE 10,6 µm  ----------------------- */
 .onde {
@@ -1052,68 +1022,40 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 .citation-nom { font-size: 15px; font-weight: 600; color: var(--or); }
 .citation-role { font-size: 13px; color: var(--texte-3); }
 
-/* ==========================  TÉMOIGNAGES  ========================== */
-.temoin {
-	position: relative;
-	max-width: 720px; margin: 0 auto;
-	padding: clamp(36px, 4vw, 56px) clamp(28px, 4vw, 56px) clamp(24px, 3vw, 32px);
-	border: 1px solid var(--trait);
-	border-radius: calc(var(--rayon) + 6px);
-	background: linear-gradient(165deg, rgba(255, 255, 255, .03), transparent 55%), var(--noir-2);
-	text-align: center;
-}
-.temoin-badge {
-	position: absolute; top: 18px; right: 18px;
-	padding: 4px 10px;
-	border: 1px solid var(--trait); border-radius: 999px;
-	font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--texte-3);
-}
-
-.temoin-panels { position: relative; display: grid; min-height: 168px; }
-.temoin-panel {
-	grid-area: 1 / 1 / 2 / 2;
-	display: flex; flex-direction: column; align-items: center;
-	opacity: 0; transform: translateY(10px);
-	pointer-events: none;
-	transition: opacity .5s cubic-bezier(.22, 1, .36, 1), transform .5s cubic-bezier(.22, 1, .36, 1);
-}
-.temoin-panel.is-active { position: relative; opacity: 1; transform: none; pointer-events: auto; }
-
-.temoin-panel blockquote {
-	/* Les guillemets sont déjà dans le texte (assets/js/content.js) : ils
-	   changent de forme selon la langue (« », „ ", " "), donc pas de
-	   guillemets ajoutés en CSS ici, contrairement à .citation-texte. */
-	max-width: 52ch;
-	font-family: var(--display); font-weight: 400;
-	font-size: clamp(18px, 2vw, 22px); line-height: 1.4;
-	color: var(--texte);
-}
-.temoin-panel figcaption { margin-top: 20px; display: flex; flex-direction: column; gap: 3px; }
-.temoin-panel figcaption b { font-size: 13.5px; font-weight: 600; color: var(--or); }
-.temoin-panel figcaption span { font-size: 12.5px; color: var(--texte-3); }
-
-.temoin-dots { display: flex; justify-content: center; gap: 8px; margin-top: 22px; }
-.temoin-dots button {
-	width: 8px; height: 8px; padding: 0;
-	background: var(--trait); border: 0; border-radius: 50%; cursor: pointer;
-	transition: background-color .3s ease, transform .3s ease;
-}
-.temoin-dots button.is-active { background: var(--or); transform: scale(1.3); }
-
 /* ============================  PIED  ============================= */
-.ftr { padding: clamp(50px, 6vw, 76px) 0 34px; border-top: 1px solid var(--trait); }
-.ftr-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: clamp(24px, 3vw, 48px); }
-.ftr-brand img { width: 210px; margin-bottom: 18px; }
-.ftr-brand p { font-size: 13.5px; color: var(--texte-3); max-width: 30ch; }
-.ftr h4 { margin-bottom: 14px; font-size: 11.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--texte-3); font-weight: 600; }
-.ftr li + li { margin-top: 9px; }
+/* Réduit à la seule ligne du copyright, à la demande du client : le grand
+   bloc à trois colonnes (navigation, informations, coordonnées) répétait ce
+   que le menu et le bloc de contact disent déjà juste au-dessus. */
+.ftr { padding: 24px 0 28px; border-top: 1px solid var(--trait); }
 .ftr a { font-size: 14px; color: var(--texte-2); transition: color .25s ease; }
 .ftr a:hover { color: var(--or); }
 .ftr-bottom {
 	display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px;
-	margin-top: clamp(36px, 4vw, 56px); padding-top: 22px; border-top: 1px solid var(--trait);
 	font-size: 13px; color: var(--texte-3);
 }
+
+/* -------------------  Bouton flottant « haut de page »  ------------------
+   Fixe en bas à droite, il n'apparaît qu'une fois le haut de page quitté
+   (classe posée par moderne.js). z-index 60 : au-dessus du contenu, sous le
+   menu mobile ouvert (70) et sous l'en-tête (80). Les marges tiennent compte
+   des encoches et de la barre de navigation des téléphones récents. */
+.vers-haut {
+	position: fixed; z-index: 60;
+	right: max(18px, env(safe-area-inset-right));
+	bottom: max(18px, env(safe-area-inset-bottom));
+	display: flex; align-items: center; justify-content: center;
+	width: 46px; height: 46px; border-radius: 50%;
+	background: rgba(4, 6, 11, .82);
+	backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+	border: 1px solid var(--trait-fort);
+	color: var(--or);
+	box-shadow: 0 10px 28px -12px rgba(0, 0, 0, .8);
+	opacity: 0; visibility: hidden; transform: translateY(10px);
+	transition: opacity .3s ease, transform .3s ease, visibility .3s, border-color .25s ease;
+}
+.vers-haut.is-shown { opacity: 1; visibility: visible; transform: none; }
+.vers-haut:hover, .vers-haut:focus-visible { border-color: var(--or); }
+.vers-haut svg { width: 20px; height: 20px; }
 .to-top { display: inline-flex; align-items: center; gap: 8px; transition: color .25s ease; }
 .to-top:hover { color: var(--or); }
 .to-top::after { content: '↑'; }
@@ -1129,6 +1071,9 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 .legal-body { max-width: 78ch; }
 .legal-body h2 { margin: 34px 0 10px; font-size: var(--t-carte); font-weight: 600; color: var(--or); }
 .legal-body p { font-size: 15px; color: var(--texte-3); }
+.legal-body a { color: var(--bleu); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(79, 158, 224, .4); }
+.legal-body a:hover { color: var(--bleu-clair); }
+.legal-maj { margin-top: 10px; font-size: 13px !important; letter-spacing: .02em; }
 
 /* Alinéas numérotés des CGV : le numéro est porté par la liste, pas saisi
    dans le texte, pour que la renumérotation reste impossible à casser. */
@@ -1247,7 +1192,26 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 	.steps { grid-template-columns: repeat(2, 1fr); row-gap: 34px; }
 	.steps::before, .steps::after { display: none; }
 	.step::before { border-color: var(--or); background: var(--or); box-shadow: 0 0 16px rgba(255, 204, 51, .45); }
-	.ftr-grid { grid-template-columns: 1fr 1fr; }
+
+	/* Sur PC, un seul liseré indigo court sous les quatre pastilles. Sous
+	   1080px les étapes passent sur deux colonnes puis une seule, et une
+	   ligne continue n'a plus de sens : chaque étape reçoit donc son propre
+	   segment, à la même hauteur que sur PC, qui part de la pastille et
+	   s'estompe vers la droite. Il se trace à l'arrivée dans la section,
+	   étape après étape, comme la ligne de la version PC. */
+	.step { isolation: isolate; }
+	.step::before { z-index: 1; }
+	.step::after {
+		content: ''; position: absolute; z-index: 0;
+		top: 17px; left: 0; height: 1px; width: 0;
+		background: linear-gradient(90deg, var(--bleu-profond), var(--bleu) 45%, transparent);
+		box-shadow: 0 0 12px var(--bleu-halo);
+		transition: width 1s cubic-bezier(.22, 1, .36, 1);
+	}
+	.steps.is-drawn .step::after { width: 100%; }
+	.steps.is-drawn .step:nth-child(2)::after { transition-delay: .15s; }
+	.steps.is-drawn .step:nth-child(3)::after { transition-delay: .3s; }
+	.steps.is-drawn .step:nth-child(4)::after { transition-delay: .45s; }
 }
 
 @media (max-width: 900px) {
@@ -1309,8 +1273,6 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 	.about-media { order: -1; max-width: 262px; }
 	.gallery { max-width: 460px; }
 	.cards, .cards.cards-4 { grid-template-columns: 1fr; }
-	.ftr-grid { grid-template-columns: 1fr; }
-	.ftr-brand img { width: 180px; }
 }
 
 @media (max-width: 560px) {
@@ -1324,8 +1286,6 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 	.stats-grid { grid-template-columns: 1fr; }
 	.steps { grid-template-columns: 1fr; }
 	.onde-faits { grid-template-columns: 1fr; gap: 20px; }
-	.langues-libelle { flex: 1 0 100%; margin-bottom: 2px; }
-	.langues-ligne button { flex: 1 1 0; justify-content: center; }
 	.gallery { gap: 10px; }
 
 	/* Sur petit écran, les noms de ville se chevaucheraient trop facilement :

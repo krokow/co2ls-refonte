@@ -57,12 +57,29 @@ souhaite en afficher.
 ### Machines couvertes
 
 Vitrine à défilement automatique (`moderne/js/machines.js`) : une grande carte
-« en scène » avec la machine active, les trois autres empilées à côté. Cliquer
-une carte de la pile la fait passer en scène. Une seule horloge
-(`requestAnimationFrame`) pilote à la fois la barre de progression et le
-balayage lumineux, ce qui rend toute désynchronisation impossible. Avance
-automatique toutes les 4,8 s, pilotable au clic ou au clavier, en pause au
-survol et au focus clavier.
+« en scène » avec la gamme active, et à côté l'index des huit gammes couvertes,
+rangées comme le client les classe : sources Laser (TruFlow, TruCoax) d'un
+côté, machines et systèmes (TruLaser, TruMatic, TruCell, TruWeld, intégrations
+OEM, automatisation) de l'autre. L'index est fixe et la fiche en scène y est
+surlignée : avec huit entrées, retirer la fiche active faisait sauter tout le
+reste à chaque rotation. Le script ne connaît pas le nombre de gammes, il le
+déduit du HTML, compteur compris. Une seule horloge (`requestAnimationFrame`)
+pilote la barre de progression et le balayage lumineux. Avance automatique
+toutes les 4,8 s, pilotable au clic ou au clavier, en pause au survol et au
+focus clavier.
+
+**Les descriptions de TruCoax, TruMatic, TruCell et TruWeld sont provisoires**
+(clés `m.series.5p` à `m.series.8p`) : elles se limitent à ce que le nom de la
+gamme établit, et doivent être relues par le client.
+
+### Mentions légales
+
+`moderne/mentions-legales.html` utilise un texte mis à niveau (clés `m.legal.*`) :
+éditeur et hébergeur, données personnelles au sens du RGPD avec renvoi au
+formulaire de contact plutôt qu'une adresse électronique, stockage local de la
+langue, chargement des fonds de carte OpenStreetMap, et mention des marques
+TRUMPF citées. Les clés `p6.*` d'origine restent pour la maquette classique.
+Si le fournisseur de fonds de carte change, la section IV doit suivre.
 
 ### Conditions générales de vente
 
@@ -131,8 +148,9 @@ python3 -m http.server 8000
   révocation du mot de passe depuis le compte Google** (mots de passe
   d'application). Un secret publié doit être considéré comme compromis, quel
   que soit le ménage fait ensuite.
-- **Les témoignages sont des exemples**, signalés comme tels à l'écran (clés
-  `m.temoin.*`). À remplacer par de vrais retours clients, ou à retirer.
+- **Le téléphone de l'hébergeur manque dans les mentions légales.** La loi pour
+  la confiance dans l'économie numérique l'exige au même titre que son nom et
+  son adresse ; il faut le récupérer auprès de l'hébergeur de production.
 - **La carte du rayon d'intervention charge son fond depuis les tuiles publiques
   d'OpenStreetMap**, qui ne demandent aucune clé d'API. Leur politique d'usage
   vise les usages modestes : suffisant pour la démonstration et un trafic normal

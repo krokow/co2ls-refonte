@@ -12,11 +12,14 @@
   /* ------------------------------------------------ en-tête & progression */
   var hdr = $('.hdr');
   var bar = $('.progress span');
+  var versHaut = $('#vers-haut'); // page d'accueil uniquement
   var ticking = false;
 
   function onScroll() {
     var y = window.scrollY || document.documentElement.scrollTop;
     hdr.classList.toggle('is-stuck', y > 24);
+    // Le bouton n'a rien à faire tant qu'on voit encore le héros.
+    if (versHaut) versHaut.classList.toggle('is-shown', y > window.innerHeight * 0.8);
 
     var max = document.documentElement.scrollHeight - window.innerHeight;
     bar.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';

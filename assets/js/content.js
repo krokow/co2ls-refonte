@@ -59,7 +59,7 @@ window.CO2LS_CONTENT = {
 
     /* --- page Entreprise --- */
     'p2.t1a': 'à propos', 'p2.t1b': 'de nous',
-    'p2.about': "CO2 LASER SERVICES est une entreprise de maintenance industrielle spécialisée en photonique, fondée en 2004 par son principal acteur et homme de terrain : M. Laurent NAROZNI, ingénieur longtemps au service du département Laser 2D de la société TRUMPF®, à Ditzingen, en Allemagne.",
+    'p2.about': "CO2 LASER SERVICES est une entreprise de maintenance industrielle spécialisée en photonique, fondée en 2004 par son principal acteur et homme de terrain : M. Laurent NAROZNI, ingénieur longtemps au service des départements Laser 2D et Laser Technique de la société TRUMPF®, à Ditzingen, en Allemagne.",
     'p2.t2a': 'notre', 'p2.t2b': 'vocation',
     'p2.vocation': "Apporter une réponse personnalisée et efficace à vos besoins en maintenance de haute technicité, comme à vos attentes en consultation technique et productique.",
     'p2.leitmotiv': "Notre leitmotiv : ne pas nous contenter d'un simple correctif, mais appliquer une maintenance curative intelligente, afin de remédier durablement aux causes des défauts en engageant le moins de pièces de rechange possible.",
@@ -126,6 +126,31 @@ window.CO2LS_CONTENT = {
     'p6.p7': "CO2 LASER SERVICES pourra, à tout moment, limiter ou suspendre, temporairement ou non, votre accès au site www.co2ls.fr en cas de violation de votre part des présentes conditions, sans préjudice de tous autres droits, ou en cas de problèmes techniques liés à l'infrastructure mise en place pour la mise en ligne et le fonctionnement du site. En cas d'interruption définitive, vous vous engagez à détruire sans délai toute copie du site ou de son contenu.",
     'p6.h8': 'VIII. Droit applicable',
     'p6.p8': "Le site Internet www.co2ls.fr et les présentes mentions légales sont soumis au droit français, le texte rédigé en français faisant foi.",
+
+    /* --- mentions légales mises à niveau (version moderne) ---
+       RGPD, stockage local, marques citées. Les clés p6.* d'origine
+       restent pour la maquette classique, qui reproduit l'ancien site.
+       Si le fournisseur de fonds de carte change (voir carte.js), la
+       section IV doit changer avec lui. */
+    'm.backContact': "Retour au formulaire de contact",
+    'm.legal.intro': "Les présentes mentions légales encadrent l'accès au site www.co2ls.fr et son utilisation. En naviguant sur le site, vous en acceptez les termes. CO2 LASER SERVICES peut les modifier à tout moment : la version applicable est celle publiée sur cette page.",
+    'm.legal.maj': "Dernière mise à jour : novembre 2026.",
+    'm.legal.h1': "I. Éditeur du site",
+    'm.legal.p1': "Le site www.co2ls.fr est édité par EI Laurent NAROZNI, entreprise individuelle exerçant sous le nom commercial CO2 LASER SERVICES Photoniques Technologies, 25 rue des Primevères, 57870 Troisfontaines, France. Téléphone : 06 26 84 03 19. Entreprise immatriculée au Registre des Métiers et au Registre du Commerce et des Sociétés de la Moselle. SIRET : 452 339 146 00014, RCS Metz TI 452 339 146, TVA intracommunautaire : FR60 452 339 146, code NAF : 3320C. Directeur de la publication : M. Laurent NAROZNI.",
+    'm.legal.h2': "II. Hébergement",
+    'm.legal.p2': "Le site est hébergé par VEZIM SARL, 7 résidence des Saules, 35190 Bécherel, France.",
+    'm.legal.h3': "III. Protection des données personnelles",
+    'm.legal.p3': "Vous pouvez consulter ce site sans communiquer aucune donnée personnelle. Si vous utilisez le formulaire de contact, les informations saisies (nom, adresse électronique, message) sont traitées par EI Laurent NAROZNI, responsable du traitement, dans le seul but de répondre à votre demande. Ce traitement repose sur l'intérêt légitime de CO2 LASER SERVICES à répondre aux demandes qui lui sont adressées, ou sur les mesures précontractuelles prises à votre demande. Vos données sont réservées à CO2 LASER SERVICES et à ses prestataires techniques, qui ne peuvent les utiliser à d'autres fins ; elles ne sont ni vendues ni cédées à des tiers. Elles sont conservées le temps de traiter votre demande, puis au plus trois ans après notre dernier échange. Conformément au Règlement général sur la protection des données (RGPD) et à la loi Informatique et Libertés modifiée, vous disposez d'un droit d'accès, de rectification et d'effacement de vos données, d'un droit à la limitation de leur traitement et d'opposition à celui-ci, ainsi que d'un droit à leur portabilité. Pour exercer ces droits, adressez votre demande au moyen du <a href=\"index.html#contact\">formulaire de contact</a>. Si vous estimez que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la CNIL (<a href=\"https://www.cnil.fr\" target=\"_blank\" rel=\"noopener\">www.cnil.fr</a>).",
+    'm.legal.h4': "IV. Cookies et stockage local",
+    'm.legal.p4': "Le site n'utilise aucun cookie publicitaire ni outil de mesure d'audience. Il enregistre uniquement dans votre navigateur la langue que vous avez choisie, afin de vous la proposer lors de vos prochaines visites ; ce stockage, nécessaire au service que vous demandez, ne requiert pas votre consentement et peut être effacé à tout moment depuis les réglages de votre navigateur. La carte du rayon d'intervention affiche des fonds de carte fournis par OpenStreetMap : leur chargement transmet votre adresse IP aux serveurs de la Fondation OpenStreetMap, comme pour toute ressource chargée depuis un site tiers.",
+    'm.legal.h5': "V. Propriété intellectuelle",
+    'm.legal.p5': "L'ensemble de ce site, textes, images et éléments graphiques, relève de la législation française et internationale sur le droit d'auteur et la propriété intellectuelle. Toute reproduction ou représentation, totale ou partielle, faite sans l'autorisation de CO2 LASER SERVICES est interdite. Les marques TRUMPF, TruFlow, TruCoax, TruLaser, TruMatic, TruCell et TruWeld citées sur ce site appartiennent à la société TRUMPF ; elles sont mentionnées uniquement pour désigner les équipements sur lesquels CO2 LASER SERVICES intervient. Copyright © CO2 LASER SERVICES.",
+    'm.legal.h6': "VI. Liens hypertextes",
+    'm.legal.p6': "La mise en place d'un lien vers le site www.co2ls.fr nécessite l'autorisation préalable et écrite de CO2 LASER SERVICES. CO2 LASER SERVICES n'est pas responsable du contenu des sites vers lesquels ce site renvoie, ni des produits ou services qu'ils proposent.",
+    'm.legal.h7': "VII. Responsabilité et sécurité",
+    'm.legal.p7': "CO2 LASER SERVICES veille à l'exactitude des informations publiées sur ce site, sans pouvoir en garantir l'exhaustivité. Vous utilisez le site sous votre seule responsabilité, et CO2 LASER SERVICES ne saurait être tenue responsable des dommages directs ou indirects résultant de son utilisation ou de celle des sites qui lui sont liés. Des moyens raisonnables sont mis en œuvre pour sécuriser le site et les informations que vous transmettez, mais aucune transmission électronique n'est totalement à l'abri d'une interception : évitez d'adresser des informations sensibles par le formulaire. L'accès au site peut être suspendu à tout moment, notamment pour maintenance ou en cas d'utilisation contraire aux présentes.",
+    'm.legal.h8': "VIII. Droit applicable",
+    'm.legal.p8': "Les présentes mentions légales sont soumises au droit français. Elles sont rédigées en français, seule version qui fasse foi en cas de divergence avec une traduction.",
 
     /* --- page CGV : transcription du PDF contractuel (texte français
            dans les trois langues, seule version qui fasse foi) --- */
@@ -202,9 +227,22 @@ window.CO2LS_CONTENT = {
     'm.series.4tag': 'Automatisation',
     'm.series.4t': "Systèmes d'automatisation",
     'm.series.4p': 'Robotique et dispositifs de chargement et de déchargement.',
+    'm.series.5tag': 'Source Laser',
+    'm.series.5t': 'TruCoax® (TCF)',
+    'm.series.5p': 'Sources Laser CO2, en complément de la gamme TruFlow.',
+    'm.series.6tag': 'Poinçonnage-Laser',
+    'm.series.6t': 'TruMatic®',
+    'm.series.6p': 'Machines combinées de poinçonnage et de découpe Laser.',
+    'm.series.7tag': 'Traitement 3D',
+    'm.series.7t': 'TruCell®',
+    'm.series.7p': 'Machines de découpe et de soudage Laser en trois dimensions.',
+    'm.series.8tag': 'Soudage',
+    'm.series.8t': 'TruWeld®',
+    'm.series.8p': 'Installations de soudage Laser.',
+    'm.series.gSources': 'Sources Laser',
+    'm.series.gMachines': 'Machines et systèmes',
 
     'm.contact.lead': "Décrivez votre besoin : panne, révision, formation ou expertise. Nous revenons vers vous rapidement.",
-    'm.langTitle': 'Langues de travail',
     'm.langLead': "Nos échanges techniques se font indifféremment en français, en allemand ou en anglais.",
     'm.footer.nav': 'Navigation',
     'm.footer.legalNav': 'Informations',
@@ -234,14 +272,14 @@ window.CO2LS_CONTENT = {
     'm.field.lead': "Une implantation en Moselle au cœur d'un carrefour stratégique. Les interventions s'effectuent régulièrement dans le périmètre de l'axe Lille - Le Mans - Limoges - Valence, tout en couvrant l'ensemble du territoire national selon les besoins.",
     'm.field.base': 'Notre base',
     'm.field.hint': 'Survolez un point pour en savoir plus',
-    'm.field.hintTouch': 'Touchez un point pour en savoir plus. Déplacez la carte à deux doigts.',
+    'm.field.hintTouch': 'Touchez un point pour en savoir plus',
     'm.field.twoFingers': 'Utilisez deux doigts pour déplacer la carte',
     'm.field.labelFR': 'France',
     'm.field.labelDE': 'Allemagne',
     'm.field.mapAria': "Carte interactive du rayon d'intervention, centrée sur la France et l'Allemagne",
 
     'm.field.z1n': 'Troisfontaines', 'm.field.z1r': 'Moselle, France',
-    'm.field.z1d': "Notre point d'attache. Atelier, moyens de mesure et production sur place de l'eau déminéralisée nécessaire aux groupes de refroidissement.",
+    'm.field.z1d': "Notre point d'attache. Atelier et moyens de mesure dédiés aux études de projet, aux réparations de sous-ensembles ainsi qu'à la révision des têtes de coupe.",
     'm.field.z2n': 'Ditzingen', 'm.field.z2r': 'Bade-Wurtemberg, Allemagne',
     'm.field.z2d': "Le siège de TRUMPF®, où notre ingénieur a été formé et a suivi de nombreux stages. Les échanges techniques s'y font en allemand.",
     'm.field.z3n': 'Strasbourg', 'm.field.z3r': 'Alsace, France',
@@ -279,22 +317,6 @@ window.CO2LS_CONTENT = {
     'm.quote.author': 'M. Laurent NAROZNI',
     'm.quote.role': "Fondateur, CO2 LASER SERVICES",
 
-    /* --- témoignages (contenu de démonstration, à remplacer par de vrais
-       retours clients — attribution volontairement générique : rôle et
-       secteur, aucun nom d'entreprise ou de personne inventé) --- */
-    'm.temoin.kicker': 'Ce qu\'ils en disent',
-    'm.temoin.t1a': 'témoignages', 'm.temoin.t1b': 'clients',
-    'm.temoin.lead': "Exemples de retours à venir. Cette section sera complétée avec de vrais témoignages clients.",
-    'm.temoin.placeholder': 'Contenu de démonstration',
-    'm.temoin.1q': "« Diagnostic précis, intervention rapide, et une vraie pédagogie pour notre équipe de maintenance. Exactement ce qu'il nous fallait. »",
-    'm.temoin.1r': 'Responsable maintenance',
-    'm.temoin.1s': 'Secteur automobile',
-    'm.temoin.2q': "« Nous avons gagné en autonomie sur l'entretien courant, et le contrat de révision nous évite les mauvaises surprises. »",
-    'm.temoin.2r': 'Directeur de production',
-    'm.temoin.2s': 'Sous-traitance industrielle',
-    'm.temoin.3q': "« Un interlocuteur qui comprend la machine en profondeur, pas seulement la procédure. Ça change tout sur une panne complexe. »",
-    'm.temoin.3r': 'Responsable technique',
-    'm.temoin.3s': 'Métallurgie'
   },
 
   /* ===================================================================== */
@@ -347,7 +369,7 @@ window.CO2LS_CONTENT = {
     'p1.t3a': 'Einblicke', 'p1.t3b': 'in Bildern',
 
     'p2.t1a': 'über', 'p2.t1b': 'uns',
-    'p2.about': 'CO2 LASER SERVICES ist ein auf Photonik spezialisiertes Unternehmen für industrielle Instandhaltung, 2004 gegründet von Herrn Laurent NAROZNI, Ingenieur und Praktiker, langjährig tätig in der Abteilung Laser 2D bei TRUMPF® in Ditzingen, Deutschland.',
+    'p2.about': 'CO2 LASER SERVICES ist ein auf Photonik spezialisiertes Unternehmen für industrielle Instandhaltung, 2004 gegründet von Herrn Laurent NAROZNI, Ingenieur und Praktiker, langjährig tätig in den Abteilungen Laser 2D und Lasertechnik bei TRUMPF® in Ditzingen, Deutschland.',
     'p2.t2a': 'unsere', 'p2.t2b': 'Berufung',
     'p2.vocation': 'Eine individuelle und wirksame Antwort auf Ihren Bedarf an hochtechnischer Instandhaltung sowie auf Ihre Erwartungen in technischer und fertigungsbezogener Beratung.',
     'p2.leitmotiv': 'Unser Leitmotiv: uns nicht mit einer bloßen Korrektur zufriedengeben, sondern die Ursachen der Störungen dauerhaft beheben, mit möglichst wenigen Ersatzteilen.',
@@ -410,6 +432,31 @@ window.CO2LS_CONTENT = {
     'p6.p7': 'CO2 LASER SERVICES kann Ihren Zugang zur Website www.co2ls.fr jederzeit vorübergehend oder dauerhaft einschränken oder aussetzen, wenn Sie gegen diese Bedingungen verstoßen, unbeschadet aller weiteren Rechte, oder wenn technische Probleme der für Betrieb und Bereitstellung der Website eingesetzten Infrastruktur auftreten. Im Fall einer endgültigen Unterbrechung verpflichten Sie sich, jede Kopie der Website oder ihrer Inhalte unverzüglich zu vernichten.',
     'p6.h8': 'VIII. Anwendbares Recht',
     'p6.p8': 'Die Website www.co2ls.fr und die vorliegenden rechtlichen Hinweise unterliegen französischem Recht; maßgeblich ist die französische Fassung.',
+
+    /* --- mentions légales mises à niveau (version moderne) ---
+       RGPD, stockage local, marques citées. Les clés p6.* d'origine
+       restent pour la maquette classique, qui reproduit l'ancien site.
+       Si le fournisseur de fonds de carte change (voir carte.js), la
+       section IV doit changer avec lui. */
+    'm.backContact': "Zurück zum Kontaktformular",
+    'm.legal.intro': "Diese rechtlichen Hinweise regeln den Zugang zur Website www.co2ls.fr und ihre Nutzung. Mit der Nutzung der Website erkennen Sie sie an. CO2 LASER SERVICES kann sie jederzeit ändern; maßgeblich ist die auf dieser Seite veröffentlichte Fassung.",
+    'm.legal.maj': "Letzte Aktualisierung: November 2026.",
+    'm.legal.h1': "I. Herausgeber der Website",
+    'm.legal.p1': "Die Website www.co2ls.fr wird herausgegeben von EI Laurent NAROZNI, Einzelunternehmen unter dem Handelsnamen CO2 LASER SERVICES Photoniques Technologies, 25 rue des Primevères, 57870 Troisfontaines, Frankreich. Telefon: +33 6 26 84 03 19. Eingetragen im Handwerksregister sowie im Handels- und Gesellschaftsregister des Departements Moselle. SIRET: 452 339 146 00014, RCS Metz TI 452 339 146, USt-IdNr.: FR60 452 339 146, NAF-Code: 3320C. Verantwortlich für den Inhalt: Herr Laurent NAROZNI.",
+    'm.legal.h2': "II. Hosting",
+    'm.legal.p2': "Die Website wird gehostet von VEZIM SARL, 7 résidence des Saules, 35190 Bécherel, Frankreich.",
+    'm.legal.h3': "III. Datenschutz",
+    'm.legal.p3': "Sie können diese Website nutzen, ohne personenbezogene Daten anzugeben. Wenn Sie das Kontaktformular verwenden, werden die eingegebenen Angaben (Name, E-Mail-Adresse, Nachricht) von EI Laurent NAROZNI als Verantwortlichem ausschließlich zur Beantwortung Ihrer Anfrage verarbeitet. Rechtsgrundlage ist das berechtigte Interesse von CO2 LASER SERVICES an der Beantwortung der an sie gerichteten Anfragen oder die Durchführung vorvertraglicher Maßnahmen auf Ihre Anfrage. Ihre Daten sind CO2 LASER SERVICES und ihren technischen Dienstleistern vorbehalten, die sie nicht für andere Zwecke verwenden dürfen; sie werden weder verkauft noch an Dritte weitergegeben. Sie werden für die Bearbeitung Ihrer Anfrage und danach höchstens drei Jahre nach dem letzten Kontakt gespeichert. Gemäß der Datenschutz-Grundverordnung (DSGVO) und dem geänderten französischen Datenschutzgesetz haben Sie das Recht auf Auskunft, Berichtigung und Löschung Ihrer Daten, auf Einschränkung der Verarbeitung, auf Widerspruch sowie auf Datenübertragbarkeit. Zur Ausübung dieser Rechte nutzen Sie bitte das <a href=\"index.html#contact\">Kontaktformular</a>. Wenn Sie der Ansicht sind, dass Ihre Rechte nicht gewahrt werden, können Sie bei der französischen Datenschutzbehörde CNIL Beschwerde einlegen (<a href=\"https://www.cnil.fr\" target=\"_blank\" rel=\"noopener\">www.cnil.fr</a>).",
+    'm.legal.h4': "IV. Cookies und lokale Speicherung",
+    'm.legal.p4': "Die Website verwendet weder Werbe-Cookies noch Werkzeuge zur Reichweitenmessung. Sie speichert in Ihrem Browser lediglich die von Ihnen gewählte Sprache, um sie Ihnen bei späteren Besuchen anzuzeigen; diese für den gewünschten Dienst erforderliche Speicherung bedarf keiner Einwilligung und kann jederzeit in den Einstellungen Ihres Browsers gelöscht werden. Die Karte des Einsatzgebiets zeigt Kartenmaterial von OpenStreetMap an: Beim Laden wird Ihre IP-Adresse an die Server der OpenStreetMap Foundation übermittelt, wie bei jeder von einer Drittseite geladenen Ressource.",
+    'm.legal.h5': "V. Geistiges Eigentum",
+    'm.legal.p5': "Die gesamte Website, einschließlich Texten, Bildern und grafischen Elementen, unterliegt dem französischen und internationalen Urheber- und Immaterialgüterrecht. Jede vollständige oder teilweise Vervielfältigung oder Wiedergabe ohne Genehmigung von CO2 LASER SERVICES ist untersagt. Die auf dieser Website genannten Marken TRUMPF, TruFlow, TruCoax, TruLaser, TruMatic, TruCell und TruWeld gehören dem Unternehmen TRUMPF; sie werden ausschließlich genannt, um die Anlagen zu bezeichnen, an denen CO2 LASER SERVICES tätig ist. Copyright © CO2 LASER SERVICES.",
+    'm.legal.h6': "VI. Hyperlinks",
+    'm.legal.p6': "Das Setzen eines Links auf die Website www.co2ls.fr bedarf der vorherigen schriftlichen Genehmigung von CO2 LASER SERVICES. CO2 LASER SERVICES ist weder für den Inhalt der Websites verantwortlich, auf die diese Website verweist, noch für die dort angebotenen Produkte oder Dienstleistungen.",
+    'm.legal.h7': "VII. Haftung und Sicherheit",
+    'm.legal.p7': "CO2 LASER SERVICES achtet auf die Richtigkeit der auf dieser Website veröffentlichten Informationen, kann jedoch keine Vollständigkeit garantieren. Sie nutzen die Website auf eigene Verantwortung; CO2 LASER SERVICES haftet nicht für direkte oder indirekte Schäden, die aus ihrer Nutzung oder der Nutzung verlinkter Websites entstehen. Es werden angemessene Maßnahmen ergriffen, um die Website und die von Ihnen übermittelten Informationen zu schützen, doch keine elektronische Übertragung ist vollständig vor dem Abfangen geschützt: Bitte übermitteln Sie über das Formular keine sensiblen Informationen. Der Zugang zur Website kann jederzeit unterbrochen werden, insbesondere wegen Wartungsarbeiten oder bei einer Nutzung, die gegen diese Hinweise verstößt.",
+    'm.legal.h8': "VIII. Anwendbares Recht",
+    'm.legal.p8': "Diese rechtlichen Hinweise unterliegen französischem Recht. Sie sind in französischer Sprache verfasst; bei Abweichungen von einer Übersetzung ist allein die französische Fassung maßgeblich.",
 
     /* --- page CGV : transcription du PDF contractuel (texte français
            dans les trois langues, seule version qui fasse foi) --- */
@@ -485,9 +532,22 @@ window.CO2LS_CONTENT = {
     'm.series.4tag': 'Automatisierung',
     'm.series.4t': 'Automatisierungssysteme',
     'm.series.4p': 'Robotik sowie Be- und Entladeeinrichtungen.',
+    'm.series.5tag': 'Laserquelle',
+    'm.series.5t': 'TruCoax® (TCF)',
+    'm.series.5p': 'CO2-Laserquellen, ergänzend zur TruFlow-Reihe.',
+    'm.series.6tag': 'Stanz-Laser',
+    'm.series.6t': 'TruMatic®',
+    'm.series.6p': 'Kombinierte Stanz- und Laserschneidmaschinen.',
+    'm.series.7tag': '3D-Bearbeitung',
+    'm.series.7t': 'TruCell®',
+    'm.series.7p': 'Maschinen zum dreidimensionalen Laserschneiden und -schweißen.',
+    'm.series.8tag': 'Schweißen',
+    'm.series.8t': 'TruWeld®',
+    'm.series.8p': 'Laserschweißanlagen.',
+    'm.series.gSources': 'Laserquellen',
+    'm.series.gMachines': 'Maschinen und Systeme',
 
     'm.contact.lead': 'Beschreiben Sie Ihren Bedarf: Störung, Revision, Schulung oder Gutachten. Wir melden uns kurzfristig bei Ihnen.',
-    'm.langTitle': 'Arbeitssprachen',
     'm.langLead': 'Der technische Austausch erfolgt wahlweise auf Französisch, Deutsch oder Englisch.',
     'm.footer.nav': 'Navigation',
     'm.footer.legalNav': 'Informationen',
@@ -515,14 +575,14 @@ window.CO2LS_CONTENT = {
     'm.field.lead': 'Ein Standort in der Moselle, mitten in einem strategischen Knotenpunkt. Die Einsätze erfolgen regelmäßig im Gebiet der Achse Lille - Le Mans - Limoges - Valence und decken je nach Bedarf das gesamte französische Staatsgebiet ab.',
     'm.field.base': 'Unser Standort',
     'm.field.hint': 'Für Details einen Punkt überfahren',
-    'm.field.hintTouch': 'Für Details einen Punkt antippen. Karte mit zwei Fingern bewegen.',
+    'm.field.hintTouch': 'Für Details einen Punkt antippen',
     'm.field.twoFingers': 'Karte mit zwei Fingern bewegen',
     'm.field.labelFR': 'Frankreich',
     'm.field.labelDE': 'Deutschland',
     'm.field.mapAria': 'Interaktive Karte des Einsatzradius, mit Schwerpunkt Frankreich und Deutschland',
 
     'm.field.z1n': 'Troisfontaines', 'm.field.z1r': 'Moselle, Frankreich',
-    'm.field.z1d': 'Unser Stützpunkt. Werkstatt, Messmittel und Erzeugung des entmineralisierten Wassers für die Kühlaggregate vor Ort.',
+    'm.field.z1d': 'Unser Stützpunkt. Werkstatt und Messmittel für Projektstudien, die Reparatur von Baugruppen sowie die Revision von Schneidköpfen.',
     'm.field.z2n': 'Ditzingen', 'm.field.z2r': 'Baden-Württemberg, Deutschland',
     'm.field.z2d': 'Der Sitz von TRUMPF®, wo unser Ingenieur ausgebildet wurde und zahlreiche Praktika absolviert hat. Der technische Austausch erfolgt dort auf Deutsch.',
     'm.field.z3n': 'Straßburg', 'm.field.z3r': 'Elsass, Frankreich',
@@ -558,19 +618,6 @@ window.CO2LS_CONTENT = {
     'm.quote.author': 'Herr Laurent NAROZNI',
     'm.quote.role': 'Gründer, CO2 LASER SERVICES',
 
-    'm.temoin.kicker': 'Was Kunden sagen',
-    'm.temoin.t1a': 'Kunden', 'm.temoin.t1b': 'stimmen',
-    'm.temoin.lead': 'Beispielhafte Rückmeldungen. Dieser Bereich wird mit echten Kundenstimmen vervollständigt.',
-    'm.temoin.placeholder': 'Beispielinhalt',
-    'm.temoin.1q': '„Präzise Diagnose, schneller Einsatz und echte Wissensvermittlung an unser Wartungsteam. Genau das, was wir brauchten."',
-    'm.temoin.1r': 'Wartungsleiter',
-    'm.temoin.1s': 'Automobilbranche',
-    'm.temoin.2q': '„Wir sind bei der laufenden Wartung selbstständiger geworden, und der Revisionsvertrag erspart uns böse Überraschungen."',
-    'm.temoin.2r': 'Produktionsleiter',
-    'm.temoin.2s': 'Industrielle Zulieferung',
-    'm.temoin.3q': '„Ein Ansprechpartner, der die Maschine wirklich versteht, nicht nur das Handbuch. Das macht bei einer komplexen Störung den Unterschied."',
-    'm.temoin.3r': 'Technischer Leiter',
-    'm.temoin.3s': 'Metallverarbeitung'
   },
 
   /* ===================================================================== */
@@ -623,7 +670,7 @@ window.CO2LS_CONTENT = {
     'p1.t3a': 'a glimpse', 'p1.t3b': 'in pictures',
 
     'p2.t1a': 'about', 'p2.t1b': 'us',
-    'p2.about': 'CO2 LASER SERVICES is an industrial maintenance company specialising in photonics, founded in 2004 by its principal and hands-on engineer, Mr Laurent NAROZNI, who spent many years with the Laser 2D department of TRUMPF®, in Ditzingen, Germany.',
+    'p2.about': 'CO2 LASER SERVICES is an industrial maintenance company specialising in photonics, founded in 2004 by its principal and hands-on engineer, Mr Laurent NAROZNI, who spent many years with the Laser 2D and Laser Technology departments of TRUMPF®, in Ditzingen, Germany.',
     'p2.t2a': 'our', 'p2.t2b': 'vocation',
     'p2.vocation': 'To provide a tailored, effective answer to your high-precision maintenance needs, and to your expectations in technical and production consulting.',
     'p2.leitmotiv': 'Our guiding principle: never settle for a quick fix, but apply intelligent corrective maintenance in order to address the root causes of faults for good, using as few spare parts as possible.',
@@ -686,6 +733,31 @@ window.CO2LS_CONTENT = {
     'p6.p7': 'CO2 LASER SERVICES may at any time limit or suspend, temporarily or otherwise, your access to www.co2ls.fr in the event of a breach on your part of these terms, without prejudice to any other rights, or in the event of technical problems affecting the infrastructure used to publish and operate the site. In the event of permanent interruption, you undertake to destroy without delay any copy of the site or of its content.',
     'p6.h8': 'VIII. Governing law',
     'p6.p8': 'The website www.co2ls.fr and this legal notice are governed by French law, the French-language text being authoritative.',
+
+    /* --- mentions légales mises à niveau (version moderne) ---
+       RGPD, stockage local, marques citées. Les clés p6.* d'origine
+       restent pour la maquette classique, qui reproduit l'ancien site.
+       Si le fournisseur de fonds de carte change (voir carte.js), la
+       section IV doit changer avec lui. */
+    'm.backContact': "Back to the contact form",
+    'm.legal.intro': "This legal notice governs access to and use of the website www.co2ls.fr. By browsing the site, you accept its terms. CO2 LASER SERVICES may amend it at any time; the applicable version is the one published on this page.",
+    'm.legal.maj': "Last updated: November 2026.",
+    'm.legal.h1': "I. Publisher",
+    'm.legal.p1': "The website www.co2ls.fr is published by EI Laurent NAROZNI, a sole proprietorship trading as CO2 LASER SERVICES Photoniques Technologies, 25 rue des Primevères, 57870 Troisfontaines, France. Telephone: +33 6 26 84 03 19. Registered with the Trades Register and the Trade and Companies Register of the Moselle department. SIRET: 452 339 146 00014, RCS Metz TI 452 339 146, EU VAT number: FR60 452 339 146, NAF code: 3320C. Publication director: Mr Laurent NAROZNI.",
+    'm.legal.h2': "II. Hosting",
+    'm.legal.p2': "The site is hosted by VEZIM SARL, 7 résidence des Saules, 35190 Bécherel, France.",
+    'm.legal.h3': "III. Personal data",
+    'm.legal.p3': "You can browse this site without providing any personal data. If you use the contact form, the information you enter (name, email address, message) is processed by EI Laurent NAROZNI, as data controller, solely to answer your request. This processing is based on the legitimate interest of CO2 LASER SERVICES in answering the requests it receives, or on pre-contractual steps taken at your request. Your data is reserved for CO2 LASER SERVICES and its technical service providers, who may not use it for any other purpose; it is neither sold nor transferred to third parties. It is kept for as long as needed to handle your request, and for no more than three years after our last exchange. Under the General Data Protection Regulation (GDPR) and the amended French Data Protection Act, you have the right to access, rectify and erase your data, to restrict or object to its processing, and to data portability. To exercise these rights, please use the <a href=\"index.html#contact\">contact form</a>. If you consider that your rights have not been respected, you may lodge a complaint with the CNIL, the French data protection authority (<a href=\"https://www.cnil.fr\" target=\"_blank\" rel=\"noopener\">www.cnil.fr</a>).",
+    'm.legal.h4': "IV. Cookies and local storage",
+    'm.legal.p4': "The site uses no advertising cookies and no audience measurement tools. It only stores in your browser the language you have chosen, so that it can be offered to you on your next visits; this storage, required for the service you request, does not require your consent and can be cleared at any time in your browser settings. The service area map displays map tiles provided by OpenStreetMap: loading them sends your IP address to the servers of the OpenStreetMap Foundation, as with any resource loaded from a third-party site.",
+    'm.legal.h5': "V. Intellectual property",
+    'm.legal.p5': "The entire site, including texts, images and graphic elements, is protected by French and international copyright and intellectual property law. Any full or partial reproduction or representation without the permission of CO2 LASER SERVICES is prohibited. The trademarks TRUMPF, TruFlow, TruCoax, TruLaser, TruMatic, TruCell and TruWeld mentioned on this site belong to TRUMPF; they are cited solely to identify the equipment on which CO2 LASER SERVICES works. Copyright © CO2 LASER SERVICES.",
+    'm.legal.h6': "VI. Hyperlinks",
+    'm.legal.p6': "Creating a link to the website www.co2ls.fr requires the prior written permission of CO2 LASER SERVICES. CO2 LASER SERVICES is not responsible for the content of the sites this site links to, nor for the products or services they offer.",
+    'm.legal.h7': "VII. Liability and security",
+    'm.legal.p7': "CO2 LASER SERVICES takes care to ensure the accuracy of the information published on this site, without being able to guarantee its completeness. You use the site at your own risk, and CO2 LASER SERVICES cannot be held liable for any direct or indirect damage resulting from its use or from the use of linked sites. Reasonable measures are taken to secure the site and the information you send, but no electronic transmission is entirely safe from interception: please do not send sensitive information through the form. Access to the site may be suspended at any time, in particular for maintenance or in the event of use contrary to this notice.",
+    'm.legal.h8': "VIII. Governing law",
+    'm.legal.p8': "This legal notice is governed by French law. It is written in French, which is the only authoritative version in the event of any discrepancy with a translation.",
 
     /* --- page CGV : transcription du PDF contractuel (texte français
            dans les trois langues, seule version qui fasse foi) --- */
@@ -761,9 +833,22 @@ window.CO2LS_CONTENT = {
     'm.series.4tag': 'Automation',
     'm.series.4t': 'Automation systems',
     'm.series.4p': 'Robotics, and loading and unloading equipment.',
+    'm.series.5tag': 'Laser source',
+    'm.series.5t': 'TruCoax® (TCF)',
+    'm.series.5p': 'CO2 laser sources, alongside the TruFlow range.',
+    'm.series.6tag': 'Punch-laser',
+    'm.series.6t': 'TruMatic®',
+    'm.series.6p': 'Combined punching and laser cutting machines.',
+    'm.series.7tag': '3D processing',
+    'm.series.7t': 'TruCell®',
+    'm.series.7p': 'Machines for three-dimensional laser cutting and welding.',
+    'm.series.8tag': 'Welding',
+    'm.series.8t': 'TruWeld®',
+    'm.series.8p': 'Laser welding systems.',
+    'm.series.gSources': 'Laser sources',
+    'm.series.gMachines': 'Machines and systems',
 
     'm.contact.lead': 'Describe your need: breakdown, overhaul, training or appraisal. We will get back to you promptly.',
-    'm.langTitle': 'Working languages',
     'm.langLead': 'Technical discussions are held equally in French, German or English.',
     'm.footer.nav': 'Navigation',
     'm.footer.legalNav': 'Information',
@@ -791,14 +876,14 @@ window.CO2LS_CONTENT = {
     'm.field.lead': 'A base in the Moselle, at the heart of a strategic crossroads. Interventions are carried out regularly within the Lille - Le Mans - Limoges - Valence axis, while covering the whole of France as needed.',
     'm.field.base': 'Our base',
     'm.field.hint': 'Hover a point to learn more',
-    'm.field.hintTouch': 'Tap a point to learn more. Use two fingers to move the map.',
+    'm.field.hintTouch': 'Tap a point to learn more',
     'm.field.twoFingers': 'Use two fingers to move the map',
     'm.field.labelFR': 'France',
     'm.field.labelDE': 'Germany',
     'm.field.mapAria': 'Interactive map of the coverage area, centred on France and Germany',
 
     'm.field.z1n': 'Troisfontaines', 'm.field.z1r': 'Moselle, France',
-    'm.field.z1d': 'Our home base. Workshop, measuring equipment, and on-site production of the demineralised water required by cooling units.',
+    'm.field.z1d': 'Our home base. A workshop and measuring equipment dedicated to project studies, sub-assembly repairs and the overhaul of cutting heads.',
     'm.field.z2n': 'Ditzingen', 'm.field.z2r': 'Baden-Württemberg, Germany',
     'm.field.z2d': 'TRUMPF® headquarters, where our engineer was trained and completed numerous placements. Technical discussions there are held in German.',
     'm.field.z3n': 'Strasbourg', 'm.field.z3r': 'Alsace, France',
@@ -834,18 +919,5 @@ window.CO2LS_CONTENT = {
     'm.quote.author': 'Mr Laurent NAROZNI',
     'm.quote.role': 'Founder, CO2 LASER SERVICES',
 
-    'm.temoin.kicker': 'What clients say',
-    'm.temoin.t1a': 'client', 'm.temoin.t1b': 'voices',
-    'm.temoin.lead': 'Sample feedback. This section will be filled in with real client testimonials.',
-    'm.temoin.placeholder': 'Sample content',
-    'm.temoin.1q': '"Precise diagnosis, a fast response, and real coaching for our maintenance team. Exactly what we needed."',
-    'm.temoin.1r': 'Maintenance manager',
-    'm.temoin.1s': 'Automotive sector',
-    'm.temoin.2q': '"We’ve gained real autonomy on day-to-day upkeep, and the overhaul contract spares us any bad surprises."',
-    'm.temoin.2r': 'Production manager',
-    'm.temoin.2s': 'Industrial subcontracting',
-    'm.temoin.3q': '"Someone who understands the machine in depth, not just the manual. That changes everything on a complex fault."',
-    'm.temoin.3r': 'Technical manager',
-    'm.temoin.3s': 'Metalworking'
   }
 };
