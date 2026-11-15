@@ -68,9 +68,8 @@ pilote la barre de progression et le balayage lumineux. Avance automatique
 toutes les 4,8 s, pilotable au clic ou au clavier, en pause au survol et au
 focus clavier.
 
-**Les descriptions de TruCoax, TruMatic, TruCell et TruWeld sont provisoires**
-(clés `m.series.5p` à `m.series.8p`) : elles se limitent à ce que le nom de la
-gamme établit, et doivent être relues par le client.
+Les descriptions des huit gammes ont été validées par le client, celles de
+TruFlow et TruCoax étant ses propres dénominations.
 
 ### Mentions légales
 
@@ -148,9 +147,6 @@ python3 -m http.server 8000
   révocation du mot de passe depuis le compte Google** (mots de passe
   d'application). Un secret publié doit être considéré comme compromis, quel
   que soit le ménage fait ensuite.
-- **Le téléphone de l'hébergeur manque dans les mentions légales.** La loi pour
-  la confiance dans l'économie numérique l'exige au même titre que son nom et
-  son adresse ; il faut le récupérer auprès de l'hébergeur de production.
 - **La carte du rayon d'intervention charge son fond depuis les tuiles publiques
   d'OpenStreetMap**, qui ne demandent aucune clé d'API. Leur politique d'usage
   vise les usages modestes : suffisant pour la démonstration et un trafic normal

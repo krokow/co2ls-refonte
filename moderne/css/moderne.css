@@ -34,10 +34,11 @@
 	--display: 'PoliceTitre', 'Trebuchet MS', system-ui, sans-serif;
 	--corps: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
 
-	/* Rythme vertical entre chapitres. Volontairement resserré : à 132px de
-	   part et d'autre, deux sections laissaient 264px de noir entre elles,
-	   ce qui se lisait comme des bandes vides plutôt que comme de la
-	   respiration. */
+	/* Rythme vertical entre chapitres, UNIQUE pour toute la page : chaque
+	   bloc, chapitre classique, bandeau de chiffres, longueur d'onde ou
+	   citation, a la même marge haute et basse. Ne pas redonner à une section
+	   ses propres marges : c'est ce qui créait des écarts de 145 à 237px
+	   entre chapitres, signalés par le client. */
 	--rythme: clamp(52px, 5.6vw, 84px);
 	--gouttiere: clamp(20px, 4vw, 40px);
 	--rayon: 16px;
@@ -343,11 +344,7 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 }
 /* ==========================  SECTIONS  =========================== */
 .sect { position: relative; padding: var(--rythme) 0; }
-.sect + .sect,
-/* Un lien « haut de page » s'intercale entre deux chapitres : sans cette
-   seconde règle, les sections ne sont plus voisines directes et le filet
-   de séparation disparaîtrait. */
-.entre-chapitres + .sect { border-top: 1px solid var(--trait); }
+.sect + .sect { border-top: 1px solid var(--trait); }
 
 .sect-head { max-width: 62ch; margin-bottom: clamp(38px, 5vw, 60px); }
 .sect-head h2 {
@@ -362,7 +359,7 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 .sect-lead { margin-top: 16px; font-size: clamp(15px, 1.25vw, 17px); color: var(--texte-3); }
 
 /* ---------------------------  CHIFFRES  -------------------------- */
-.stats { padding: clamp(46px, 5vw, 64px) 0; border-top: 1px solid var(--trait); }
+.stats { padding: var(--rythme) 0; border-top: 1px solid var(--trait); }
 .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--trait); border: 1px solid var(--trait); border-radius: var(--rayon); overflow: hidden; }
 .stat { background: var(--noir); padding: clamp(22px, 2.6vw, 34px); }
 .stat b {
@@ -634,13 +631,17 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 }
 
 /* ---------------------------  MÉTHODE  --------------------------- */
-.steps { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(18px, 2vw, 26px); }
+/* Les pastilles se posent SUR la ligne. Sans ordre d'empilement explicite,
+   la ligne, pseudo-élément ::after du conteneur, était dessinée après les
+   pastilles et les barrait d'un trait bleu sur grand écran. isolation garde
+   ces z-index locaux à la frise. */
+.steps { position: relative; isolation: isolate; display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(18px, 2vw, 26px); }
 .steps::before {
-	content: ''; position: absolute; top: 17px; left: 0; right: 0; height: 1px;
+	content: ''; position: absolute; z-index: 0; top: 17px; left: 0; right: 0; height: 1px;
 	background: var(--trait);
 }
 .steps::after {
-	content: ''; position: absolute; top: 17px; left: 0; height: 1px; width: 0;
+	content: ''; position: absolute; z-index: 0; top: 17px; left: 0; height: 1px; width: 0;
 	background: linear-gradient(90deg, var(--bleu-profond), var(--bleu), var(--or));
 	box-shadow: 0 0 14px var(--bleu-halo);
 	transition: width 1.4s cubic-bezier(.22, 1, .36, 1);
@@ -649,7 +650,7 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 
 .step { position: relative; padding-top: 44px; }
 .step::before {
-	content: ''; position: absolute; top: 11px; left: 0;
+	content: ''; position: absolute; z-index: 1; top: 11px; left: 0;
 	width: 13px; height: 13px; border-radius: 50%;
 	background: var(--noir); border: 1px solid var(--trait-fort);
 	transition: border-color .4s ease, box-shadow .4s ease, background-color .4s ease;
@@ -682,7 +683,7 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 /* ---------------------  SIGNATURE 10,6 µm  ----------------------- */
 .onde {
 	position: relative;
-	padding: clamp(70px, 8vw, 116px) 0;
+	padding: var(--rythme) 0;
 	border-top: 1px solid var(--trait);
 	background:
 		radial-gradient(80% 120% at 18% 50%, rgba(255, 204, 51, .07), transparent 62%),
@@ -708,7 +709,11 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 	vector-effect: non-scaling-stroke;
 	filter: drop-shadow(0 0 10px rgba(45, 105, 235, .5));
 }
-@keyframes derive { to { transform: translateX(-50%); } }
+/* L'onde se propage de gauche à droite, de la source vers la cible, à la
+   demande du client. Le tracé couvre 200 % de la largeur et compte un
+   nombre entier de périodes sur chaque moitié : partir de -50 % pour
+   revenir à 0 boucle donc sans aucun raccord visible. */
+@keyframes derive { from { transform: translateX(-50%); } to { transform: translateX(0); } }
 
 /* Au-dessus de 1080px, la section passe en deux colonnes et la sinusoïde
    court dans de l'espace vide, loin du texte : on peut l'appuyer un peu sans
@@ -998,7 +1003,7 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 /* ===========================  CITATION  ============================ */
 .citation {
 	position: relative;
-	padding: clamp(70px, 8vw, 116px) 0;
+	padding: var(--rythme) 0;
 	border-top: 1px solid var(--trait);
 	text-align: center;
 }
@@ -1056,9 +1061,6 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 .vers-haut.is-shown { opacity: 1; visibility: visible; transform: none; }
 .vers-haut:hover, .vers-haut:focus-visible { border-color: var(--or); }
 .vers-haut svg { width: 20px; height: 20px; }
-.to-top { display: inline-flex; align-items: center; gap: 8px; transition: color .25s ease; }
-.to-top:hover { color: var(--or); }
-.to-top::after { content: '↑'; }
 
 /* ==================  RÉVÉLATIONS AU DÉFILEMENT  ================== */
 .reveal { opacity: 0; transform: translateY(22px); transition: opacity .8s cubic-bezier(.22, 1, .36, 1), transform .8s cubic-bezier(.22, 1, .36, 1); }
@@ -1120,29 +1122,6 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 .legal-toc a:hover { color: var(--or); }
 @media (max-width: 720px) {
 	.legal-toc ol { grid-template-columns: 1fr; }
-}
-
-/* ==============  RETOUR EN HAUT ENTRE LES CHAPITRES  ============== */
-/* Inséré par moderne/js/moderne.js entre deux chapitres, sur le filet qui
-   les sépare déjà. Aligné à droite et discret : c'est un repère de
-   navigation, pas un appel à l'action. */
-.entre-chapitres {
-	display: flex; justify-content: flex-end;
-	width: min(1180px, 100% - 2 * var(--gouttiere));
-	margin: 0 auto;
-}
-.lien-haut {
-	display: inline-flex; align-items: center; gap: 8px;
-	padding: 10px 2px;
-	font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
-	color: var(--texte-3);
-	transition: color .25s ease;
-}
-.lien-haut:hover { color: var(--or); }
-.lien-haut::after {
-	content: ''; width: 7px; height: 7px;
-	border-top: 1px solid currentColor; border-right: 1px solid currentColor;
-	transform: rotate(-45deg); margin-top: 2px;
 }
 
 /* ====================  EMPLACEMENTS PHOTO  ======================= */

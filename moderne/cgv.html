@@ -112,11 +112,20 @@
 		</section>
 	</main>
 
+	<!-- Même bouton flottant que sur l'accueil, visible d'emblée ici :
+	     sur une page légale, on cherche à revenir, pas à remonter. Il
+	     ramène au chapitre Contact, d'où l'on vient le plus souvent. -->
+	<a class="vers-haut is-shown" id="vers-haut" data-fixe href="index.html#contact" data-i18n-aria="m.backContact">
+		<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+			stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+			<path d="M12 19V5M5.5 11.5L12 5l6.5 6.5" />
+		</svg>
+	</a>
+
 	<footer class="ftr">
 		<div class="wrap">
 			<div class="ftr-bottom">
 				<span data-i18n="common.copyright"></span>
-				<a href="index.html#contact" data-i18n="m.backContact"></a>
 			</div>
 		</div>
 	</footer>
