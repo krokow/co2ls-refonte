@@ -664,9 +664,12 @@ body.menu-open .burger i:nth-child(3) { transform: translateY(-4.5px) rotate(-45
 /* Vignettes calées près de la définition native des photos (148 px) */
 .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
 .gallery figure { position: relative; overflow: hidden; border-radius: 12px; border: 1px solid var(--trait); }
+/* Le voile sombre servait à fondre les anciennes photos de banque d'images
+   dans la charte. Celles du client portent déjà leur propre traitement, un
+   vignettage bleu nuit : on ne les assombrit presque plus au repos. */
 .gallery img {
 	width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
-	filter: saturate(.8) brightness(.88);
+	filter: saturate(.94) brightness(.96);
 	transition: transform .6s cubic-bezier(.22, 1, .36, 1), filter .4s ease;
 }
 .gallery figure:hover img { transform: scale(1.06); filter: saturate(1) brightness(1); }

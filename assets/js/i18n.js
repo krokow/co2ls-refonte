@@ -5,6 +5,7 @@
  *   <span data-i18n="p1.lead"></span>            → remplace le texte
  *   <input data-i18n-placeholder="form.name">    → remplace le placeholder
  *   <a data-i18n-title="nav.contact">            → remplace l'attribut title
+ *   <img data-i18n-alt="m.means.img1">           → remplace le texte alternatif
  *   <body data-page-title="title.contact">       → remplace <title> et la meta description
  *
  * La langue choisie est mémorisée (localStorage) et suivie d'une page à l'autre.
@@ -57,6 +58,10 @@
 
     scope.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
       el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria')));
+    });
+
+    scope.querySelectorAll('[data-i18n-alt]').forEach(function (el) {
+      el.setAttribute('alt', t(el.getAttribute('data-i18n-alt')));
     });
 
     // Titre du document + meta description

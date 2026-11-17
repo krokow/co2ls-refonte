@@ -125,10 +125,12 @@ python3 -m http.server 8000
   hébergement statique : il n'exécute pas de PHP. Les formulaires valident les
   champs et affichent un message, mais n'envoient rien. Un service tiers
   (Web3Forms, Formspree) ou un hébergement PHP est nécessaire.
-- **Les photos du site existant font 148 × 134 px.** Elles sont volontairement
-  affichées près de cette taille pour rester nettes. Des originaux en haute
-  définition permettraient des visuels plus généreux, et rempliraient les
-  emplacements photo prévus dans les sections prestations et méthode.
+- **Photos.** La galerie « Nos moyens » utilise les photos du client
+  (`assets/img/moyens-*.webp`, 4:3, environ 960 × 720 px, avec texte
+  alternatif dans les trois langues via `data-i18n-alt`). Restent à fournir :
+  les photos des emplacements prévus dans « Nos prestations » et « Notre
+  méthode », et des originaux pour le portrait et le héros, repris du site
+  existant en basse définition.
 - **Un mot de passe d'application Gmail a été exposé publiquement.** Le fichier
   `send_email.php` du site existant le contenait en clair pour le compte
   `co2laserservice@gmail.com`. L'extraction de l'ancien site a été retirée du
